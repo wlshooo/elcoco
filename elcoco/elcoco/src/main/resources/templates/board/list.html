@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" layout:decorate="layout">
 
-<th:block layout:fragment="content">
+    <th:block layout:fragment="content">
     <!--/* 검색 영역 */-->
     <div class="input-group" id="adv-search">
         <select id="searchType" class="form-control" style="width: 100px;">
@@ -20,13 +20,13 @@
     <div class="table-responsive clearfix">
         <table class="table table-hover">
             <thead>
-            <tr>
-                <th>번호</th>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>등록일</th>
-                <th>조회 수</th>
-            </tr>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>등록일</th>
+                    <th>조회 수</th>
+                </tr>
             </thead>
 
             <!--/* 게시글 리스트 Rendering 영역 */-->
@@ -43,13 +43,14 @@
 
         </nav>
     </div>
-</th:block>
+    </th:block>
 
 
-<th:block layout:fragment="script">
+    <th:block layout:fragment="script">
     <script th:inline="javascript">
 	/*<![CDATA[*/
-	/**
+
+		/**
 		 * 페이지 로딩 시점에 실행되는 함수
 		 */
 		window.onload = () => {
@@ -62,9 +63,9 @@
 		 */
 		function findAll() {
 
-			fetch('/api/boards').then(response => {
+			fetch('/api/boards?deleteYn=N').then(response => {
 				if (response.ok) {
-   					return response.json();
+		 		    return response.json();
 				}
 			}).then(json => {
 				let html = '';
@@ -75,13 +76,13 @@
 					json.forEach((obj, idx) => {
 						html += `
 							<tr>
-    							<td>${json.length - idx}</td>
-    							<td class="text-left">
-    								<a href="javascript: void(0);">${obj.title}</a>
-    							</td>
-    							<td>${obj.writer}</td>
-    							<td>${moment(obj.createdDate).format('YYYY-MM-DD HH:mm:ss')}</td>
-    							<td>${obj.hits}</td>
+		  						<td>${json.length - idx}</td>
+		  						<td class="text-left">
+		  							<a href="javascript: void(0);" onclick="goView(${obj.id})">${obj.title}</a>
+		  						</td>
+		  						<td>${obj.writer}</td>
+		  						<td>${moment(obj.createdDate).format('YYYY-MM-DD HH:mm:ss')}</td>
+		  						<td>${obj.hits}</td>
 							</tr>
 						`;
 					});
@@ -90,9 +91,16 @@
 				document.getElementById('list').innerHTML = html;
 			});
 		}
-	/*]]>*/
 
+		/**
+		 * 게시글 조회
+		 */
+		function goView(id) {
+			location.href = `/board/view/${id}`;
+		}
+
+	/*]]>*/
     </script>
-</th:block>
+    </th:block>
 
 </html>

@@ -35,6 +35,15 @@ public class BoardService {
         List<Board> list = boardRepository.findAll(sort);
         return list.stream().map(BoardResponseDto::new).collect(Collectors.toList());
     }
+
+    /**
+     * 게시글 리스트 조회 - (삭제 여부 기준)
+     */
+    public List<BoardResponseDto> findAllByDeleteYn(final char deleteYn) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "id", "createdDate");
+        List<Board> list = boardRepository.findAllByDeleteYn(deleteYn,sort);
+        return list.stream().map(BoardResponseDto::new).collect(Collectors.toList());
+    }
     /**
      * 게시글 수정
      */
@@ -44,4 +53,26 @@ public class BoardService {
         entity.update(params.getTitle(), params.getContent(), params.getWriter());
         return id;
     }
+
+    /**
+     * 게시글 삭제
+     */
+    @Transactional
+    public Long delete(final Long id) {
+        Board entity = boardRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
+        entity.delete();
+        return id;
+    }
+
+    /**
+     * 게시글 상세정보 조회
+     */
+    @Transactional
+    public BoardResponseDto findById(final Long id) {
+        Board entity = boardRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
+        entity.increaseHits();
+        return new BoardResponseDto(entity);
+    }
+
+
 }
