@@ -2,11 +2,13 @@ package com.sku.elcoco.controller.board;
 
 import com.sku.elcoco.domain.board.dto.BoardRequestDto;
 import com.sku.elcoco.domain.board.dto.BoardResponseDto;
+import com.sku.elcoco.paging.CommonParams;
 import com.sku.elcoco.service.board.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -26,8 +28,8 @@ public class BoardApiController {
      * 게시글 리스트 조회
      */
     @GetMapping("/boards")
-    public List<BoardResponseDto> findAll(@RequestParam final char deleteYn) {
-        return boardService.findAllByDeleteYn(deleteYn);
+    public Map<String, Object> findAll(final CommonParams params) {
+        return boardService.findAll(params);
     }
 
 
