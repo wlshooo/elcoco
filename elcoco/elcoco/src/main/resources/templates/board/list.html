@@ -3,7 +3,7 @@
 
     <th:block layout:fragment="content">
     <!--/* 검색 영역 */-->
-    <<div class="input-group" id="adv-search">
+    <div class="input-group" id="adv-search">
         <form id="searchForm" onsubmit="return false;">
             <select id="searchType" class="form-control" style="width: 100px;">
                 <option value="">전체</option>
@@ -51,140 +51,167 @@
 
 
     <th:block layout:fragment="script">
-        <script th:inline="javascript">
-/*<![CDATA[*/
+    <script th:inline="javascript">
+    /*<![CDATA[*/
 
-	/**
-	 * 페이지 로딩 시점에 실행되는 함수
-	 */
-	window.onload = () => {
+    	/**
+    	 * 페이지 로딩 시점에 실행되는 함수
+    	 */
+    	window.onload = () => {
 
-		findAll(1);
-		addEnterSearchEvent();
-	}
+    		setQueryStringParams();
 
-	/**
-	 * 키워드 - 엔터 검색 이벤트 바인딩
-	 */
-	function addEnterSearchEvent() {
+    		findAll();
 
-		document.getElementById('keyword').addEventListener('keyup', (e) => {
-			if (e.keyCode === 13) {
-				findAll(1);
-			}
-		});
-	}
+    		addEnterSearchEvent();
+    	}
 
-	/**
-	 * 조회 API 호출
-	 */
-	async function getJson(uri, params) {
+    	/**
+    	 * 키워드 - 엔터 검색 이벤트 바인딩
+    	 */
+    	function addEnterSearchEvent() {
 
-		if (params) {
-			uri = uri + '?' + new URLSearchParams(params).toString();
-		}
+    		document.getElementById('keyword').addEventListener('keyup', (e) => {
+    			if (e.keyCode === 13) {
+    				findAll(1);
+    			}
+    		});
+    	}
 
-		const response = await fetch(uri);
+    	/**
+    	 * 조회 API 호출
+    	 */
+    	async function getJson(uri, params) {
 
-		if (!response.ok) {
-			await response.json().then(error => {
-				throw error;
-			});
-		}
+    		if (params) {
+    			uri = uri + '?' + new URLSearchParams(params).toString();
+    		}
 
-		return await response.json();
-	}
+    		const response = await fetch(uri);
 
-	/**
-	 * 게시글 리스트 조회
-	 */
-	function findAll(page) {
+    		if (!response.ok) {
+    			await response.json().then(error => {
+    				throw error;
+    			});
+    		}
 
-		const form = document.getElementById('searchForm');
-		const params = {
-			  page: page
-			, recordPerPage: 10
-			, pageSize: 10
-			, searchType: form.searchType.value
-			, keyword: form.keyword.value
-		}
+    		return await response.json();
+    	}
 
-		getJson('/api/boards', params).then(response => {
-			if (!Object.keys(response).length) {
-				document.getElementById('list').innerHTML = '<td colspan="5">등록된 게시글이 없습니다.</td>';
-				drawPages();
-				return false;
-			}
+    	/**
+    	 * 쿼리 스트링 파라미터 셋팅
+    	 */
+    	function setQueryStringParams() {
 
-			let html = '';
-			let num = response.params.pagination.totalRecordCount - ((response.params.page - 1) * response.params.recordPerPage);
+    	    if ( !location.search ) {
+    	 		return false;
+    	 	}
 
-       		response.list.forEach((obj, idx) => {
-       			html += `
-       				<tr>
-  						<td>${num--}</td>
-  						<td class="text-left">
-  							<a href="javascript: void(0);" onclick="goView(${obj.id})">${obj.title}</a>
-  						</td>
-  						<td>${obj.writer}</td>
-  						<td>${moment(obj.createdDate).format('YYYY-MM-DD HH:mm:ss')}</td>
-  						<td>${obj.hits}</td>
-       				</tr>
-       			`;
-       		});
+    	 	const form = document.getElementById('searchForm');
 
-			document.getElementById('list').innerHTML = html;
-			drawPages(response.params);
-		});
-	}
+    	 	new URLSearchParams(location.search).forEach((value, key) => {
+    	 	    if (form[key]) {
+    	 		    form[key].value = value;
+    	 	    }
+    	    });
+        }
 
-	/**
-	 * 게시글 조회
-	 */
-	function goView(id) {
-		location.href = `/board/view/${id}`;
-	}
+    	/**
+    	 * 게시글 리스트 조회
+    	 */
+    	function findAll(page) {
 
-	/**
-	 * 페이지 HTML 렌더링
-	 */
-	 function drawPages(params) {
+    		const pageParam = Number(new URLSearchParams(location.search).get('page'));
+    	    page = (page) ? page : ((pageParam) ? pageParam : 1);
 
- 		if (!params) {
- 			document.querySelector('.pagination').innerHTML = '';
- 			return false;
- 		}
+    		const form = document.getElementById('searchForm');
+    		const params = {
+    			  page: page
+    			, recordPerPage: 5
+    			, pageSize: 10
+    			, searchType: form.searchType.value
+    			, keyword: form.keyword.value
+    		}
 
- 		let html = '';
- 		const pagination = params.pagination;
+    		const queryString = new URLSearchParams(params).toString();
+    	    const replaceUri = location.pathname + '?' + queryString;
+    	    history.replaceState({}, '', replaceUri);
 
- 		// 첫 페이지, 이전 페이지
- 		if (pagination.existPrevPage) {
- 			html += `
- 				<li><a href="javascript:void(0)" onclick="findAll(1);" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
- 				<li><a href="javascript:void(0)" onclick="findAll(${pagination.startPage - 1});" aria-label="Previous"><span aria-hidden="true">&lsaquo;</span></a></li>
- 			`;
- 		}
+    		getJson('/api/boards', params).then(response => {
+    			if (!Object.keys(response).length) {
+    				document.getElementById('list').innerHTML = '<td colspan="5">등록된 게시글이 없습니다.</td>';
+    				drawPages();
+    				return false;
+    			}
 
- 		// 페이지 번호
- 		for (let i = pagination.startPage; i <= pagination.endPage; i++) {
- 			const active = (i === params.page) ? 'class="active"' : '';
-            html += `<li ${active}><a href="javascript:void(0)" onclick="findAll(${i})">${i}</a></li>`;
- 		}
+    			let html = '';
+    			let num = response.params.pagination.totalRecordCount - ((response.params.page - 1) * response.params.recordPerPage);
 
- 		// 다음 페이지, 마지막 페이지
- 		if (pagination.existNextPage) {
- 			html += `
- 				<li><a href="javascript:void(0)" onclick="findAll(${pagination.endPage + 1});" aria-label="Next"><span aria-hidden="true">&rsaquo;</span></a></li>
- 				<li><a href="javascript:void(0)" onclick="findAll(${pagination.totalPageCount});" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
- 			`;
- 		}
+    			response.list.forEach((obj, idx) => {
+    	   			const viewUri = `/board/view/${obj.id}` + '?' + queryString;
+    	   			html += `
+    	   				<tr>
+    							<td>${num--}</td>
+    							<td class="text-left"><a href="${viewUri}">${obj.title}</a></td>
+    							<td>${obj.writer}</td>
+    							<td>${moment(obj.createdDate).format('YYYY-MM-DD HH:mm:ss')}</td>
+    							<td>${obj.hits}</td>
+    	   				</tr>
+    	   			`;
+    	   		});
 
- 		document.querySelector('.pagination').innerHTML = html;
- 	}
+    			document.getElementById('list').innerHTML = html;
+    			drawPages(response.params);
+    		});
+    	}
 
-/*]]>*/
-</script>
+    	/**
+    	 * 게시글 조회
+    	 */
+    	function goView(id) {
+    		location.href = `/board/view/${id}`;
+    	}
+
+    	/**
+    	 * 페이지 HTML 렌더링
+    	 */
+    	 function drawPages(params) {
+
+     		if (!params) {
+     			document.querySelector('.pagination').innerHTML = '';
+     			return false;
+     		}
+
+     		let html = '';
+     		const pagination = params.pagination;
+
+     		// 첫 페이지, 이전 페이지
+     		if (pagination.existPrevPage) {
+     			html += `
+     				<li><a href="javascript:void(0)" onclick="findAll(1);" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+     				<li><a href="javascript:void(0)" onclick="findAll(${pagination.startPage - 1});" aria-label="Previous"><span aria-hidden="true">&lsaquo;</span></a></li>
+     			`;
+     		}
+
+     		// 페이지 번호
+     		for (let i = pagination.startPage; i <= pagination.endPage; i++) {
+     			const active = (i === params.page) ? 'class="active"' : '';
+                html += `<li ${active}><a href="javascript:void(0)" onclick="findAll(${i})">${i}</a></li>`;
+     		}
+
+     		// 다음 페이지, 마지막 페이지
+     		if (pagination.existNextPage) {
+     			html += `
+     				<li><a href="javascript:void(0)" onclick="findAll(${pagination.endPage + 1});" aria-label="Next"><span aria-hidden="true">&rsaquo;</span></a></li>
+     				<li><a href="javascript:void(0)" onclick="findAll(${pagination.totalPageCount});" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+     			`;
+     		}
+
+     		document.querySelector('.pagination').innerHTML = html;
+     	}
+
+    /*]]>*/
+    </script>
     </th:block>
 
 </html>
