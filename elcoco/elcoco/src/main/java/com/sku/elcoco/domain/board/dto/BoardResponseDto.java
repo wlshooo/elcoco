@@ -1,5 +1,6 @@
 package com.sku.elcoco.domain.board.dto;
 
+import com.querydsl.core.annotations.QueryProjection;
 import com.sku.elcoco.domain.board.Board;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class BoardResponseDto {
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
+
     public BoardResponseDto(Board entity) {
         this.id = entity.getId();
         this.title = entity.getTitle();
@@ -28,5 +30,17 @@ public class BoardResponseDto {
         this.deleteYn = entity.getDeleteYn();
         this.createdDate = entity.getCreatedDate();
         this.modifiedDate = entity.getModifiedDate();
+    }
+    @QueryProjection
+    public BoardResponseDto(Long id, String title, String content, String writer,
+                            int hits, char deleteYn, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.writer = writer;
+        this.hits = hits;
+        this.deleteYn = deleteYn;
+        this.createdDate = createdDate;
+        this.modifiedDate = modifiedDate;
     }
 }
