@@ -5,6 +5,7 @@ import com.sku.elcoco.domain.board.dto.BoardResponseDto;
 import com.sku.elcoco.paging.CommonParams;
 import com.sku.elcoco.service.board.BoardService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
+@Slf4j
 public class BoardApiController {
 
     private final BoardService boardService;
@@ -29,6 +31,7 @@ public class BoardApiController {
      */
     @GetMapping("/boards")
     public Map<String, Object> findAll(final CommonParams params) {
+        log.info("findAll.param = {}",params);
         return boardService.findAll(params);
     }
 

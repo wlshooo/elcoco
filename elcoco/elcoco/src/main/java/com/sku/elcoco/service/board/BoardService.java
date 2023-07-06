@@ -7,9 +7,10 @@ import com.sku.elcoco.domain.board.dto.BoardResponseDto;
 import com.sku.elcoco.domain.board.Board;
 import com.sku.elcoco.paging.CommonParams;
 import com.sku.elcoco.paging.Pagination;
-import com.sku.elcoco.paging.board.BoardMapper;
+
 import com.sku.elcoco.repository.board.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,9 +23,10 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+
 public class BoardService {
     private final BoardRepository boardRepository;
-    private final BoardMapper boardMapper;
+
 
     /**
      * 게시글 생성
@@ -85,7 +87,8 @@ public class BoardService {
      */
     public Map<String, Object> findAll(CommonParams params) {
         //게시글 수 조회
-        int count = boardMapper.count(params);
+        int count = boardRepository.count(params);
+
 
         //등록된 게시글이 없는 경우 , 로직 종료
         if (count < 1) {
@@ -97,7 +100,7 @@ public class BoardService {
         params.setPagination(pagination);
 
         //게시글 리스트 조회
-        List<BoardResponseDto> list = boardMapper.findAll(params);
+        List<BoardResponseDto> list = boardRepository.findAllByBoard(params);
         Map<String , Object> response = new HashMap<>();
         response.put("params",params);
         response.put("list",list);
