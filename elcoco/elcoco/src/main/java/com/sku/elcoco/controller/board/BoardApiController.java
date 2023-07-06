@@ -2,9 +2,13 @@ package com.sku.elcoco.controller.board;
 
 import com.sku.elcoco.domain.board.dto.BoardRequestDto;
 import com.sku.elcoco.domain.board.dto.BoardResponseDto;
+import com.sku.elcoco.paging.CommonParams;
 import com.sku.elcoco.service.board.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")

@@ -5,6 +5,8 @@ import com.sku.elcoco.config.exception.ErrorCode;
 import com.sku.elcoco.domain.board.dto.BoardRequestDto;
 import com.sku.elcoco.domain.board.dto.BoardResponseDto;
 import com.sku.elcoco.domain.board.Board;
+import com.sku.elcoco.paging.CommonParams;
+import com.sku.elcoco.paging.Pagination;
 
 import com.sku.elcoco.repository.board.BoardRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +14,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
