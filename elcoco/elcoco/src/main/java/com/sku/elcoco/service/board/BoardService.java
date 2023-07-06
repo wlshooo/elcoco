@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
+
 public class BoardService {
     private final BoardRepository boardRepository;
 
@@ -88,7 +88,7 @@ public class BoardService {
     public Map<String, Object> findAll(CommonParams params) {
         //게시글 수 조회
         int count = boardRepository.count(params);
-        log.info("findAll.count = {}",count);
+
 
         //등록된 게시글이 없는 경우 , 로직 종료
         if (count < 1) {

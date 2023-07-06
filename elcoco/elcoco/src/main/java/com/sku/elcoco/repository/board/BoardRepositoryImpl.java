@@ -13,7 +13,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 import static com.sku.elcoco.domain.board.QBoard.*;
-@Slf4j
+
 public class BoardRepositoryImpl implements BoardRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
@@ -24,7 +24,6 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
 
     @Override
     public int count(CommonParams params) {
-        log.info("count.params = {} ",params);
 
         long result = queryFactory
                 .select(board.count())
