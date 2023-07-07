@@ -28,7 +28,7 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
         long result = queryFactory
                 .select(board.count())
                 .from(board)
-                .where(board.deleteYn.eq('N'),CommonWhere(params))
+                .where(board.deleteYn.eq('N'),CommonSearchCondition(params))
                 .fetchOne();
         return (int) result;
 
@@ -47,14 +47,14 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
                         board.createdDate,
                         board.modifiedDate))
                 .from(board)
-                .where(board.deleteYn.eq('N'),CommonWhere(params))
+                .where(board.deleteYn.eq('N'),CommonSearchCondition(params))
                 .limit(params.getRecordPerPage())  //limit는 한 화면에 보여줄 데이터의 개수입니다.
                 .offset(params.getPagination().getLimitStart()) //offset은 0부터 시작하며, 몇 번째 row에서 데이터 조회를 시작할지 정한다고 하였습니다.
                 .orderBy(board.id.desc(),board.createdDate.desc())
                 .fetch();
     }
 
-    private BooleanExpression CommonWhere(CommonParams params) {
+    private BooleanExpression CommonSearchCondition(CommonParams params) {
         String keyword = params.getKeyword();
         String searchType = params.getSearchType();
         if (keyword != null && keyword.equals("") == false) {
