@@ -19,7 +19,7 @@ public class BoardRequestDto {
                 .title(title)
                 .content(content)
                 .writer(writer)
-                .hits(0)
+                .hits(0)    //변경 해야함
                 .deleteYn(deleteYn)
                 .build();
     }
