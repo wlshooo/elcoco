@@ -1,12 +1,12 @@
 package com.sku.elcoco.domain.board;
 
+import com.sku.elcoco.domain.comment.Comment;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 //@NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Board {
     @Id
+    @Column(name = "board_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // PK
 
@@ -23,6 +24,8 @@ public class Board {
 
     private String writer; // 작성자
 
+    @OneToMany(mappedBy = "board")
+    private List<Comment> comments = new ArrayList<>();
     private int hits; // 조회 수
 
     private char deleteYn; // 삭제 여부
