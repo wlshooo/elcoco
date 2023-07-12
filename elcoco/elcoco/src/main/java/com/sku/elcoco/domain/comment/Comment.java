@@ -22,6 +22,8 @@ public class Comment {
     @JoinColumn(name = "board_id")
     private Board board;
 
+
+
     private String content;
 
     private String writer;
@@ -34,14 +36,27 @@ public class Comment {
 
 
     @Builder
-
-    public Comment(Board board, String content, String writer,
-                   char deleteYn, LocalDateTime createDate, LocalDateTime modifiedDate) {
+    public Comment(Board board, String content, String writer, char deleteYn) {
+        this.id = this.getId();
         this.board = board;
         this.content = content;
         this.writer = writer;
         this.deleteYn = deleteYn;
-        this.createDate = createDate;
-        this.modifiedDate = modifiedDate;
     }
+
+
+    public void updateComment(String content, String writer) {
+        this.content = content;
+        this.writer = writer;
+    }
+    public void deleteComment() {
+        this.deleteYn = 'Y';
+    }
+
+    public void addCommentInBoard(Board board) {    //연관관계 편의 메서드
+        this.board = board;
+        board.getComments().add(this);
+    }
+
+
 }
