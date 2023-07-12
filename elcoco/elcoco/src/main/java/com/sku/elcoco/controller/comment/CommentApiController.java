@@ -6,6 +6,8 @@ import com.sku.elcoco.service.comment.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -17,6 +19,11 @@ public class CommentApiController {
     public CommentResponseDto saveComment(@PathVariable final Long boardId, @RequestBody final CommentRequestDto params) {
         Long commentId = commentService.saveComment(params);
         return commentService.findCommentById(commentId);
+    }
+
+    @GetMapping("/board/{boardId}/comments")
+    public List<CommentResponseDto> findAllComment(@PathVariable final Long boardId) {
+        return commentService.findAllCommentByPostId(boardId);
     }
 
 

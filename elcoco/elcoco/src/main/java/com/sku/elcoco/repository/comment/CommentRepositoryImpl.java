@@ -46,9 +46,14 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom{
     @Override
     public List<CommentResponseDto> findAllCommentByPostId(Long postId) {
         List<CommentResponseDto> result = jpaQueryFactory
-                .select(Projections.fields(CommentResponseDto.class,
-                        comment.id, comment.board.id, comment.content, comment.writer, comment.deleteYn,
-                        comment.createDate, comment.modifiedDate))
+                .select(new QCommentResponseDto(
+                comment.id,
+                comment.board.id,
+                comment.content,
+                comment.writer,
+                comment.deleteYn,
+                comment.createDate,
+                comment.modifiedDate))
                 .from(comment)
                 .where(comment.board.id.eq(postId))
                 .fetch();
