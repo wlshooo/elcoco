@@ -48,6 +48,7 @@ public class Comment {
     public void updateComment(String content, String writer) {
         this.content = content;
         this.writer = writer;
+        this.modifiedDate = LocalDateTime.now();
     }
     public void deleteComment() {
         this.deleteYn = 'Y';
