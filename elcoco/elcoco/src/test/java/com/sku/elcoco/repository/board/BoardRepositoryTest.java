@@ -5,17 +5,23 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Transactional
 class BoardRepositoryTest {
 
     @Autowired
     BoardRepository boardRepository;
+
+    @Autowired
+    EntityManager em;
 
     @Test
     void save() {
@@ -29,10 +35,13 @@ class BoardRepositoryTest {
 
         boardRepository.save(params);
 
-        Board entity = boardRepository.findById((long) 8).get();
-        assertThat(entity.getContent()).isEqualTo("1번 게시글 내용");
-        assertThat(entity.getTitle()).isEqualTo("1번 게시글 제목");
-        assertThat(entity.getWriter()).isEqualTo("이진호");
+        Board findBoard = boardRepository.findById(params.getId()).get();
+        assertThat(findBoard).isEqualTo(params);
+
+        List<Board> result1 = boardRepository.findAll();
+        assertThat(result1).containsExactly(params);
+
+
 
     }
 
