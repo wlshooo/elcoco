@@ -3,6 +3,7 @@ package com.sku.elcoco.repository.comment;
 import com.sku.elcoco.domain.comment.Comment;
 import com.sku.elcoco.domain.comment.dto.CommentRequestDto;
 import com.sku.elcoco.domain.comment.dto.CommentResponseDto;
+import com.sku.elcoco.paging.CommentSearchDto;
 
 import java.util.List;
 
@@ -33,12 +34,14 @@ public interface CommentRepositoryCustom {
      * @param postId - 게시글 번호 (FK)
      * @return 댓글 리스트
      */
-    List<CommentResponseDto> findAllCommentByPostId(Long postId);
+    List<CommentResponseDto> findAllCommentByPostId(CommentSearchDto params);
+
+
 
     /**
      * 댓글 수 카운팅
      * @param postId - 게시글 번호 (FK)
      * @return 댓글 수
      */
-    int count(Long postId);
+    int count(CommentSearchDto params);
 }

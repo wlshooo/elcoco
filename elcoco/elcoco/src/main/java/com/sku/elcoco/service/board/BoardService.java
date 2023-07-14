@@ -97,7 +97,7 @@ public class BoardService {
 
         //페이지네이션 정보 계산
         Pagination pagination = new Pagination(count, params);
-        params.setPagination(pagination);
+
 
         //게시글 리스트 조회
         List<BoardResponseDto> list = boardRepository.findAllByBoard(params);

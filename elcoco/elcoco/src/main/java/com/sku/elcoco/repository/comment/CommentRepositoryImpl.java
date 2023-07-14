@@ -8,6 +8,7 @@ import com.sku.elcoco.domain.comment.QComment;
 import com.sku.elcoco.domain.comment.dto.CommentRequestDto;
 import com.sku.elcoco.domain.comment.dto.CommentResponseDto;
 import com.sku.elcoco.domain.comment.dto.QCommentResponseDto;
+import com.sku.elcoco.paging.CommentSearchDto;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
@@ -43,8 +44,11 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom{
     }
 
 
+//  • LIMIT: 행을 얼마나 가져올지
+//
+//  • OFFSET: 어디서 부터 가져올지
     @Override
-    public List<CommentResponseDto> findAllCommentByPostId(Long postId) {
+    public List<CommentResponseDto> findAllCommentByPostId(CommentSearchDto params) {
         List<CommentResponseDto> result = jpaQueryFactory
                 .select(new QCommentResponseDto(
                 comment.id,
@@ -55,14 +59,22 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom{
                 comment.createDate,
                 comment.modifiedDate))
                 .from(comment)
-                .where(comment.board.id.eq(postId))
+                .where(comment.deleteYn.eq('N'),comment.board.id.eq(params.getPostId()))
+                .limit(params.getRecordPerPage())
+                .offset(params.getPagination().getLimitStart())
+                .orderBy(comment.id.desc())
                 .fetch();
 
         return result;
     }
 
     @Override
-    public int count(Long postId) {
-        return 0;
+    public int count(CommentSearchDto params) {
+        long result = jpaQueryFactory
+                .select(comment.count())
+                .from(comment)
+                .where(comment.deleteYn.eq('N'), comment.board.id.eq(params.getPostId()))
+                .fetchOne();
+        return (int) result;
     }
 }

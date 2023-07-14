@@ -2,6 +2,7 @@ package com.sku.elcoco.controller.comment;
 
 import com.sku.elcoco.domain.comment.dto.CommentRequestDto;
 import com.sku.elcoco.domain.comment.dto.CommentResponseDto;
+import com.sku.elcoco.paging.CommentSearchDto;
 import com.sku.elcoco.service.comment.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +25,8 @@ public class CommentApiController {
 
     //댓글 리스트 조회
     @GetMapping("/board/{boardId}/comments")
-    public List<CommentResponseDto> findAllComment(@PathVariable final Long boardId) {
-        return commentService.findAllCommentByPostId(boardId);
+    public List<CommentResponseDto> findAllComment(@PathVariable final Long boardId, final CommentSearchDto params) {
+        return commentService.findAllComment(params);
     }
 
     //댓글 상세정보 조회

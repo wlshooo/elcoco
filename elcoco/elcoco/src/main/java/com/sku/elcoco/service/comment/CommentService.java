@@ -4,12 +4,15 @@ import com.sku.elcoco.domain.board.Board;
 import com.sku.elcoco.domain.comment.Comment;
 import com.sku.elcoco.domain.comment.dto.CommentRequestDto;
 import com.sku.elcoco.domain.comment.dto.CommentResponseDto;
+import com.sku.elcoco.paging.CommentSearchDto;
+import com.sku.elcoco.paging.Pagination;
 import com.sku.elcoco.repository.board.BoardRepository;
 import com.sku.elcoco.repository.comment.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,11 +75,17 @@ public class CommentService {
 
     /**
      * 댓글 리스트 조회
-     * @param postId
+     * @param CommentSearchDto params
      * @return postId에 해당하는 게시글에 등록된 댓글 리스트
      */
-    public List<CommentResponseDto> findAllCommentByPostId(final Long postId) {
-        List<CommentResponseDto> result = commentRepository.findAllCommentByPostId(postId);
+    public List<CommentResponseDto> findAllComment(final CommentSearchDto params) { //일단 리스트 반환
+        int count = commentRepository.count(params);
+        //등록된 게시글이 없는 경우 , 로직 종료
+        if (count < 1) {
+            return Collections.emptyList();
+        }
+        Pagination pagination = new Pagination(count,params);
+        List<CommentResponseDto> result = commentRepository.findAllCommentByPostId(params);
         return result;
     }
 

@@ -17,9 +17,9 @@ public class Pagination {
         if (totalRecordCount > 0) {
             this.totalRecordCount = totalRecordCount;
             this.calculation(params);
+            params.setPagination(this);
         }
     }
-
 
     private void calculation(CommonParams params) {
 
