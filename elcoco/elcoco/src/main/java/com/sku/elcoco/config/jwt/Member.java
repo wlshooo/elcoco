@@ -22,15 +22,23 @@ import java.util.stream.Collectors;
 public class Member implements UserDetails {
 
     @Id
+    @Column(name = "memberId")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(updatable = false, unique = true, nullable = false)
-    private String memberId;
+    private String email;
 
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private String nickName;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -41,7 +49,7 @@ public class Member implements UserDetails {
 
     @Override
     public String getUsername() {
-        return memberId;
+        return email;
     }
 
     @Override
@@ -67,5 +75,13 @@ public class Member implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+
+    @Builder
+    public Member(String email, String password, String nickName) {
+        this.email = email;
+        this.password = password;
+        this.nickName = nickName;
     }
 }

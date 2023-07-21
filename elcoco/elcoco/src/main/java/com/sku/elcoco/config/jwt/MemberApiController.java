@@ -11,12 +11,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/members")
-public class MemberController {
+public class MemberApiController {
     private final MemberService memberService;
+
+
+    @PostMapping("/signin")
+    public Long signIn(@RequestBody MemberRequestDto memberRequestDto) {
+        log.info("memberId = {}",memberRequestDto.getMemberId());
+        Long memberId = memberService.signIn(memberRequestDto);
+        return memberId;
+    }
 
     @PostMapping("/login")
     public TokenInfo login(@RequestBody MemberLoginRequestDto memberLoginRequestDto) {
-        String memberId = memberLoginRequestDto.getMemberId();
+        String memberId = memberLoginRequestDto.getEmail();
         String password = memberLoginRequestDto.getPassword();
         TokenInfo tokenInfo = memberService.login(memberId, password);
         return tokenInfo;
