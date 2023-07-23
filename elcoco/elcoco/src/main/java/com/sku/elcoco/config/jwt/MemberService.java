@@ -20,6 +20,8 @@ public class MemberService {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
 
+
+    //예외 , 유효성 검사 추가해야 함
     @Transactional
     public Long signIn(MemberRequestDto memberRequestDto) {
         Member member = Member.builder()
