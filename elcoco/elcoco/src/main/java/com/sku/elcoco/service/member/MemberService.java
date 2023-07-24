@@ -1,5 +1,10 @@
-package com.sku.elcoco.config.jwt;
+package com.sku.elcoco.service.member;
 
+import com.sku.elcoco.config.jwt.JwtTokenProvider;
+import com.sku.elcoco.config.jwt.TokenInfo;
+import com.sku.elcoco.domain.member.Member;
+import com.sku.elcoco.domain.member.dto.MemberRequestDto;
+import com.sku.elcoco.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -7,8 +12,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Slf4j
 @Service

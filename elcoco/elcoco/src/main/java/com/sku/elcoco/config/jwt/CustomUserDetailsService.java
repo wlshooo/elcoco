@@ -1,5 +1,7 @@
 package com.sku.elcoco.config.jwt;
 
+import com.sku.elcoco.domain.member.Member;
+import com.sku.elcoco.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

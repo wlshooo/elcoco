@@ -1,5 +1,6 @@
-package com.sku.elcoco.config.jwt;
+package com.sku.elcoco.repository.member;
 
+import com.sku.elcoco.domain.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
