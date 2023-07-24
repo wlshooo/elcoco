@@ -1,4 +1,4 @@
-package com.sku.elcoco.config.jwt;
+package com.sku.elcoco.domain.member.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

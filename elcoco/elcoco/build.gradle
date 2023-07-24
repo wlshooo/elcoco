@@ -54,6 +54,14 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.3'
 	implementation 'io.jsonwebtoken:jjwt-impl:0.11.3'
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.3'
+
+	//emaul 검증 관련 dependency
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'javax.mail:javax.mail-api:1.6.2'
+	implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
+
+	//redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 }
 
 tasks.named('test') {
