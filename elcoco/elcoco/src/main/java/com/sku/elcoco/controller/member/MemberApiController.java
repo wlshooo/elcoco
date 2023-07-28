@@ -45,7 +45,8 @@ public class MemberApiController {
         memberService.sendCodeToEmail(email);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    //이메일 인증번호 검증
+
+    //이메일 인증번호 검증(exception 및 front 어떻게 구상할지 생각해야 함)
     @GetMapping("/emails/verification")
     public ResponseEntity verificationEmail(@RequestParam("email") String email,
                                       @RequestParam("code") String authCode) {

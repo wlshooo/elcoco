@@ -19,7 +19,8 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Member implements UserDetails {
+public class Member implements UserDetails {    //userDetails  엔티티가 오염되어 향후 Member
+                                        // 엔티티를 사용하기 어려워지기 때문에 CustomUsetDetails를 따로 만들어 주어여한다.
 
     @Id
     @Column(name = "memberId")
