@@ -27,6 +27,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/members/login").permitAll()
+                .antMatchers("/api/message/**").permitAll() //테스트를 위해 message permitAll
                 .antMatchers("/members/signin").permitAll()
                 .antMatchers("/members/emails/**").permitAll()
                 .antMatchers("/members/test").hasRole("USER")

@@ -34,7 +34,7 @@ public class Member implements UserDetails {    //userDetails  엔티티가 오�
     private String password;
 
     @Column(nullable = false)
-    private String nickName;
+    private String nickname;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
@@ -83,6 +83,6 @@ public class Member implements UserDetails {    //userDetails  엔티티가 오�
     public Member(String email, String password, String nickName) {
         this.email = email;
         this.password = password;
-        this.nickName = nickName;
+        this.nickname = nickName;
     }
 }
