@@ -2,6 +2,7 @@ package com.sku.elcoco.domain.board.dto;
 
 import com.sku.elcoco.domain.board.Board;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
