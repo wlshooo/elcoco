@@ -1,5 +1,6 @@
 package com.sku.elcoco.controller.member;
 
+import com.sku.elcoco.config.jwt.SecurityUtil;
 import com.sku.elcoco.domain.member.dto.MemberLoginRequestDto;
 import com.sku.elcoco.domain.member.dto.MemberRequestDto;
 import com.sku.elcoco.service.member.MemberService;
@@ -36,6 +37,7 @@ public class MemberApiController {
 
     @PostMapping("/test")
     public String test() {
+        log.info("[/test]currentMemberId = {}",SecurityUtil.getCurrentMemberId());
         return "success";
     }
 
