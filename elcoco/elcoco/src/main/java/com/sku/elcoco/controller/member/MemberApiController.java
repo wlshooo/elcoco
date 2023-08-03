@@ -20,10 +20,10 @@ public class MemberApiController {
     private final MemberService memberService;
 
 
-    @PostMapping("/signin")
-    public Long signIn(@RequestBody MemberRequestDto memberRequestDto) {
+    @PostMapping("/signup")
+    public Long signup(@RequestBody MemberRequestDto memberRequestDto) {
         log.info("memberId = {}",memberRequestDto.getMemberId());
-        Long memberId = memberService.signIn(memberRequestDto);
+        Long memberId = memberService.signup(memberRequestDto);
         return memberId;
     }
 

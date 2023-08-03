@@ -42,7 +42,7 @@ public class MemberService {
 
     //예외 , 유효성 검사 추가해야 함
     @Transactional
-    public Long signIn(MemberRequestDto memberRequestDto) {
+    public Long signup(MemberRequestDto memberRequestDto) {
         Member member = Member.builder()
                 .email(memberRequestDto.getEmail())
                 .password(memberRequestDto.getPassword())
