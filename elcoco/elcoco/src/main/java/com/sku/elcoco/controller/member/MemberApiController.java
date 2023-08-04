@@ -1,5 +1,6 @@
 package com.sku.elcoco.controller.member;
 
+import com.sku.elcoco.config.jwt.SecurityUtil;
 import com.sku.elcoco.domain.member.dto.MemberLoginRequestDto;
 import com.sku.elcoco.domain.member.dto.MemberRequestDto;
 import com.sku.elcoco.service.member.MemberService;
@@ -19,10 +20,10 @@ public class MemberApiController {
     private final MemberService memberService;
 
 
-    @PostMapping("/signin")
-    public Long signIn(@RequestBody MemberRequestDto memberRequestDto) {
+    @PostMapping("/signup")
+    public Long signup(@RequestBody MemberRequestDto memberRequestDto) {
         log.info("memberId = {}",memberRequestDto.getMemberId());
-        Long memberId = memberService.signIn(memberRequestDto);
+        Long memberId = memberService.signup(memberRequestDto);
         return memberId;
     }
 
@@ -36,6 +37,7 @@ public class MemberApiController {
 
     @PostMapping("/test")
     public String test() {
+        log.info("[/test]currentMemberId = {}",SecurityUtil.getCurrentMemberId());
         return "success";
     }
 
