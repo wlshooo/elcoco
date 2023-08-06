@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class MemberApiController {
     private final MemberService memberService;
 
-
+    //RequesDto에 memberId를 빼고 @Authentication으로 전환 후 role 어떻게 할지 생각해보기
     @PostMapping("/signup")
     public Long signup(@RequestBody MemberRequestDto memberRequestDto) {
         log.info("memberId = {}",memberRequestDto.getMemberId());
@@ -35,8 +35,7 @@ public class MemberApiController {
         TokenInfo tokenInfo = memberService.login(memberId, password);
         return tokenInfo;
     }
-
-    //@AuthenticationPrincipal 어떻게 활용할지 생각해보고 적용하기
+    
     @PostMapping("/test")
     public String test() {
         log.info("[/test]currentMemberId = {}",SecurityUtil.getCurrentMemberId());
