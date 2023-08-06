@@ -6,6 +6,7 @@ import com.sku.elcoco.config.jwt.TokenInfo;
 import com.sku.elcoco.config.redis.RedisService;
 import com.sku.elcoco.domain.member.Member;
 import com.sku.elcoco.domain.member.dto.MemberRequestDto;
+import com.sku.elcoco.enums.Role;
 import com.sku.elcoco.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
