@@ -7,21 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+public class MessageResponseDto {
 
-public class MessageRequestDto {
-    @Getter
-    @NoArgsConstructor
-    @Builder
-    @AllArgsConstructor
-    public static class CREATE {
-        private String receiverName;
-
-        private String title;
-
-        private String content;
-
-
-    }
     @Getter
     @NoArgsConstructor
     @Builder
@@ -39,7 +26,4 @@ public class MessageRequestDto {
 
 
     }
-
-
-
 }
