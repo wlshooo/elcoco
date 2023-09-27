@@ -1,0 +1,60 @@
+/* common.css */
+.board-list {
+    width: 768px;
+    margin: auto;
+}
+
+.board-detail {
+    width: 768px;
+    margin: auto;
+    text-align: left;
+}
+
+.board-contents {
+    padding-top: 12px ;
+    padding-bottom: 12px ;
+    height: 300px;
+    /*border-bottom: 2px solid black;*/
+}
+
+.board-category {
+    display: inline;
+}
+
+.common-buttons {
+    padding: 8px;
+    text-align: right;
+}
+
+.create-at {
+    padding: 4px;
+    text-align: right;
+}
+
+.reply-detail {
+
+    padding: 20px;
+    border: 1px solid black;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.reply-contents {
+    padding: 2px 2px;
+    width: 768px;
+    height: 300px;
+    border-bottom: 2px solid black;
+}
+
+i {
+    float: right;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+.ck-editor__editable { height: 300px; }
+
+.post-button {
+    padding: 50px;
+    text-align: right;
+}
