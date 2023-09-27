@@ -40,7 +40,7 @@
     <!--    </div>-->
     <div class="button-container">
       <button @click="toPostLike(postId, loginUserNickname)" class="btn-liked btn btn-outline-primary btn-rounded">
-        <i class="fa-3x fa-solid fa-heart heart-icon" @click="toPostLike(postId, loginUserNickname)"></i>
+        <i class="fa-3x fa-solid fa-heart heart-icon"></i>
       </button>
     </div>
 

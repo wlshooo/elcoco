@@ -129,11 +129,11 @@ public class PostApiController {
      * @param pageable
      * @return
      */
-//    @GetMapping("/posts")
-//    public ResponseFormat<Page<PostResponseDto.READ>> getPagedPosts(@PageableDefault(page = 0, size = 10) Pageable pageable
-//            , @RequestParam(required = false) String postCategory, @RequestParam(required = false) String searchType, @RequestParam(required = false) String searchText) {
-//        return ResponseFormat.successWithData(ResponseStatus.SUCCESS_OK, postService.searchPostWithPaging(pageable, postCategory, searchType, searchText));
-//    }
+    @GetMapping("/posts")
+    public ResponseFormat<Page<PostResponseDto.READ>> getPagedPosts(@PageableDefault(page = 0, size = 10) Pageable pageable
+            , @RequestParam(required = false) String postCategory, @RequestParam(required = false) String searchType, @RequestParam(required = false) String searchText) {
+        return ResponseFormat.successWithData(ResponseStatus.SUCCESS_OK, postService.searchPostWithPaging(pageable, postCategory, searchType, searchText));
+    }
 
     /**
      * NOTICE 인 게시글 가져오기 위한 API

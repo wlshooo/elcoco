@@ -235,7 +235,9 @@ export default {
         this.likeCount = res.data.data.likeCount;
       }).catch((err) => {
         alert(err.response.data.message);
-        location.reload()
+        this.$router.push({
+
+        })
       })
     },
     fnView(idx) {

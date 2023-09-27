@@ -1,126 +1,69 @@
 package com.sku.elcoco.dummy;
 
-import com.sku.elcoco.domain.board.Board;
-import com.sku.elcoco.domain.comment.Comment;
-import com.sku.elcoco.domain.member.Member;
 
-import com.sku.elcoco.domain.message.dto.MessageRequestDto;
-import com.sku.elcoco.repository.board.BoardRepository;
-import com.sku.elcoco.repository.board.BoardRepositoryCustom;
-import com.sku.elcoco.repository.comment.CommentRepository;
-import com.sku.elcoco.repository.member.MemberRepository;
-import com.sku.elcoco.service.board.BoardService;
-import com.sku.elcoco.service.comment.CommentService;
-import com.sku.elcoco.service.member.MemberService;
-import com.sku.elcoco.service.message.MessageService;
+import com.sku.elcoco.domain.skill.dto.SkillRequestDto;
+import com.sku.elcoco.domain.skill.service.SkillService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @SpringBootTest
 public class DummyDataTest {
 
     @Autowired
-    MemberService memberService;
-    @Autowired
-    MemberRepository memberRepository;
-
-    @Autowired
-    BoardService boardService;
-
-    @Autowired
-    BoardRepository boardRepository;
-
-    @Autowired
-    CommentService commentService;
-
-    @Autowired
-    CommentRepository commentRepository;
-
-    @Autowired
-    MessageService messageService;
-
-
+    SkillService skillService;
 
     @Test
-    void createMember() {
-        List<Member> memberList = new ArrayList<>();
-        for (int i = 1; i <= 50; i++) {
-            Member member = Member.builder()
-                    .email("kswlsgh" + i + "@naver.com")
-                    .password("1234" + i)
-                    .nickname("닉네임" + i)
-                    .build();
-            memberList.add(member);
-        }
-        memberRepository.saveAll(memberList);
-    }
+    void createSkill() {
+        SkillRequestDto.CREATE create1 = SkillRequestDto.CREATE.builder()
+                .name("Java")
+                .build();
 
-    @Test
-    void createBoard() {
-        for (int i = 1; i <= 50; i++) {
-            Board board = Board.builder()
-                    .title("제목" + i)
-                    .content("본문" + i)
-                    .writer("닉네임" + i)
-                    .hits(0)
-                    .deleteYn('N')
-                    .build();
-            boardRepository.save(board);
-        }
+        SkillRequestDto.CREATE create2 = SkillRequestDto.CREATE.builder()
+                .name("Python")
+                .build();
 
-    }
-    @Test
-    void createComment() {
+        SkillRequestDto.CREATE create3 = SkillRequestDto.CREATE.builder()
+                .name("JavaScript")
+                .build();
 
-        for (Long i = 1L; i < 50L; i++) {
-            Board board = boardRepository.findById(i).get();
-            Comment comment = Comment.builder()
-                    .board(board)
-                    .content("댓글" + i)
-                    .writer("닉네임" + i)
-                    .deleteYn('N')
-                    .build();
-        commentRepository.save(comment);
-        }
+        SkillRequestDto.CREATE create4 = SkillRequestDto.CREATE.builder()
+                .name("SpringBoot")
+                .build();
 
-    }
+        SkillRequestDto.CREATE create5 = SkillRequestDto.CREATE.builder()
+                .name("React")
+                .build();
 
-    @Test
-    void createMessage() {
+        SkillRequestDto.CREATE create6 = SkillRequestDto.CREATE.builder()
+                .name("C++")
+                .build();
 
-        for (int i = 1; i <= 25; i++) {
-            MessageRequestDto.CREATE build = MessageRequestDto.CREATE.builder()
-                    .receiverName("닉네임10")
-                    .senderName("닉네임1")
-                    .title("안녕 닉네임10?")
-                    .content("나는 닉네임1이라고 해")
-                    .build();
-            messageService.createMessage(build);
-        }
+        SkillRequestDto.CREATE create7 = SkillRequestDto.CREATE.builder()
+                .name("C#")
+                .build();
 
-        for (int i = 1; i <= 25; i++) {
-            MessageRequestDto.CREATE build = MessageRequestDto.CREATE.builder()
-                    .receiverName("닉네임1")
-                    .senderName("닉네임10")
-                    .title("안녕 닉네임1?")
-                    .content("나는 닉네임10이라고 해")
-                    .build();
-            messageService.createMessage(build);
-        }
+        SkillRequestDto.CREATE create8 = SkillRequestDto.CREATE.builder()
+                .name("Flutter")
+                .build();
 
-        for (int i = 2; i <= 10; i++) {
-            MessageRequestDto.CREATE build = MessageRequestDto.CREATE.builder()
-                    .receiverName("닉네임"+i)
-                    .senderName("닉네임1")
-                    .title("안녕 닉네임"+i+"?")
-                    .content("나는 닉네임1이고 2~10까지 보낼거야")
-                    .build();
-            messageService.createMessage(build);
-        }
+        SkillRequestDto.CREATE create9 = SkillRequestDto.CREATE.builder()
+                .name("Spring")
+                .build();
+
+        SkillRequestDto.CREATE create10 = SkillRequestDto.CREATE.builder()
+                .name("Node.js")
+                .build();
+
+        skillService.createSkill(create1);
+        skillService.createSkill(create2);
+        skillService.createSkill(create3);
+        skillService.createSkill(create4);
+        skillService.createSkill(create5);
+        skillService.createSkill(create6);
+        skillService.createSkill(create7);
+        skillService.createSkill(create8);
+        skillService.createSkill(create9);
+        skillService.createSkill(create10);
     }
 }
