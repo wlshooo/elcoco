@@ -56,7 +56,7 @@ export default {
   z-index: 1000;
   width: 120px; /* 크기를 조절할 수 있습니다 */
   background-color: #fff;
-  border: 2px solid #007bff;
+  border: 2px solid #BBDEFB;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -79,13 +79,13 @@ export default {
   margin: 10px 0;
   padding: 5px; /* 텍스트와 이미지 사이의 공간을 조정합니다. */
   text-decoration: none;
-  color: #007bff;
+  color: #BBDEFB;
 }
 
 .quick-menu-img {
   display: block;
   max-width: 100%; /* 이미지 크기를 부모 요소에 맞게 조정합니다. */
-  border: 2px solid #007bff; /* 이미지에 테두리 스타일 추가 */
+  border: 2px solid #BBDEFB; /* 이미지에 테두리 스타일 추가 */
   border-radius: 5px; /* 테두리 둥글게 만들기 */
 }
 

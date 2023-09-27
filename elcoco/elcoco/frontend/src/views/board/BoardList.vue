@@ -99,7 +99,7 @@
         <input type="text" class="form-control" id="searchText" v-model="searchText" placeholder="검색어를 입력하세요"/>
       </div>
       <div class="col-md-2">
-        <button type="submit" class="btn btn-primary btn-rounded" @click="fnSearch(searchType, searchText)">검색
+        <button type="submit" class=" btn btn-primary btn-rounded" @click="fnSearch(searchType, searchText)">검색
         </button>
       </div>
     </div>
@@ -128,11 +128,14 @@
 
 .btn {
   text-decoration: none;
+  background-color: #BBDEFB;
+  color: black;
 }
 
 .btn.active {
-  background-color: #007bff;
-  color: #fff;
+  background-color: #BBDEFB;
+  color: #304FFE;
+  border-color: darkblue;
 }
 
 </style>

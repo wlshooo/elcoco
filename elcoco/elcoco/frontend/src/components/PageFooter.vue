@@ -21,7 +21,7 @@ export default {}
 <style scoped>
 /* 푸터 스타일링 */
 .footer {
-    background-color: lightgray; /* 배경색 설정 */
+    background-color: #BBDEFB; /* 배경색 설정 */
     color: black; /* 글자색 설정 */
     padding: 20px 0; /* 상하 여백 설정 */
 }
