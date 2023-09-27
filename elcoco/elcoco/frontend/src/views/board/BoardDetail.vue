@@ -26,9 +26,10 @@
     <hr>
     <div class="board-contents">
       <div v-if="hasImages">
-        <img v-for="(file, index) in files" :key="index" :src="file.fileUrl" :alt="'게시글 이미지 ' + (index + 1)" class="img-fluid" />
+        <img v-for="(file, index) in imageFiles" :key="index" :src="file.fileUrl" :alt="'게시글 이미지 ' + (index + 1)" class="img-fluid" />
       </div>
-      <div v-html="content"></div>
+      <!-- 이미지가 아닌 파일 표시 -->
+      <div v-html="contentWithoutImages"></div>
     </div>
 
 
@@ -167,7 +168,13 @@ export default {
   },
   computed: {
     hasImages() {
-      return this.files && this.files.length > 0;
+      return this.imageFiles.length > 0; // 이미지 파일이 하나 이상 있는지 확인
+    },
+    imageFiles() {
+      return this.files.filter(this.isImageFile); // 이미지 파일만 필터링
+    },
+    nonImageFiles() {
+      return this.files.filter(file => !this.isImageFile(file)); // 이미지가 아닌 파일만 필터링
     },
     contentWithoutImages() {
       // 이미지를 제외한 내용을 반환
