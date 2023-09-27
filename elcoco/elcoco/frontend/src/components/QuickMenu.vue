@@ -4,13 +4,13 @@
       <h3 class="quick-menu-title">QuickMenu</h3>
       <hr>
       <a class="quick-menu-link" href="https://www.skuniv.ac.kr/main" target="_blank">
-        <img src="/homepage.png" height="117" width="100"/>
+        <img class="quick-menu-img" src="/skuhomepage.png" height="100" width="100"/>
       </a>
       <a class="quick-menu-link" href="https://library.skuniv.ac.kr/#/" target="_blank">
-        <img src="/library.png" height="117" width="100"/>
+        <img class="quick-menu-img" src="/skulibrary.png" height="100" width="100"/>
       </a>
       <a class="quick-menu-link" href="https://sportal.skuniv.ac.kr" target="_blank">
-        <img src="/skupotal.png" height="117" width="100"/>
+        <img class="quick-menu-img" src="/skupotal.png" height="100" width="100"/>
       </a>
       <!-- 원하는 이미지 및 경로를 사용하여 각 링크를 대체하세요 -->
     </div>
@@ -77,9 +77,16 @@ export default {
 
 .quick-menu-link {
   margin: 10px 0;
-  padding: 5px 10px;
+  padding: 5px; /* 텍스트와 이미지 사이의 공간을 조정합니다. */
   text-decoration: none;
   color: #007bff;
+}
+
+.quick-menu-img {
+  display: block;
+  max-width: 100%; /* 이미지 크기를 부모 요소에 맞게 조정합니다. */
+  border: 2px solid #007bff; /* 이미지에 테두리 스타일 추가 */
+  border-radius: 5px; /* 테두리 둥글게 만들기 */
 }
 
 .fixed {
