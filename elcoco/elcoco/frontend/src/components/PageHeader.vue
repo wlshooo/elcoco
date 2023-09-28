@@ -2,7 +2,7 @@
   <header class="header header-background">
     <div id="nav" class="navbar navbar-expand-lg navbar-light ">
       <div class="container">
-        <router-link to="/" class="navbar-brand">홈</router-link>
+        <router-link to="/" class="navbar-brand">ElCOCO</router-link>
         <button
             class="navbar-toggler"
             type="button"
@@ -52,6 +52,9 @@
 .no-underline {
   text-decoration: none !important;
 }
+.header-background {
+  background-color: #BBDEFB;
+}
 </style>
 
 <script>
@@ -82,9 +85,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.header-background {
-  background-color: #BBDEFB;
-}
-</style>
