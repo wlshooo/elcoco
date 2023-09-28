@@ -1,28 +1,30 @@
 <template>
   <div class="board-detail mt-5">
     <div class="common-buttons mb-3">
-      <i v-if="isAuthor()" @click="fnUpdate" class="fa-2x fa-solid fa-pen-to-square"></i>
+      <i v-if="isAuthor()" @click="fnUpdate" class=" menu-icon fa-2x fa-solid fa-pen-to-square"></i>
       <!--      <button v-if="isAuthor()" type="button" class="btn btn-primary btn-rounded mr-2" @click="fnUpdate"-->
       <!--              style="margin-right: 3px;">수정-->
       <!--      </button>-->
-      <i v-if="isAuthor()" @click="fnDelete" class="fa-2x fa-solid fa-delete-left"></i>
+      <i v-if="isAuthor()" @click="fnDelete" class="menu-icon fa-2x fa-solid fa-delete-left"></i>
       <!--      <button v-if="isAuthor()" type="button" class="btn btn-danger btn-rounded mr-2" @click="fnDelete"-->
       <!--              style="margin-right: 3px;">삭제-->
       <!--      </button>-->
-      <i class="fa-2x fa-solid fa-list" @click="fnList"></i>
+      <i class="menu-icon fa-2x fa-solid fa-list" @click="fnList"></i>
       <!--      <button type="button" class="btn btn-success btn-rounded mr-2" @click="fnList">목록</button>-->
     </div>
-    <h2><strong>[{{ category }}] {{ title }}</strong></h2>
+    <h1><strong>[{{ category }}] {{ title }}</strong></h1>
     <div>
       <p class="w3-large mb-3 mt-3">
-        <i class="fa-solid fa-reply" v-if="!isAuthor()" @click="toMessageWrite(author)"></i>
-        <i class="fa-solid fa-ban" v-if="!isAuthor()" @click="toReportPost(postId, title)"></i>
+        <i class="menu-icon fa-solid fa-reply" v-if="!isAuthor()" @click="toMessageWrite(author)"></i>
+        <i class="menu-icon fa-solid fa-ban" v-if="!isAuthor()" @click="toReportPost(postId, title)"></i>
+
         {{ author }}
         <span class="small-font">&nbsp {{ created_at }}</span>
         <span class="small-font">&nbsp&nbsp 조회수: {{ view_count }}</span>
       </p>
     </div>
 
+    <br>
     <hr>
     <div class="board-contents">
       <div v-if="hasImages">
@@ -99,6 +101,11 @@
 .heart-icon {
   color: red; /* 원하는 색상(빨간색 또는 다른 원하는 색상)으로 설정합니다. */
   font-size: 3rem; /* 원하는 크기로 설정합니다. */
+  cursor: pointer; /* 마우스 포인터가 포인팅 형태로 변경됩니다. */
+}
+.menu-icon {
+  color: #42A5F5; /* 원하는 색상(빨간색 또는 다른 원하는 색상)으로 설정합니다. */
+  font-size: 2rem; /* 원하는 크기로 설정합니다. */
   cursor: pointer; /* 마우스 포인터가 포인팅 형태로 변경됩니다. */
 }
 

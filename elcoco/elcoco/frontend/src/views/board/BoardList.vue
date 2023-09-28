@@ -14,6 +14,20 @@
         자유
       </button>
     </div>
+    <div class="form-group row align-items-center">
+      <div class="col-md-2">
+        <b-form-select v-model="searchType" :options="selectedOption" id="searchType"></b-form-select>
+      </div>
+      <div class="col-md">
+        <input type="text" class="form-control" id="searchText" v-model="searchText" placeholder="검색어를 입력하세요"/>
+      </div>
+      <div class="col-md-2">
+        <button type="submit" class=" btn btn-primary btn-rounded" @click="fnSearch(searchType, searchText)">검색
+        </button>
+      </div>
+    </div>
+  </div>
+  <hr>
     <table class="table table-striped">
       <colgroup>
         <col style="width: 5%;"/> <!-- No 열의 너비 -->
@@ -91,19 +105,7 @@
     </div>
     <hr>
 
-    <div class="form-group row align-items-center">
-      <div class="col-md-2">
-        <b-form-select v-model="searchType" :options="selectedOption" id="searchType"></b-form-select>
-      </div>
-      <div class="col-md">
-        <input type="text" class="form-control" id="searchText" v-model="searchText" placeholder="검색어를 입력하세요"/>
-      </div>
-      <div class="col-md-2">
-        <button type="submit" class=" btn btn-primary btn-rounded" @click="fnSearch(searchType, searchText)">검색
-        </button>
-      </div>
-    </div>
-  </div>
+
 </template>
 
 <style scoped>
