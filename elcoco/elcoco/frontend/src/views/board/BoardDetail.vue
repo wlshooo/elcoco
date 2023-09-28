@@ -45,6 +45,9 @@
       </button>
     </div>
 
+    &nbsp; <i class="fa-solid fa-comment">{{ replyCount }}</i>
+    <i class="fa-solid fa-heart">{{ likeCount }}</i>
+
     <div>
       <ul>
         <li v-for="file in files" :key="file.fileUrl">
@@ -153,6 +156,7 @@ export default {
       view_count: '',
       files: [],
       //댓글
+      replyCount:'',
       replyList: [],
       reply: '',
       replyAuthorNickname: '',
@@ -200,6 +204,7 @@ export default {
         this.view_count = res.data.data.viewCount
         // 서버에서 게시물의 좋아요 상태와 개수 가져오기
         // this.isLiked = res.data.data.isLiked;
+        this.replyCount = res.data.data.replyCount;
         this.likeCount = res.data.data.likeCount;
         //파일 가져오기
         this.files = res.data.data.fileFormat
@@ -252,8 +257,6 @@ export default {
       this.$axios.get('/api/v1/reply/' + this.idx, {
         params: this.requestBody
       }).then((res) => {
-        console.log("llll" + res);
-        console.log(res.data.data);
         this.replyList = res.data.data
         this.replyAuthorNickname = res.data.data.memberNickname
       }).catch((err) => {
