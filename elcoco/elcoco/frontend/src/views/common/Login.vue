@@ -68,7 +68,7 @@
   border-radius: 25px;
   height: 45px;
   /* 아래 라인 추가 */
-  width: 400px; /* 너비를 100%로 설정하여 input의 너비와 동일하게 만듭니다. */
+  width: 100%; /* 너비를 100%로 설정하여 input의 너비와 동일하게 만듭니다. */
 }
 
 /* 버튼 크기 및 폰트 크기 조정 */
@@ -77,7 +77,7 @@
   height: 45px;
   font-size: 16px;
   /* 아래 라인 추가 */
-  width: 300px; /* 너비를 100%로 설정하여 input의 너비와 동일하게 만듭니다. */
+  width: 300px;
 }
 
 </style>
