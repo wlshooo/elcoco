@@ -5,9 +5,11 @@
         <div class="col-md-6">
           <div class="card">
             <div class="card-body">
-              <h2 class="card-title text-center"><strong>로그인</strong></h2>
-              <br>
-              <h2 class="card-subtitle text-center">어서 오세요! 환영합니다.</h2>
+              <div class="custom-box">
+                <h2 class="card-title text-center"><strong>로그인</strong></h2>
+                <br>
+                <h2 class="card-subtitle text-center">어서 오세요! 환영합니다.</h2>
+              </div>
               <br><br>
               <form @submit.prevent="fnLogin">
                 <div class="form-group">
@@ -55,6 +57,13 @@
 
 .card-subtitle {
   font-size: 20px;
+}
+/* .custom-box 스타일 추가 */
+.custom-box {
+  background-color: #BBDEFB;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
 }
 
 .btn-primary {
