@@ -71,6 +71,8 @@ export default {
     fnLogout() {
       localStorage.removeItem("user_token")
       localStorage.removeItem("user_role")
+      localStorage.removeItem("user_nickname")
+      localStorage.removeItem('user_expiration');
       location.reload();
       this.$router.push({
         path: '/login',
