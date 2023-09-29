@@ -1,4 +1,6 @@
 <template>
+  <PageBanner/>
+
   <div class="board-list mt-5">
     <div class="nav-buttons mb-3">
       <button :class="{ active: postCategory === '' }" class="btn btn-link" @click="fnSelectCategory('')">
@@ -14,20 +16,6 @@
         자유
       </button>
     </div>
-    <div class="form-group row align-items-center">
-      <div class="col-md-2">
-        <b-form-select v-model="searchType" :options="selectedOption" id="searchType"></b-form-select>
-      </div>
-      <div class="col-md">
-        <input type="text" class="form-control" id="searchText" v-model="searchText" placeholder="검색어를 입력하세요"/>
-      </div>
-      <div class="col-md-2">
-        <button type="submit" class=" btn btn-primary btn-rounded" @click="fnSearch(searchType, searchText)">검색
-        </button>
-      </div>
-    </div>
-  </div>
-  <hr>
     <table class="table table-striped">
       <colgroup>
         <col style="width: 5%;"/> <!-- No 열의 너비 -->
@@ -51,11 +39,14 @@
         <td>{{ item.postId }}</td>
         <td>{{ item.postCategory }}</td>
         <td>
-                    <span v-if="item.title.length < 10">{{ item.title }} &nbsp;&nbsp; <i
-                        class="fa-solid fa-comment">{{ item.replyCount }}</i>
-                      <i class="fa-solid fa-heart">{{ item.likeCount }}</i> </span>
-          <span v-else>{{ item.title.substring(0, 10) + "..." }}<i class="fa-solid fa-comment">{{ item.replyCount }}</i>
-                      <i class="fa-solid fa-heart">{{ item.likeCount }}</i></span>
+          <span v-if="item.title.length < 10">{{ item.title }} &nbsp;&nbsp;
+            <i class="fa-solid fa-comment small-icon">{{ item.replyCount }}</i>
+            <i class="fa-solid fa-heart small-icon">{{ item.likeCount }}</i>
+          </span>
+          <span v-else>{{ item.title.substring(0, 10) + "..." }}
+            <i class="fa-solid fa-comment small-icon">{{ item.replyCount }}</i>
+            <i class="fa-solid fa-heart small-icon">{{ item.likeCount }}</i>
+          </span>
         </td>
         <td>{{ item.memberNickname }}</td>
         <td>{{ formatDateTime(item.regDate) }}</td>
@@ -65,11 +56,14 @@
         <td>{{ item.postId }}</td>
         <td>{{ item.postCategory }}</td>
         <td>
-                    <span v-if="item.title.length < 10">{{ item.title }} &nbsp;&nbsp; <i
-                        class="fa-solid fa-comment">{{ item.replyCount }}</i>
-                      <i class="fa-solid fa-heart">{{ item.likeCount }}</i> </span>
-          <span v-else>{{ item.title.substring(0, 10) + "..." }}<i class="fa-solid fa-comment">{{ item.replyCount }}</i>
-                      <i class="fa-solid fa-heart">{{ item.likeCount }}</i></span>
+          <span v-if="item.title.length < 10">{{ item.title }} &nbsp;&nbsp;
+            <i class="fa-solid fa-comment small-icon">{{ item.replyCount }}</i>
+            <i class="fa-solid fa-heart small-icon">{{ item.likeCount }}</i>
+          </span>
+          <span v-else>{{ item.title.substring(0, 10) + "..." }}
+            <i class="fa-solid fa-comment small-icon">{{ item.replyCount }}</i>
+            <i class="fa-solid fa-heart small-icon">{{ item.likeCount }}</i>
+          </span>
         </td>
         <td>{{ item.memberNickname }}</td>
         <td>{{ formatDateTime(item.regDate) }}</td>
@@ -78,9 +72,9 @@
     </table>
 
     <div class="common-buttons mb-3">
-      <button type="button" class="btn btn-outline-dark btn-rounded" @click="fnWrite">
-        <i class="fa-solid fa-pen"></i>
-        <!--              글쓰기-->
+      <button type="button" class="btn btn-outline-dark btn-rounded small-button" @click="fnWrite">
+        <span><i class="fa-solid fa-pen small-icon"></i></span>
+        <!--글쓰기-->
       </button>
     </div>
 
@@ -105,7 +99,19 @@
     </div>
     <hr>
 
-
+    <div class="form-group row align-items-center">
+      <div class="col-md-2">
+        <b-form-select v-model="searchType" :options="selectedOption" id="searchType"></b-form-select>
+      </div>
+      <div class="col-md">
+        <input type="text" class="form-control" id="searchText" v-model="searchText" placeholder="검색어를 입력하세요"/>
+      </div>
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-primary btn-rounded" @click="fnSearch(searchType, searchText)">검색
+        </button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -142,38 +148,13 @@
 
 </style>
 
-
-<!--<script>-->
-<!--import {reactive} from "vue";-->
-<!--import axios from "axios";-->
-
-<!--export default {-->
-<!--  setup() {-->
-<!--    const state = reactive({-->
-<!--      items: [],-->
-<!--      form: {-->
-<!--        name: "",-->
-
-<!--      }-->
-<!--    })-->
-
-<!--    const load = () => {-->
-<!--      axios.get("/api/v1/post").then(({data}) => {-->
-<!--        console.log(data);-->
-<!--        state.items = data;-->
-<!--      })-->
-<!--    };-->
-
-
-<!--    load();-->
-
-<!--    return {state}-->
-<!--  }-->
-<!--}-->
-<!--</script>-->
 <script>
-export default {
+import PageBanner from "@/components/PageBanner.vue";
 
+export default {
+  components: {
+    PageBanner
+  },
   data() {
     return {
       requestBody: {}, //리스트 페이지 데이터전송
@@ -240,9 +221,7 @@ export default {
         this.likeCount = res.data.data.likeCount;
       }).catch((err) => {
         alert(err.response.data.message);
-        this.$router.push({
-
-        })
+        this.$router.push({})
       })
     },
     fnView(idx) {

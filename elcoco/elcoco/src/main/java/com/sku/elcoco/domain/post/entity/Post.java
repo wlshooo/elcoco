@@ -50,7 +50,6 @@ public class Post extends BaseEntity {
                 String content,
                 int likeCount,
                 int viewCount,
-                int fileAttached,
                 PostCategory postCategory) {
         this.member = member;
         this.title = title;
