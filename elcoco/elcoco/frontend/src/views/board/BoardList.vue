@@ -19,7 +19,7 @@
     <table class="table table-striped">
       <colgroup>
         <col style="width: 5%;"/> <!-- No 열의 너비 -->
-        <col style="width: 5%;"/> <!-- 카테고리 열의 너비 -->
+        <col style="width: 10%;"/> <!-- 카테고리 열의 너비 -->
         <col style="width: auto;"/> <!-- 제목 열의 너비를 최대한 확보하고 나머지 열은 자동 조정 -->
         <col style="width: 15%;"/> <!-- 작성자 열의 너비 -->
         <col style="width: 15%;"/> <!-- 등록일시 열의 너비 -->
