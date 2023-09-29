@@ -51,12 +51,12 @@ export default {
 .quick-menu {
   position: fixed;
   top: 40%;
-  right: 20px;
+  right: 60px;
   transform: translateY(-50%);
   z-index: 1000;
   width: 120px; /* 크기를 조절할 수 있습니다 */
   background-color: #fff;
-  border: 2px solid #BBDEFB;
+  border: 5px solid #BBDEFB;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -85,7 +85,7 @@ export default {
 .quick-menu-img {
   display: block;
   max-width: 100%; /* 이미지 크기를 부모 요소에 맞게 조정합니다. */
-  border: 2px solid #BBDEFB; /* 이미지에 테두리 스타일 추가 */
+  border: 5px solid #BBDEFB; /* 이미지에 테두리 스타일 추가 */
   border-radius: 5px; /* 테두리 둥글게 만들기 */
 }
 
