@@ -1,4 +1,5 @@
 <template>
+  <PageBanner/>
   <div class="board-detail mt-5">
     <h4 class="text-center mb-4"><strong>게시판</strong></h4>
     <div class="row">
@@ -40,9 +41,11 @@
 import CKEditor from '@ckeditor/ckeditor5-vue';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import UploadAdapter from './UploadAdapter';
+import PageBanner from "@/components/PageBanner.vue";
 
 export default {
-  components: {'ck-editor': CKEditor.component},
+  components: {'ck-editor': CKEditor.component,
+  PageBanner},
 
   data() {
     return {

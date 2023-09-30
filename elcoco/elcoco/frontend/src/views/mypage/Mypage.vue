@@ -1,11 +1,11 @@
 <template>
-  <PageBanner />
+  <PageBanner/>
   <div>
     <h1 class="title">마이 페이지</h1>
     <br>
     <div class="subTitle">반가워요!
-    <br>
-      {{this.response.nickname}}님
+      <br>
+      {{ this.response.nickname }}님
     </div>
     <hr>
 
@@ -62,10 +62,12 @@
   text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
 }
+
 .title {
   font-size: 35px;
   color: lightgray;
 }
+
 .subTitle {
   font-size: 25px;
   color: black;
@@ -87,8 +89,6 @@
 </style>
 
 
-
-
 <script>
 
 import {defineComponent} from "vue";
@@ -100,7 +100,7 @@ export default defineComponent({
   },
   data() { //변수생성
     return {
-      response:''
+      response: ''
     }
   },
 

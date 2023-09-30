@@ -1,6 +1,6 @@
 <template>
+  <PageBanner/>
   <div>
-    <PageBanner />
     <div class="container mt-3">
       HOME PAGE
     </div>
@@ -9,13 +9,14 @@
 
 <script>
 import PageBanner from "@/components/PageBanner.vue";
+
 export default {
   components: {
     PageBanner
   },
-    data() {
-        return {};
-    },
+  data() {
+    return {};
+  },
 
 };
 </script>

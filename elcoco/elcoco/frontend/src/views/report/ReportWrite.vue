@@ -1,4 +1,5 @@
 <template>
+  <PageBanner/>
     <div class="container my-5 col-8">
         <div class="report-header">
             <h2><strong>게시글 신고하기</strong></h2>
@@ -75,7 +76,12 @@
 
 
 <script>
+import PageBanner from "@/components/PageBanner.vue";
+
 export default {
+  components:{
+    PageBanner
+  },
     name: "ReportWrite",
     data() { //변수생성
         return {

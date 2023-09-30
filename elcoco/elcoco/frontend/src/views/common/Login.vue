@@ -1,4 +1,5 @@
 <template>
+  <PageBanner/>
   <div>
     <div class="container my-5">
       <div class="row justify-content-center">
@@ -93,8 +94,12 @@
 
 <script>
 import {mapActions, mapGetters} from 'vuex'
+import PageBanner from "@/components/PageBanner.vue";
 
 export default {
+  components:{
+    PageBanner
+  },
   data() {
     return {
       user_id: '',

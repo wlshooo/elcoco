@@ -1,4 +1,5 @@
 <template>
+  <PageBanner/>
   <div class="board-list mt-5">
     <table class="table table-striped">
       <colgroup>
@@ -31,7 +32,12 @@
 </template>
 
 <script>
+import PageBanner from "@/components/PageBanner.vue";
+
 export default {
+  components:{
+    PageBanner
+  },
   data() { //변수생성
     return {
       requestBody: this.$route.query,

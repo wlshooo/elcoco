@@ -1,6 +1,5 @@
 <template>
-  <PageBanner/>
-
+<PageBanner/>
   <div class="board-list mt-5">
     <div class="nav-buttons mb-3">
       <button :class="{ active: postCategory === '' }" class="btn btn-link" @click="fnSelectCategory('')">
@@ -149,10 +148,11 @@
 </style>
 
 <script>
+
 import PageBanner from "@/components/PageBanner.vue";
 
 export default {
-  components: {
+  components:{
     PageBanner
   },
   data() {

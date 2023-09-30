@@ -1,4 +1,5 @@
 <template>
+  <PageBanner/>
   <div class="board-detail mt-5">
     <div class="common-buttons mb-3">
       <i v-if="isAuthor()" @click="fnUpdate" class=" menu-icon fa-2x fa-solid fa-pen-to-square"></i>
@@ -149,7 +150,12 @@
 
 
 <script>
+import PageBanner from "@/components/PageBanner.vue";
+
 export default {
+  components:{
+    PageBanner
+  },
   data() { //변수생성
     return {
       requestBody: this.$route.query,
