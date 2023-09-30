@@ -17,6 +17,9 @@ import AdminMemberPostDetail from "@/views/admin/AdminMemberPostDetail.vue";
 import AdminMemberReply from "@/views/admin/AdminMemberReply.vue";
 import AdminReport from "@/views/admin/AdminReport.vue";
 import AdminReportDetail from "@/views/admin/AdminReportDetail.vue";
+import Mypage from "@/views/mypage/Mypage.vue";
+import MyPageMemberPost from "@/views/mypage/MyPageMemberPost.vue";
+import MyPageMemberReply from "@/views/mypage/MyPageMemberReply.vue";
 
 
 
@@ -55,6 +58,23 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "about" */ '../views/PageAbout.vue')
+    },
+    {
+        path: '/mypage',
+        name: 'Mypage',
+        component: Mypage,
+        beforeEnter: requireAuth()
+    },
+    {
+        path: '/mypage/post',
+        name: 'MyPageMemberPost',
+        component: MyPageMemberPost,
+        beforeEnter: requireAuth()
+    }, {
+        path: '/mypage/reply',
+        name: 'MyPageMemberReply',
+        component: MyPageMemberReply,
+        beforeEnter: requireAuth()
     },
     {
         path: '/board/list',

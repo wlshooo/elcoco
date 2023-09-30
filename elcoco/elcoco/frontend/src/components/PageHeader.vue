@@ -19,16 +19,22 @@
             <li class="nav-item">
               <router-link to="/board/list" class="nav-link">게시판</router-link>
             </li>
-            <li class="nav-item">
-              <router-link to="/message/received" v-if="this.$store.state.isLogin" class="nav-link">받은 메세지</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/message/send" v-if="this.$store.state.isLogin" class="nav-link">보낸 메세지</router-link>
-            </li>
+<!--            <li class="nav-item">-->
+<!--              <router-link to="/message/received" v-if="this.$store.state.isLogin" class="nav-link">받은 메세지</router-link>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--              <router-link to="/message/send" v-if="this.$store.state.isLogin" class="nav-link">보낸 메세지</router-link>-->
+<!--            </li>-->
             <li class="nav-item">
               <router-link to="/admin/main" v-if="Role()" class="nav-link">관리자 페이지</router-link>
             </li>
           </ul>
+        </div>
+
+        <div>
+          <router-link to="/mypage" v-if="this.$store.state.isLogin" class="no-underline" style="margin-right: 10px;">
+            마이페이지
+          </router-link>
         </div>
 
         <div class="d-flex">
