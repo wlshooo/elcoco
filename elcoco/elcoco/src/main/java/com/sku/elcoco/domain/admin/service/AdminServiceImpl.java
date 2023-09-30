@@ -13,10 +13,6 @@ import com.sku.elcoco.domain.reply.repository.ReplyRepository;
 import com.sku.elcoco.domain.report.entity.Report;
 import com.sku.elcoco.domain.report.entity.dto.ReportResponseDto;
 import com.sku.elcoco.domain.report.repository.ReportRepository;
-import com.sku.elcoco.domain.skill.dto.SkillRequestDto;
-import com.sku.elcoco.domain.skill.dto.SkillResponseDto;
-import com.sku.elcoco.domain.skill.entity.Skill;
-import com.sku.elcoco.domain.skill.repository.SkillRepository;
 import com.sku.elcoco.global.common.PostCategory;
 import com.sku.elcoco.global.common.Role;
 import com.sku.elcoco.global.exception.DuplicatedException;
@@ -39,8 +35,6 @@ import java.util.stream.Collectors;
 public class AdminServiceImpl implements AdminService {
 
     private final MemberRepository memberRepository;
-
-    private final SkillRepository skillRepository;
 
     private final PostRepository postRepository;
 
@@ -158,11 +152,6 @@ public class AdminServiceImpl implements AdminService {
         return toReadDto(report.get());
     }
 
-    private Skill toEntity(SkillRequestDto.CREATE create) {
-        return Skill.builder()
-                .name(create.getName())
-                .build();
-    }
 
 
     private MemberResponseDto.adminREAD toReadDto(Member member) {
@@ -213,12 +202,6 @@ public class AdminServiceImpl implements AdminService {
                 .likeCount(reply.getLikeCount())
                 .build();
         return dto;
-    }
-    private SkillResponseDto.READ toReadDto(Skill skill) {
-        return SkillResponseDto.READ.builder()
-                .skillId(skill.getId())
-                .name(skill.getName())
-                .build();
     }
 
     private ReportResponseDto.READ toReadDto(Report report) {

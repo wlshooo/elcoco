@@ -33,27 +33,13 @@ public class MethodLoggingAspect {
 
     }
 
-    @Pointcut("execution(* com.sku.elcoco.domain.skill.service.SkillService.*(..))")
-    private void skillService() {
-
-    }
-
-//    @Pointcut("execution(* com.sku.elcoco.domain.career.service.CompanyService.*(..))")
-//    private void companyService() {
-//
-//    }
-//
-//    @Pointcut("execution(* com.sku.elcoco.domain.career.service.UniversityService.*(..))")
-//    private void universityService() {
-//
-//    }
 
     @Pointcut("execution(* com.sku.elcoco.domain.message.service.MessageService.*(..))")
     private void messageService() {
 
     }
 
-    @Around("memberService() || postService() || replyService() || reportService() || skillService() || messageService()")
+    @Around("memberService() || postService() || replyService() || reportService()  || messageService()")
     public Object logServiceTime(ProceedingJoinPoint joinPoint) throws Throwable {
 
         String className = joinPoint.getTarget().getClass().getSimpleName();

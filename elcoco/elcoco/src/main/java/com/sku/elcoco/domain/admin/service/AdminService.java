@@ -6,8 +6,6 @@ import com.sku.elcoco.domain.member.dto.MemberResponseDto;
 import com.sku.elcoco.domain.post.dto.PostResponseDto;
 import com.sku.elcoco.domain.reply.dto.ReplyResponseDto;
 import com.sku.elcoco.domain.report.entity.dto.ReportResponseDto;
-import com.sku.elcoco.domain.skill.dto.SkillRequestDto;
-import com.sku.elcoco.domain.skill.dto.SkillResponseDto;
 
 import java.util.List;
 

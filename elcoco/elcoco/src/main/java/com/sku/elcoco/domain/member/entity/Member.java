@@ -2,7 +2,6 @@ package com.sku.elcoco.domain.member.entity;
 
 import com.sku.elcoco.domain.member.dto.MemberRequestDto;
 import com.sku.elcoco.global.common.BaseEntity;
-import com.sku.elcoco.global.common.Gender;
 import com.sku.elcoco.global.common.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -11,10 +10,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter

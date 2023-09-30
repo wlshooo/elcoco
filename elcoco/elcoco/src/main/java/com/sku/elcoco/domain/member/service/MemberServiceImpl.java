@@ -5,13 +5,10 @@ import com.sku.elcoco.domain.member.dto.MemberResponseDto;
 import com.sku.elcoco.domain.member.entity.Member;
 import com.sku.elcoco.domain.member.repository.MemberRepository;
 import com.sku.elcoco.domain.member.repository.MemberSearchRepository;
-import com.sku.elcoco.domain.skill.entity.Skill;
-import com.sku.elcoco.domain.skill.repository.SkillRepository;
 import com.sku.elcoco.global.auth.JwtProvider;
 import com.sku.elcoco.global.auth.Token;
 import com.sku.elcoco.global.auth.TokenDto;
 import com.sku.elcoco.global.auth.TokenRepository;
-import com.sku.elcoco.global.common.Gender;
 import com.sku.elcoco.global.common.Role;
 import com.sku.elcoco.global.exception.DuplicatedException;
 import com.sku.elcoco.global.exception.InvalidRequestException;
@@ -36,8 +33,6 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
 
     private final MemberSearchRepository memberSearchRepository;
-
-    private final SkillRepository skillRepository;
 
     private final PasswordEncoder passwordEncoder;
 
