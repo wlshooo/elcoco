@@ -67,23 +67,6 @@ public class AdminApiController {
         return ResponseFormat.successWithData(ResponseStatus.SUCCESS_OK, adminService.deleteReply(replyId));
     }
 
-    @GetMapping("/skill")
-    public ResponseFormat<List<SkillResponseDto.READ>> getAllSkills() {
-        return ResponseFormat.successWithData(ResponseStatus.SUCCESS_OK, adminService.getAllSkills());
-    }
-
-    @PostMapping("/skill")
-    public ResponseFormat<Void> createSkill(@RequestBody @Valid SkillRequestDto.CREATE create) {
-        adminService.createSkill(create);
-        return ResponseFormat.success(ResponseStatus.SUCCESS_NO_CONTENT);
-    }
-
-    @PutMapping("/skill")
-    public ResponseFormat<Void> updateSkill(@RequestBody SkillRequestDto.UPDATE update) {
-        log.info(update.getName());
-        adminService.updateSkill(update);
-        return ResponseFormat.success(ResponseStatus.SUCCESS_NO_CONTENT);
-    }
 
     @GetMapping("/report")
     public ResponseFormat<List<ReportResponseDto.READ>> getAllReports() {

@@ -20,23 +20,12 @@ public class MemberRequestDto {
 
         private String password;
 
-//        private String confirmPassword;
-
         private String name;
 
         private String nickname;
 
-        private String telephone;
-
-        private String address;
-
-        private LocalDate birthDate;
-
-        private String gender;
-
         private String role;
 
-        private List<String> skillName;
     }
 
     @Getter
@@ -45,27 +34,15 @@ public class MemberRequestDto {
     @NoArgsConstructor
     public static class UPDATE {
 
-        //private Long memberId;
 
         private String password;
-
-//        private String confirmPassword;
 
         private String name;
 
         private String nickname;
 
-        private String telephone;
-
-        private String address;
-
-        private LocalDate birthDate;
-
-        private String gender;
-
         private String role;
 
-        private List<String> skillName;
     }
 
     @Getter
@@ -81,14 +58,6 @@ public class MemberRequestDto {
         private String name;
 
         private String nickname;
-
-        private String telephone;
-
-        private LocalDate fromBirthDate;
-
-        private LocalDate toBirthDate;
-
-        private String gender;
 
     }
 

@@ -3,10 +3,8 @@ package com.sku.elcoco.domain.member.service;
 import com.sku.elcoco.domain.member.dto.MemberRequestDto;
 import com.sku.elcoco.domain.member.dto.MemberResponseDto;
 import com.sku.elcoco.domain.member.entity.Member;
-import com.sku.elcoco.domain.member.entity.MemberSkill;
 import com.sku.elcoco.domain.member.repository.MemberRepository;
 import com.sku.elcoco.domain.member.repository.MemberSearchRepository;
-import com.sku.elcoco.domain.member.repository.MemberSkillRepository;
 import com.sku.elcoco.domain.skill.entity.Skill;
 import com.sku.elcoco.domain.skill.repository.SkillRepository;
 import com.sku.elcoco.global.auth.JwtProvider;
@@ -41,8 +39,6 @@ public class MemberServiceImpl implements MemberService {
 
     private final SkillRepository skillRepository;
 
-    private final MemberSkillRepository memberSkillRepository;
-
     private final PasswordEncoder passwordEncoder;
 
     private final JwtProvider jwtProvider;
@@ -53,15 +49,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void createMember(MemberRequestDto.CREATE create) {
 
-        isTelephone(create.getTelephone());
         isEmail(create.getEmail());
         isNickname(create.getNickname());
 
         Member member = toEntity(create);
-
-        final List<MemberSkill> memberSkills = getSkills(create.getSkillName(), member);
-
-        member.changeMemberSkills(memberSkills);
 
         memberRepository.save(member);
     }
@@ -116,87 +107,26 @@ public class MemberServiceImpl implements MemberService {
         final Optional<Member> member = memberRepository.findMemberByEmailAndDeleteAtFalse(email);
 
         isMember(member);
-        //isTelephone(update.getTelephone());
         isNickname(update.getNickname());
-
-        final List<MemberSkill> memberSkills = updateSkillByMember(update.getSkillName(), member.get());
-
         member.get().updateMember(toUpdateDto(update));
-        member.get().changeMemberSkills(memberSkills);
-
         memberRepository.save(member.get());
     }
 
 
-    /*
-    update를 요청할 때, 기존의 연관관계를 지정한 곳의 기존의 memberSkill을 모두 deleteAt = false로 변경
-    새롭게 update를 요청한 memberSkill을 다시 새롭게 저장
-     */
-    private List<MemberSkill> updateSkillByMember(List<String> updateSkillName, Member member) {
-        List<Skill> updateSkills = skillRepository.findAllByNameInAndDeleteAtFalse(updateSkillName);
-        List<MemberSkill> originSkills = memberSkillRepository.findMemberSkillByMember_IdAndDeleteAtFalse(member.getId());
-
-        originSkills.forEach(MemberSkill::changeDeleteAt);
-
-        return updateSkills.stream()
-                .map(skill -> MemberSkill.builder()
-                        .member(member)
-                        .skill(skill)
-                        .build())
-                .collect(Collectors.toList());
-    }
 
     @Transactional
     @Override
     public void deleteMember(Long id) {
         final Optional<Member> member = memberRepository.findMemberByIdAndDeleteAtFalse(id);
-        final List<MemberSkill> memberSkills = memberSkillRepository.findMemberSkillByMember_IdAndDeleteAtFalse(id);
 
         isMember(member);
 
         // 논리적 삭제
         member.get().changeDeleteAt();
 
-        memberSkills.forEach(memberSkill -> {
-            memberSkill.changeDeleteAt();
-            memberSkillRepository.save(memberSkill);
-        });
-
         memberRepository.save(member.get());
     }
 
-    /*
-    member를 생성할 때 입력한 skill을 string -> memberSkill로 변환
-     */
-    private List<MemberSkill> getSkills(List<String> skillNames, Member member) {
-
-        List<Skill> skills = skillRepository.findAllByNameInAndDeleteAtFalse(skillNames);
-
-        List<MemberSkill> memberSkills = skills.stream()
-                .map(skill -> MemberSkill.builder()
-                        .member(member)
-                        .skill(skill)
-                        .build())
-                .collect(Collectors.toList());
-
-        return memberSkills;
-    }
-
-    /*
-    MemberSkill -> String으로 변환
-     */
-    @Override
-    public Set<String> getSkillsNameByMember(Member member) {
-        List<MemberSkill> memberSkills = memberSkillRepository.findMemberSkillByMember_IdAndDeleteAtFalse(member.getId());
-
-        Set<String> skillNames = memberSkills
-                .stream()
-                .map(MemberSkill::getSkill)
-                .map(Skill::getName)
-                .collect(Collectors.toSet());
-
-        return skillNames;
-    }
 
     public String createRefreshToken(Member member) {
         Token token = tokenRepository.save(
@@ -254,11 +184,6 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
-    private void isTelephone(String telephone) {
-        if (memberRepository.existsMemberByTelephoneAndDeleteAtFalse(telephone)) {
-            throw new DuplicatedException(ResponseStatus.FAIL_MEMBER_TELEPHONE_DUPLICATED);
-        }
-    }
 
     private void isNickname(String nickname) {
         if (memberRepository.existsMemberByNicknameAndDeleteAtFalse(nickname)) {
@@ -296,12 +221,7 @@ public class MemberServiceImpl implements MemberService {
                 .email(member.getEmail())
                 .name(member.getName())
                 .nickname(member.getNickname())
-                .telephone(member.getTelephone())
-                .address(member.getAddress())
-                .birthDate(member.getBirthDate())
-                .gender(String.valueOf(member.getGender()))
                 .role(String.valueOf(member.getRole()))
-                .skillName(getSkillsNameByMember(member))
                 .accessToken(tokenDto.getAccessToken())
                 .build();
     }
@@ -312,25 +232,15 @@ public class MemberServiceImpl implements MemberService {
                 .email(member.getEmail())
                 .name(member.getName())
                 .nickname(member.getNickname())
-                .telephone(member.getTelephone())
-                .address(member.getAddress())
-                .birthDate(member.getBirthDate())
-                .gender(String.valueOf(member.getGender()))
-                .role(String.valueOf(member.getGender()))
-                .skillName(getSkillsNameByMember(member))
                 .build();
     }
 
     private MemberRequestDto.UPDATE toUpdateDto(MemberRequestDto.UPDATE update) {
         MemberRequestDto.UPDATE encoding = MemberRequestDto.UPDATE.builder()
                 .password(passwordEncoder.encode(update.getPassword()))
-                .address(update.getAddress())
                 .role(update.getRole())
                 .name(update.getName())
                 .nickname(update.getNickname())
-                .telephone(update.getTelephone())
-                .birthDate(update.getBirthDate())
-                .gender(update.getGender())
                 .build();
         return encoding;
     }
@@ -341,12 +251,7 @@ public class MemberServiceImpl implements MemberService {
                 .password(passwordEncoder.encode(create.getPassword()))
                 .name(create.getName())
                 .nickname(create.getNickname())
-                .telephone(create.getTelephone())
-                .address(create.getAddress())
-                .birthDate(create.getBirthDate())
-                .gender(Gender.valueOf(create.getGender()))
                 .role(Role.ROLE_USER)
-                .memberSkills(Collections.emptyList())
                 .build();
     }
 

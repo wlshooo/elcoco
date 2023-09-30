@@ -57,13 +57,6 @@ public interface MemberService {
      */
     void deleteMember(Long id);
 
-    /**
-     * 회원의 보유 기술 목록을 조회.
-     *
-     * @param member 회원 객체
-     * @return 회원의 보유 기술 목록 (Set<String>)
-     */
-    Set<String> getSkillsNameByMember(Member member);
 
     /**
      * 회원 로그인을 처리하고, 로그인된 회원 정보를 반환.

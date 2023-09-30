@@ -19,17 +19,12 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     // email 값으로 member 단일 조회 + 삭제되지 않은 member
     Optional<Member> findMemberByEmailAndDeleteAtFalse(String email);
 
-    // telephone 값으로 member 단일 조회 + 삭제되지 않은 member
-    Optional<Member> findMemberByTelephoneAndDeleteAtFalse(String telephone);
 
     // nickname 값으로 member 단일 조회 + 삭제되지 않은 member
     Optional<Member> findMemberByNicknameAndDeleteAtFalse(String nickname);
 
     // email 검증 + 삭제되지 않은 member
     boolean existsMemberByEmailAndDeleteAtFalse(String email);
-
-    // telephone 검증 + 삭제되지 않은 member
-    boolean existsMemberByTelephoneAndDeleteAtFalse(String telephone);
 
     // nickname 검증 + 삭제되지 않은 member
     boolean existsMemberByNicknameAndDeleteAtFalse(String nickname);

@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -22,22 +21,12 @@ public class QMember extends EntityPathBase<Member> {
 
     public final com.sku.elcoco.global.common.QBaseEntity _super = new com.sku.elcoco.global.common.QBaseEntity(this);
 
-    public final StringPath address = createString("address");
-
-    public final DatePath<java.time.LocalDate> birthDate = createDate("birthDate", java.time.LocalDate.class);
-
     //inherited
     public final BooleanPath deleteAt = _super.deleteAt;
 
     public final StringPath email = createString("email");
 
-    public final EnumPath<com.sku.elcoco.global.common.Gender> gender = createEnum("gender", com.sku.elcoco.global.common.Gender.class);
-
     public final NumberPath<Long> id = createNumber("id", Long.class);
-
-    public final StringPath major = createString("major");
-
-    public final ListPath<MemberSkill, QMemberSkill> memberSkills = this.<MemberSkill, QMemberSkill>createList("memberSkills", MemberSkill.class, QMemberSkill.class, PathInits.DIRECT2);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> modDate = _super.modDate;
@@ -54,10 +43,6 @@ public class QMember extends EntityPathBase<Member> {
     public final DateTimePath<java.time.LocalDateTime> regDate = _super.regDate;
 
     public final EnumPath<com.sku.elcoco.global.common.Role> role = createEnum("role", com.sku.elcoco.global.common.Role.class);
-
-    public final StringPath telephone = createString("telephone");
-
-    public final StringPath univName = createString("univName");
 
     public QMember(String variable) {
         super(Member.class, forVariable(variable));

@@ -4,7 +4,7 @@
       <b-button @click="modalOpen = false" class="modal-exit-btn ">
         닫기
       </b-button>
-      <h1>{{updateMemberId}}번 회원 상세</h1>
+      <h1>{{ updateMemberId }}번 회원 상세</h1>
 
       <div class="info-row">
         <div class="info">
@@ -46,24 +46,6 @@
             </div>
 
             <div class="form-group row mb-3">
-              <label for="input-5" class="col-md-4 col-form-label text-md-right">전화번호</label>
-              <div class="col-md-8">
-                <b-form-input v-model="MemberRequestDto.telephone" type="tel" id="input-5"
-                              required>{{ MemberRequestDto.telephone }}
-                </b-form-input>
-              </div>
-            </div>
-
-            <div class="form-group row mb-3">
-              <label for="input-6" class="col-md-4 col-form-label text-md-right">주소</label>
-              <div class="col-md-8">
-                <b-form-input v-model="MemberRequestDto.address" type="text" id="input-6"
-                              required>{{ MemberRequestDto.address }}
-                </b-form-input>
-              </div>
-            </div>
-
-            <div class="form-group row mb-3">
               <label for="input-6" class="col-md-4 col-form-label text-md-right">현재 권한 :
                 {{ MemberRequestDto.role }}</label>
               <div class="col-md-8">
@@ -73,33 +55,6 @@
                   <option>ROLE_MANAGER</option>
                   <option>ROLE_ADMIN</option>
                 </select>
-              </div>
-            </div>
-
-            <div class="form-group row mb-3">
-              <label for="input-7" class="col-md-4 col-form-label text-md-right">현재 생년 월일 :
-                {{ MemberRequestDto.birthDate }}</label>
-              <div class="col-md-8">
-                <b-form-input v-model="MemberRequestDto.birthDate" type="date" id="input-7"
-                              required></b-form-input>
-              </div>
-            </div>
-
-            <div class="form-group mb-4">
-              <div class="mt-3">현재 보유 기술: <strong>{{ MemberRequestDto.skillName }}</strong></div>
-            </div>
-
-            <div class="form-group row mb-4">
-              <label for="input-8" class="col-md-4 col-form-label text-md-right">현재 성별 :
-                {{ MemberRequestDto.gender }}</label>
-              <div class="col-md-8 d-flex align-items-center">
-                <div class="mr-3">
-                  <b-form-radio v-model="MemberRequestDto.gender" name="userGender" value="MALE">남성</b-form-radio>
-                </div>
-                <div>
-                  <b-form-radio v-model="MemberRequestDto.gender" name="userGender" value="FEMALE">여성
-                  </b-form-radio>
-                </div>
               </div>
             </div>
 
@@ -117,44 +72,43 @@
     </div>
   </div>
   <b-button v-on:click="toReportList">신고 리스트</b-button>
-  <b-button v-on:click="toSkillList">스킬 리스트</b-button>
-      <div class="board-list mt-5">
-        <table class="table table-striped">
-          <colgroup>
-            <col style="width: 5%;"/> <!-- No 열의 너비 -->
-            <col style="width: auto;"/> <!-- 카테고리 열의 너비 -->
-            <col style="width: 15%;"/> <!-- 제목 열의 너비를 최대한 확보하고 나머지 열은 자동 조정 -->
-            <col style="width: 20%;"/> <!-- 게시글 열의 너비 -->
-            <col style="width: 20%;"/> <!-- 댓글 열의 너비 -->
-          </colgroup>
-          <thead>
-          <tr>
-            <th scope="col">MemberId</th>
-            <th scope="col">Nickname</th>
-            <th scope="col">Role</th>
-            <th scope="col">Post</th>
-            <th scope="col">Reply</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="(item, idx) in list" :key="idx" class="hover-pointer">
-            <td>{{ item.memberId }}</td>
-            <td @click="modalOpen = true">
-              <b-button type="button" class="w3-button w3-round w3-blue-gray" v-on:click="clickModel(item)">
-                {{ item.nickname }}
-              </b-button>
-            </td>
-            <td>{{ item.role }}</td>
-            <td>
-              <b-button v-on:click="toMemberPost(item.memberId)">작성 게시물 보기</b-button>
-            </td>
-            <td>
-              <b-button v-on:click="toMemberReply(item.memberId)">작성 댓글 보기</b-button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
+  <div class="board-list mt-5">
+    <table class="table table-striped">
+      <colgroup>
+        <col style="width: 5%;"/> <!-- No 열의 너비 -->
+        <col style="width: auto;"/> <!-- 카테고리 열의 너비 -->
+        <col style="width: 15%;"/> <!-- 제목 열의 너비를 최대한 확보하고 나머지 열은 자동 조정 -->
+        <col style="width: 20%;"/> <!-- 게시글 열의 너비 -->
+        <col style="width: 20%;"/> <!-- 댓글 열의 너비 -->
+      </colgroup>
+      <thead>
+      <tr>
+        <th scope="col">MemberId</th>
+        <th scope="col">Nickname</th>
+        <th scope="col">Role</th>
+        <th scope="col">Post</th>
+        <th scope="col">Reply</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="(item, idx) in list" :key="idx" class="hover-pointer">
+        <td>{{ item.memberId }}</td>
+        <td @click="modalOpen = true">
+          <b-button type="button" class="w3-button w3-round w3-blue-gray" v-on:click="clickModel(item)">
+            {{ item.nickname }}
+          </b-button>
+        </td>
+        <td>{{ item.role }}</td>
+        <td>
+          <b-button v-on:click="toMemberPost(item.memberId)">작성 게시물 보기</b-button>
+        </td>
+        <td>
+          <b-button v-on:click="toMemberReply(item.memberId)">작성 댓글 보기</b-button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 
@@ -162,20 +116,15 @@
 export default {
   data() { //변수생성
     return {
-      requestBody:{},
+      requestBody: {},
       modalOpen: false,
       updateMemberId: '',
       MemberRequestDto: {
         password: '',
         name: '',
         nickname: '',
-        telephone: '',
-        address: '',
-        birthDate: '',
-        gender: '',
         role: '',
-        skillName: [],
-        email:''
+        email: ''
       },
       list: {}, //리스트 데이터
 
@@ -205,14 +154,9 @@ export default {
       this.MemberRequestDto.password = item.password
       this.MemberRequestDto.name = item.name
       this.MemberRequestDto.nickname = item.nickname
-      this.MemberRequestDto.address = item.address
-      this.MemberRequestDto.birthDate = item.birthDate
-      this.MemberRequestDto.gender = item.gender
-      this.MemberRequestDto.skillName = item.skillName
-      this.MemberRequestDto.telephone = item.telephone
       this.updateMemberId = item.memberId
     },
-    updateMember(){
+    updateMember() {
       this.$axios.put("/api/v1/admin/member/" + this.updateMemberId, this.MemberRequestDto, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('user_token')}`
@@ -222,7 +166,7 @@ export default {
             alert('멤버 수정이 성공적으로 완료되었어요! ')
             this.SendList()
           }).catch((err) => {
-            console.log(err)
+        console.log(err)
         alert(err.response.data.message)
       })
     },
@@ -252,12 +196,6 @@ export default {
 
       })
     },
-    toSkillList() {
-      this.$router.push({
-        path: '/admin/skill/list',
-
-      })
-    },
   }
 }
 </script>
@@ -278,10 +216,10 @@ export default {
   width: 60%;
   height: 90%;
   background-color: white;
-  border-color:black;
-  border-width : 2px ;
+  border-color: black;
+  border-width: 2px;
   border-radius: 8px;
-  border-style : solid ;
+  border-style: solid;
   position: absolute;
   top: 40%;
   left: 50%;

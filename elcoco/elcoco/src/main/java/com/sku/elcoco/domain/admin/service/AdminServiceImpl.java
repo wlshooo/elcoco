@@ -3,9 +3,7 @@ package com.sku.elcoco.domain.admin.service;
 import com.sku.elcoco.domain.member.dto.MemberRequestDto;
 import com.sku.elcoco.domain.member.dto.MemberResponseDto;
 import com.sku.elcoco.domain.member.entity.Member;
-import com.sku.elcoco.domain.member.entity.MemberSkill;
 import com.sku.elcoco.domain.member.repository.MemberRepository;
-import com.sku.elcoco.domain.member.repository.MemberSkillRepository;
 import com.sku.elcoco.domain.post.dto.PostResponseDto;
 import com.sku.elcoco.domain.post.entity.Post;
 import com.sku.elcoco.domain.post.repository.PostRepository;
@@ -42,8 +40,6 @@ public class AdminServiceImpl implements AdminService {
 
     private final MemberRepository memberRepository;
 
-    private final MemberSkillRepository memberSkillRepository;
-
     private final SkillRepository skillRepository;
 
     private final PostRepository postRepository;
@@ -74,11 +70,7 @@ public class AdminServiceImpl implements AdminService {
         //isTelephone(update.getTelephone());
         //isNickname(update.getNickname());
 
-        final List<MemberSkill> memberSkills = updateSkillByMember(update.getSkillName(), member.get());
-
         member.get().updateMember(toUpdateDto(update));
-        member.get().changeMemberSkills(memberSkills);
-
         memberRepository.save(member.get());
         return member.get().getId();
     }
@@ -147,35 +139,6 @@ public class AdminServiceImpl implements AdminService {
         return reply.get().getId();
     }
 
-    @Override
-    public List<SkillResponseDto.READ> getAllSkills() {
-        List<Skill> skills = skillRepository.findAll();
-
-        return skills.stream()
-                .map(this::toReadDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    @Transactional
-    public void createSkill(SkillRequestDto.CREATE create) {
-        isSkillName(create.getName());
-
-        skillRepository.save(toEntity(create));
-    }
-
-    @Override
-    public void updateSkill(SkillRequestDto.UPDATE update) {
-        final Optional<Skill> skill = skillRepository.findSkillById(update.getSkillId());
-
-        isSkill(skill);
-
-        isSkillName(update.getName());
-
-        skill.get().updateSkill(update);
-
-        skillRepository.save(skill.get());
-    }
 
     @Override
     public List<ReportResponseDto.READ> getAllReports() {
@@ -209,25 +172,16 @@ public class AdminServiceImpl implements AdminService {
                 .name(member.getName())
                 .password(member.getPassword())
                 .nickname(member.getNickname())
-                .telephone(member.getTelephone())
-                .address(member.getAddress())
-                .birthDate(member.getBirthDate())
-                .gender(String.valueOf(member.getGender()))
                 .role(String.valueOf(member.getRole()))
-                .skillName(getSkillsNameByMember(member))
                 .build();
     }
 
     private MemberRequestDto.UPDATE toUpdateDto(MemberRequestDto.UPDATE update) {
         MemberRequestDto.UPDATE encoding = MemberRequestDto.UPDATE.builder()
                 .password(update.getPassword())
-                .address(update.getAddress())
                 .role(Role.of(update.getRole()).toString()) //이렇게 해도 되나..?
                 .name(update.getName())
                 .nickname(update.getNickname())
-                .telephone(update.getTelephone())
-                .birthDate(update.getBirthDate())
-                .gender(update.getGender())
                 .build();
         return encoding;
     }
@@ -281,35 +235,7 @@ public class AdminServiceImpl implements AdminService {
                 .build();
 
     }
-    public Set<String> getSkillsNameByMember(Member member) {
-        List<MemberSkill> memberSkills = memberSkillRepository.findMemberSkillByMember_IdAndDeleteAtFalse(member.getId());
 
-        Set<String> skillNames = memberSkills
-                .stream()
-                .map(MemberSkill::getSkill)
-                .map(Skill::getName)
-                .collect(Collectors.toSet());
-
-        return skillNames;
-    }
-
-    /*
-    update를 요청할 때, 기존의 연관관계를 지정한 곳의 기존의 memberSkill을 모두 deleteAt = false로 변경
-    새롭게 update를 요청한 memberSkill을 다시 새롭게 저장
-     */
-    private List<MemberSkill> updateSkillByMember(List<String> updateSkillName, Member member) {
-        List<Skill> updateSkills = skillRepository.findAllByNameInAndDeleteAtFalse(updateSkillName);
-        List<MemberSkill> originSkills = memberSkillRepository.findMemberSkillByMember_IdAndDeleteAtFalse(member.getId());
-
-        originSkills.forEach(MemberSkill::changeDeleteAt);
-
-        return updateSkills.stream()
-                .map(skill -> MemberSkill.builder()
-                        .member(member)
-                        .skill(skill)
-                        .build())
-                .collect(Collectors.toList());
-    }
 
     private void isMember(Optional<Member> member) {
         if (member.isEmpty()) {
@@ -317,11 +243,6 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
-    private void isTelephone(String telephone) {
-        if (memberRepository.existsMemberByTelephoneAndDeleteAtFalse(telephone)) {
-            throw new DuplicatedException(ResponseStatus.FAIL_MEMBER_TELEPHONE_DUPLICATED);
-        }
-    }
 
     private void isNickname(String nickname) {
         if (memberRepository.existsMemberByNicknameAndDeleteAtFalse(nickname)) {
@@ -356,17 +277,7 @@ public class AdminServiceImpl implements AdminService {
         PostCategory.of(category);
     }
 
-    private void isSkill(Optional<Skill> skill) {
-        if (skill.isEmpty()) {
-            throw new NotFoundException(ResponseStatus.FAIL_SKILL_NOT_FOUND);
-        }
-    }
 
-    private void isSkillName(String name) {
-        if (skillRepository.existsSkillByName(name)) {
-            throw new DuplicatedException(ResponseStatus.FAIL_SKILL_NAME_DUPLICATED);
-        }
-    }
     private void isReport(Optional<Report> report) {
         if (report.isEmpty()) {
             throw new NotFoundException(ResponseStatus.FAIL_REPORT_NOT_FOUND);

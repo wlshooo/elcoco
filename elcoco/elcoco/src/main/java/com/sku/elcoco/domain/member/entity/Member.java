@@ -42,75 +42,26 @@ public class Member extends BaseEntity {
     @NotNull
     private String nickname;
 
-    @Column(name = "telephone", unique = true)
-    @NotNull
-    private String telephone;
-
-    @Column(name = "address")
-    @NotNull
-    private String address;
-
-    @Column(name = "birth_date")
-    @NotNull
-    private LocalDate birthDate;
-
-    @Column(name = "member_gender")
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
-
     @Column(name = "member_role")
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            mappedBy = "member"
-    )
-    private List<MemberSkill> memberSkills = new ArrayList<>();
-
-
-    private String univName;
-
-//    @OneToMany(
-//            fetch = FetchType.LAZY,
-//            cascade = CascadeType.ALL,
-//            mappedBy = "member"
-//    )
-//    private List<Company> companies = new ArrayList<>();
 
     @Column(name = "refresh_token")
     private String refreshToken;
 
-//    @OneToMany(
-//            fetch = FetchType.LAZY,
-//            cascade = {CascadeType.MERGE,CascadeType.PERSIST},
-//            mappedBy = "member")
-//    List<MemberUniversity> memberUniversities = new ArrayList<>();
-
-    private String major;
 
     @Builder
     public Member(String email,
                   String password,
                   String name,
                   String nickname,
-                  String telephone,
-                  String address,
-                  LocalDate birthDate,
-                  Gender gender,
-                  Role role,
-                  List<MemberSkill> memberSkills) {
+                  Role role) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.nickname = nickname;
-        this.telephone = telephone;
-        this.address = address;
-        this.birthDate = birthDate;
-        this.gender = gender;
         this.role = role;
-        this.memberSkills = memberSkills;
     }
 
     // modify 위한 메소드
@@ -118,25 +69,7 @@ public class Member extends BaseEntity {
         this.password = update.getPassword();
         this.name = update.getName();
         this.nickname = update.getNickname();
-        this.telephone = update.getTelephone();
-        this.address = update.getAddress();
-        this.birthDate = update.getBirthDate();
-        this.gender = Gender.valueOf(update.getGender());
         this.role = Role.valueOf(update.getRole());
-    }
-
-    public void changeMemberSkills(List<MemberSkill> changeMemberSkills) {
-        this.memberSkills = changeMemberSkills;
-    }
-
-    public void changeUnivMajor(String univName, String major) {
-        this.univName = univName;
-        this.major = major;
-    }
-
-    public void deleteUnivMajor() {
-        this.univName = null;
-        this.major = null;
     }
 
     public void setRefreshToken(String refreshToken) {

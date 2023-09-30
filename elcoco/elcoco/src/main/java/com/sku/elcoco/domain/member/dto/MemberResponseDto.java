@@ -24,17 +24,7 @@ public class MemberResponseDto {
 
         private String nickname;
 
-        private String telephone;
-
-        private String address;
-
-        private LocalDate birthDate;
-
-        private String gender;
-
         private String role;
-
-        private Set<String> skillName;
 
 //        private TokenDto token;
         private String accessToken;
@@ -57,17 +47,7 @@ public class MemberResponseDto {
 
         private String nickname;
 
-        private String telephone;
-
-        private String address;
-
-        private LocalDate birthDate;
-
-        private String gender;
-
         private String role;
-
-        private Set<String> skillName;
 
     }
 
