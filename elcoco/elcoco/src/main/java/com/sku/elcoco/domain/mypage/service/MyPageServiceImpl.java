@@ -11,6 +11,8 @@ import com.sku.elcoco.domain.post.repository.PostRepository;
 import com.sku.elcoco.domain.reply.dto.ReplyResponseDto;
 import com.sku.elcoco.domain.reply.entity.Reply;
 import com.sku.elcoco.domain.reply.repository.ReplyRepository;
+import com.sku.elcoco.global.exception.DuplicatedException;
+import com.sku.elcoco.global.model.ResponseStatus;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -73,10 +75,13 @@ public class MyPageServiceImpl implements MyPageService {
 
             // JSON에서 "nickname" 속성의 value 값을 가져옴
             String parseNickname = jsonNode.get("nickname").asText();
+            //한 번 더 검증
+            isNickname(parseNickname);
 
             Optional<Member> findMember = memberRepository.findMemberByEmailAndDeleteAtFalse(memberEmail);
             Member member = findMember.get();
             member.updateNickname(parseNickname);
+            memberRepository.save(member);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -117,5 +122,11 @@ public class MyPageServiceImpl implements MyPageService {
                 .likeCount(reply.getLikeCount())
                 .build();
         return dto;
+    }
+
+    private void isNickname(String nickname) {
+        if (memberRepository.existsMemberByNicknameAndDeleteAtFalse(nickname)) {
+            throw new DuplicatedException(ResponseStatus.FAIL_MEMBER_NICKNAME_DUPLICATED);
+        }
     }
 }
