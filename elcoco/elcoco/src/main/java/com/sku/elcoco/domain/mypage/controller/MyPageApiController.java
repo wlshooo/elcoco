@@ -10,9 +10,7 @@ import com.sku.elcoco.global.model.ResponseStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @Slf4j
@@ -36,5 +34,16 @@ public class MyPageApiController {
     @GetMapping("/member/reply")
     public ResponseFormat<List<ReplyResponseDto.READ>> getMemberReply(@AuthenticationPrincipal CustomUserDetails memberEmail) {
         return ResponseFormat.successWithData(ResponseStatus.SUCCESS_OK,myPageService.getMemberReplies(memberEmail.getUsername()));
+    }
+
+    @PostMapping("member/check-nickname")
+    public ResponseFormat<Boolean> checkNickname(@RequestBody String nickname) {
+        return ResponseFormat.successWithData(ResponseStatus.SUCCESS_OK,myPageService.checkDuplicateNickname(nickname));
+    }
+
+    @PutMapping("member/nickname")
+    public ResponseFormat<Void> updateNickname(@AuthenticationPrincipal CustomUserDetails memberEmail, @RequestBody String nickname) {
+        myPageService.updateNickname(memberEmail.getUsername(),nickname);
+        return ResponseFormat.success(ResponseStatus.SUCCESS_OK);
     }
 }

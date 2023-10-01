@@ -1,5 +1,7 @@
 package com.sku.elcoco.domain.mypage.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sku.elcoco.domain.member.dto.MemberResponseDto;
 import com.sku.elcoco.domain.member.entity.Member;
 import com.sku.elcoco.domain.member.repository.MemberRepository;
@@ -9,12 +11,15 @@ import com.sku.elcoco.domain.post.repository.PostRepository;
 import com.sku.elcoco.domain.reply.dto.ReplyResponseDto;
 import com.sku.elcoco.domain.reply.entity.Reply;
 import com.sku.elcoco.domain.reply.repository.ReplyRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MyPageServiceImpl implements MyPageService {
@@ -40,6 +45,42 @@ public class MyPageServiceImpl implements MyPageService {
     public List<ReplyResponseDto.READ> getMemberReplies(String memberEmail) {
         List<Reply> replies = replyRepository.findRepliesByMemberEmailAndDeleteAtFalse(memberEmail);
         return replies.stream().map(this::toReadDto).toList();
+    }
+
+    @Override
+    public boolean checkDuplicateNickname(String nickname) {
+        try {
+            // Jackson ObjectMapper를 사용하여 JSON 문자열 파싱
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(nickname);
+
+            // JSON에서 "nickname" 속성의 value 값을 가져옴
+            String parseNickname = jsonNode.get("nickname").asText();
+            return memberRepository.existsMemberByNicknameAndDeleteAtFalse(parseNickname);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return true; // 예외 발생 시 처리
+        }
+    }
+
+    @Override
+    @Transactional
+    public void updateNickname(String memberEmail, String nickname) {
+        try {
+            // Jackson ObjectMapper를 사용하여 JSON 문자열 파싱
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(nickname);
+
+            // JSON에서 "nickname" 속성의 value 값을 가져옴
+            String parseNickname = jsonNode.get("nickname").asText();
+
+            Optional<Member> findMember = memberRepository.findMemberByEmailAndDeleteAtFalse(memberEmail);
+            Member member = findMember.get();
+            member.updateNickname(parseNickname);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private MemberResponseDto.READ toReadDto(Member member) {

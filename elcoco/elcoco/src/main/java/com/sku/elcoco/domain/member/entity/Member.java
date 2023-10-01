@@ -67,6 +67,10 @@ public class Member extends BaseEntity {
         this.role = Role.valueOf(update.getRole());
     }
 
+    public void updateNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
     }

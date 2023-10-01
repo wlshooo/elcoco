@@ -20,6 +20,7 @@ import AdminReportDetail from "@/views/admin/AdminReportDetail.vue";
 import Mypage from "@/views/mypage/Mypage.vue";
 import MyPageMemberPost from "@/views/mypage/MyPageMemberPost.vue";
 import MyPageMemberReply from "@/views/mypage/MyPageMemberReply.vue";
+import MyPageUpdateNickname from "@/views/mypage/MyPageUpdateNickname.vue";
 
 
 
@@ -70,10 +71,17 @@ const routes = [
         name: 'MyPageMemberPost',
         component: MyPageMemberPost,
         beforeEnter: requireAuth()
-    }, {
+    },
+    {
         path: '/mypage/reply',
         name: 'MyPageMemberReply',
         component: MyPageMemberReply,
+        beforeEnter: requireAuth()
+    },
+    {
+        path: '/mypage/nickname',
+        name: 'MyPageUpdateNickname',
+        component: MyPageUpdateNickname,
         beforeEnter: requireAuth()
     },
     {

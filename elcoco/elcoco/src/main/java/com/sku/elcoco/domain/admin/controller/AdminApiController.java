@@ -6,12 +6,15 @@ import com.sku.elcoco.domain.member.dto.MemberResponseDto;
 import com.sku.elcoco.domain.post.dto.PostResponseDto;
 import com.sku.elcoco.domain.reply.dto.ReplyResponseDto;
 import com.sku.elcoco.domain.report.entity.dto.ReportResponseDto;
+import com.sku.elcoco.global.auth.CustomUserDetails;
+import com.sku.elcoco.global.exception.UnauthorizedException;
 import com.sku.elcoco.global.model.ResponseFormat;
 import com.sku.elcoco.global.model.ResponseStatus;
 import jakarta.validation.Valid;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +28,10 @@ public class AdminApiController {
     private final AdminService adminService;
 
     @GetMapping("/member")
-    public ResponseFormat<List<MemberResponseDto.adminREAD>> getAllMember() {
+    public ResponseFormat<List<MemberResponseDto.adminREAD>> getAllMember(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        if (userDetails.getUsername() == null) {
+            throw new UnauthorizedException(ResponseStatus.FAIL_TOKEN_NOT_FOUND);
+        }
         return ResponseFormat.successWithData(ResponseStatus.SUCCESS_OK, adminService.getAllMember());
     }
 

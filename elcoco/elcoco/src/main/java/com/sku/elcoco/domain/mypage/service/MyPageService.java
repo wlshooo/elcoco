@@ -14,4 +14,8 @@ public interface MyPageService {
     List<PostResponseDto.READ> getMemberPosts(String memberEmail);
 
     List<ReplyResponseDto.READ> getMemberReplies(String memberEmail);
+
+    boolean checkDuplicateNickname(String nickname);
+
+    void updateNickname(String memberEmail,String nickname);
 }
