@@ -6,7 +6,7 @@
       <!--      <button v-if="isAuthor()" type="button" class="btn btn-primary btn-rounded mr-2" @click="fnUpdate"-->
       <!--              style="margin-right: 3px;">수정-->
       <!--      </button>-->
-      <i v-if="isAuthor()" @click="fnDelete" class="menu-icon fa-2x fa-solid fa-delete-left"></i>
+      <i v-if="isAuthor()" @click="fnDelete" class="menu-icon fa-2x fa-solid fa-trash"></i>
       <!--      <button v-if="isAuthor()" type="button" class="btn btn-danger btn-rounded mr-2" @click="fnDelete"-->
       <!--              style="margin-right: 3px;">삭제-->
       <!--      </button>-->
@@ -16,7 +16,7 @@
     <h1><strong>[{{ category }}] {{ title }}</strong></h1>
     <div>
       <p class="w3-large mb-3 mt-3">
-        <i class="menu-icon fa-solid fa-reply" v-if="!isAuthor()" @click="toMessageWrite(author)"></i>
+        <i class="menu-icon fa-solid fa-envelope" v-if="!isAuthor()" @click="toMessageWrite(author)"></i>
         <i class="menu-icon fa-solid fa-ban" v-if="!isAuthor()" @click="toReportPost(postId, title)"></i>
 
         {{ author }}
@@ -65,7 +65,7 @@
       <!--            <i class="fa-solid fa-trash" v-if="isReplyAuthor()" @click="removeReply(reply.replyId,reply.postId)"></i>-->
       <!--            <i class="fa-solid fa-comment" v-if="!isReplyAuthor()" @click="toMessageWrite(reply.memberNickname)"></i>-->
       <i class="fa-solid fa-trash" @click="removeReply(reply.replyId,reply.postId)"></i>
-      <i class="fa-solid fa-reply" @click="toMessageWrite(reply.memberNickname)"></i>
+      <i class="fa-solid fa-envelope" @click="toMessageWrite(reply.memberNickname)"></i>
       <div class="reply-detail">
         <strong>[{{ reply.memberNickname }}]</strong>
         <div class="create-at">
