@@ -5,6 +5,7 @@ import com.sku.elcoco.domain.mypage.service.MyPageService;
 import com.sku.elcoco.domain.post.dto.PostResponseDto;
 import com.sku.elcoco.domain.reply.dto.ReplyResponseDto;
 import com.sku.elcoco.global.auth.CustomUserDetails;
+import com.sku.elcoco.global.exception.UnauthorizedException;
 import com.sku.elcoco.global.model.ResponseFormat;
 import com.sku.elcoco.global.model.ResponseStatus;
 import lombok.RequiredArgsConstructor;
@@ -28,11 +29,17 @@ public class MyPageApiController {
 
     @GetMapping("/member/post")
     public ResponseFormat<List<PostResponseDto.READ>> getMemberPost(@AuthenticationPrincipal CustomUserDetails memberEmail) {
+        if (memberEmail.getUsername() == null) {
+            throw new UnauthorizedException(ResponseStatus.FAIL_TOKEN_NOT_FOUND);
+        }
         return ResponseFormat.successWithData(ResponseStatus.SUCCESS_OK,myPageService.getMemberPosts(memberEmail.getUsername()));
     }
 
     @GetMapping("/member/reply")
     public ResponseFormat<List<ReplyResponseDto.READ>> getMemberReply(@AuthenticationPrincipal CustomUserDetails memberEmail) {
+        if (memberEmail.getUsername() == null) {
+            throw new UnauthorizedException(ResponseStatus.FAIL_TOKEN_NOT_FOUND);
+        }
         return ResponseFormat.successWithData(ResponseStatus.SUCCESS_OK,myPageService.getMemberReplies(memberEmail.getUsername()));
     }
 

@@ -45,10 +45,12 @@ export default {
           alert('사용 가능한 닉네임입니다.');
           this.isNicknameAvailable = false; // 버튼 비활성화
         }
-      } catch (error) {
-        console.error(error);
-        // 에러 처리
-        alert('서버에서 닉네임 중복 확인 중 오류가 발생했습니다.');
+      } catch (err) {
+        if (err.response.status === 401) {
+          this.$router.push({ path: '/login' });
+        } else {
+          alert(err.response.data.message);
+        }
       }
     },
     async changeNickname() {
@@ -71,10 +73,12 @@ export default {
           // 닉네임 변경 실패
           alert('닉네임 변경에 실패했습니다.');
         }
-      } catch (error) {
-        console.error(error);
-        // 에러 처리
-        alert('서버에서 닉네임 변경 중 오류가 발생했습니다.');
+      } catch (err) {
+        if (err.response.status === 401) {
+          this.$router.push({ path: '/login' });
+        } else {
+          alert(err.response.data.message);
+        }
       }
     }
   }

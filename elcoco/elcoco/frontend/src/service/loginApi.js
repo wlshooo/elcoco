@@ -27,7 +27,7 @@ export default {
                 const accessToken = userInfoResponse.data.data.accessToken;
                 const role = userInfoResponse.data.data.role;
                 const nickname = userInfoResponse.data.data.nickname;
-                const expirationTime = new Date().getTime() + (1800000);
+                const expirationTime = new Date().getTime() + (5000);
 
                 // 유효 시간과 사용자 정보를 로컬 스토리지에 저장
                 localStorage.setItem('user_token', accessToken);
@@ -57,6 +57,8 @@ export default {
 
         // 로그아웃 타이머 해제
         clearTimeout(logoutTimeout);
+        alert("세션이 만료되어 로그아웃 합니다")
+        location.reload()
     },
     // 로그인 상태 확인 메서드 추가
     isLoggedIn() {

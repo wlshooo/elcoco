@@ -29,9 +29,6 @@ public class AdminApiController {
 
     @GetMapping("/member")
     public ResponseFormat<List<MemberResponseDto.adminREAD>> getAllMember(@AuthenticationPrincipal CustomUserDetails userDetails) {
-        if (userDetails.getUsername() == null) {
-            throw new UnauthorizedException(ResponseStatus.FAIL_TOKEN_NOT_FOUND);
-        }
         return ResponseFormat.successWithData(ResponseStatus.SUCCESS_OK, adminService.getAllMember());
     }
 

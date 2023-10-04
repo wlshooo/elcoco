@@ -143,11 +143,12 @@ export default {
         console.log(res)
         this.list = res.data.data  //서버에서 데이터를 목록으로 보내므로 바로 할당하여 사용할 수 있다.
       }).catch((err) => {
-        console.log(err)
-          alert(err.response.data),
-            this.$router.push({
-              path: '/login',
-            })
+        if (err.response.status === 401) {
+          this.$router.push({ path: '/login' });
+        } else {
+          alert(err.response.data.message);
+          location.reload()
+        }
       })
     },
     clickModel(item) {
@@ -168,8 +169,12 @@ export default {
             alert('멤버 수정이 성공적으로 완료되었어요! ')
             this.SendList()
           }).catch((err) => {
-        console.log(err)
-        alert(err.response.data.message)
+        if (err.response.status === 401) {
+          this.$router.push({ path: '/login' });
+        } else {
+          alert(err.response.data.message);
+          location.reload()
+        }
       })
     },
     SendList() {

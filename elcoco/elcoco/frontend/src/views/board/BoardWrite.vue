@@ -108,8 +108,12 @@ export default {
           this.content = res.data.data.content
           this.created_at = res.data.data.regDate
         }).catch((err) => {
-          alert(err.response.data.message)
-          console.log(err)
+          if (err.response.status === 401) {
+            this.$router.push({ path: '/login' });
+          } else {
+            alert(err.response.data.message);
+            location.reload()
+          }
         })
       }
     },
@@ -170,9 +174,12 @@ export default {
 
             })
             .catch((err) => {
-              console.log(err)
-              alert("게시글 업로드 실패");
-              location.reload()
+              if (err.response.status === 401) {
+                this.$router.push({ path: '/login' });
+              } else {
+                alert(err.response.data.message);
+                location.reload()
+              }
             });
       } else {
         // 게시글 업데이트
@@ -187,8 +194,12 @@ export default {
               this.fnView(res.data.data);
             })
             .catch((err) => {
-              alert(err.response.data.message);
-              location.reload();
+              if (err.response.status === 401) {
+                this.$router.push({ path: '/login' });
+              } else {
+                alert(err.response.data.message);
+                location.reload()
+              }
             });
       }
     },
