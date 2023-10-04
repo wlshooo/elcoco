@@ -27,7 +27,7 @@ export default {
                 const accessToken = userInfoResponse.data.data.accessToken;
                 const role = userInfoResponse.data.data.role;
                 const nickname = userInfoResponse.data.data.nickname;
-                const expirationTime = new Date().getTime() + (5000);
+                const expirationTime = new Date().getTime() + (1800000); //30분
 
                 // 유효 시간과 사용자 정보를 로컬 스토리지에 저장
                 localStorage.setItem('user_token', accessToken);
