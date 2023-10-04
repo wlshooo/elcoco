@@ -114,11 +114,13 @@ export default {
       }
     },
     fnList() {
-      delete this.requestBody.idx
-      this.$router.push({
-        path: './list',
-        query: this.requestBody
-      })
+      delete this.requestBody.idx;
+      this.$router.go(-1);
+      // delete this.requestBody.idx
+      // this.$router.push({
+      //   path: './list',
+      //   query: this.requestBody
+      // })
     },
     fnView(idx) {
       this.requestBody.idx = idx
