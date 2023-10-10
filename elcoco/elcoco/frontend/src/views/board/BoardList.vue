@@ -47,7 +47,8 @@
             <i class="fa-solid fa-heart small-icon">{{ item.likeCount }}</i>
           </span>
         </td>
-        <td>{{ item.memberNickname }}</td>
+        <td v-if="Role(item.memberRole)" class="red-text">{{ item.memberNickname }}</td>
+        <td v-if="!Role(item.memberRole)" class="black-text">{{ item.memberNickname }}</td>
         <td>{{ formatDateTime(item.regDate) }}</td>
       </tr>
 
@@ -64,7 +65,8 @@
             <i class="fa-solid fa-heart small-icon">{{ item.likeCount }}</i>
           </span>
         </td>
-        <td>{{ item.memberNickname }}</td>
+        <td v-if="Role(item.memberRole)" class="red-text">{{ item.memberNickname }}</td>
+        <td v-if="!Role(item.memberRole)" class="black-text">{{ item.memberNickname }}</td>
         <td>{{ formatDateTime(item.regDate) }}</td>
       </tr>
       </tbody>
@@ -143,6 +145,16 @@
   background-color: #BBDEFB;
   color: #304FFE;
   border-color: darkblue;
+}
+
+/* 빨간색 텍스트 색상 */
+.red-text {
+  color: red;
+}
+
+/* 기본 텍스트 색상 (검은색) */
+.black-text {
+  color: black;
 }
 
 </style>
@@ -287,6 +299,13 @@ export default {
       const minutes = String(dateTime.getMinutes()).padStart(2, '0');
       return `${year}-${month}-${day} ${hours}:${minutes}`;
     },
+    Role(memberRole)
+    {
+      if (memberRole === "ROLE_ADMIN") {
+        return true;
+      }
+      else return false;
+    }
   }
 }
 </script>

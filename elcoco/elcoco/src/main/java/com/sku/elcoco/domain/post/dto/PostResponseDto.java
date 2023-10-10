@@ -4,6 +4,7 @@ package com.sku.elcoco.domain.post.dto;
 import com.sku.elcoco.domain.file.entity.FileFormat;
 import com.sku.elcoco.domain.post.entity.Post;
 import com.sku.elcoco.global.common.PostCategory;
+import com.sku.elcoco.global.common.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,6 +29,8 @@ public class PostResponseDto {
         private String title;
 
         private String content;
+
+        private Role memberRole;
 
         private PostCategory postCategory;
 
