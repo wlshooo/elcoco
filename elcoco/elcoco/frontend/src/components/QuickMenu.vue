@@ -12,6 +12,9 @@
       <a class="quick-menu-link" href="https://sportal.skuniv.ac.kr" target="_blank">
         <img class="quick-menu-img" src="/skupotal.png" height="100" width="100"/>
       </a>
+      <a class="quick-menu-link" href="https://en.skuniv.ac.kr/" target="_blank">
+        <img class="quick-menu-img" src="/skuelco.png" height="100" width="100"/>
+      </a>
       <!-- 원하는 이미지 및 경로를 사용하여 각 링크를 대체하세요 -->
     </div>
   </div>
