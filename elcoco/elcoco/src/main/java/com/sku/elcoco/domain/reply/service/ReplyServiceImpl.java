@@ -118,6 +118,7 @@ public class ReplyServiceImpl implements ReplyService {
                 .replyId(reply.getId())
                 .memberNickname(reply.getMember().getNickname())
                 .postId(reply.getPost().getId())
+                .memberRole(reply.getMember().getRole())
                 .content(reply.getContent())
                 .regDate(reply.getRegDate())
                 .likeCount(reply.getLikeCount())

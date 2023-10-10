@@ -1,5 +1,6 @@
 package com.sku.elcoco.domain.reply.dto;
 
+import com.sku.elcoco.global.common.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,6 +20,8 @@ public class ReplyResponseDto {
         private String memberNickname;
 
         private Long postId;
+
+        private Role memberRole;
 
         private String content;
 

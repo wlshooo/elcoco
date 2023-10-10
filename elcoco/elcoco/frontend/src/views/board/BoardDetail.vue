@@ -18,8 +18,8 @@
       <p class="w3-large mb-3 mt-3">
         <i class="menu-icon fa-solid fa-envelope" v-if="!isAuthor()" @click="toMessageWrite(author)"></i>
         <i class="menu-icon fa-solid fa-ban" v-if="!isAuthor()" @click="toReportPost(postId, title)"></i>
-
-        {{ author }}
+        <span v-if="Role(memberRole)" class="red-text"><strong>{{ author }}</strong></span>
+        <span v-if="!Role(memberRole)" class="black-text"><strong>{{ author }}</strong></span>
         <span class="small-font">&nbsp {{ created_at }}</span>
         <span class="small-font">&nbsp&nbsp 조회수: {{ view_count }}</span>
       </p>
@@ -67,7 +67,8 @@
       <i class="fa-solid fa-trash" @click="removeReply(reply.replyId,reply.postId)"></i>
       <i class="fa-solid fa-envelope" @click="toMessageWrite(reply.memberNickname)"></i>
       <div class="reply-detail">
-        <strong>[{{ reply.memberNickname }}]</strong>
+        <span v-if="Role(reply.memberRole)" class="red-text"><strong>{{ reply.memberNickname }}</strong></span>
+        <span v-if="!Role(reply.memberRole)" class="black-text"><strong>{{ reply.memberNickname }}</strong></span>
         <div class="create-at">
           <span>{{ formatDate(reply.regDate) }}</span>
         </div>
@@ -146,6 +147,15 @@
   height: auto; /* 이미지의 높이 자동 조정 */
   object-fit: contain; /* 이미지 비율 유지 */
 }
+/* 빨간색 텍스트 색상 */
+.red-text {
+  color: red;
+}
+
+/* 기본 텍스트 색상 (검은색) */
+.black-text {
+  color: black;
+}
 </style>
 
 
@@ -153,7 +163,7 @@
 import PageBanner from "@/components/PageBanner.vue";
 
 export default {
-  components:{
+  components: {
     PageBanner
   },
   data() { //변수생성
@@ -168,8 +178,9 @@ export default {
       created_at: '',
       view_count: '',
       files: [],
+      memberRole:'',
       //댓글
-      replyCount:'',
+      replyCount: '',
       replyList: [],
       reply: '',
       replyAuthorNickname: '',
@@ -215,6 +226,7 @@ export default {
         this.created_at = this.formatDate(res.data.data.regDate)
         this.category = res.data.data.postCategory
         this.view_count = res.data.data.viewCount
+        this.memberRole = res.data.data.memberRole
         // 서버에서 게시물의 좋아요 상태와 개수 가져오기
         // this.isLiked = res.data.data.isLiked;
         this.replyCount = res.data.data.replyCount;
@@ -223,7 +235,7 @@ export default {
         this.files = res.data.data.fileFormat
       }).catch((err) => {
         if (err.response.status === 401) {
-          this.$router.push({ path: '/login' });
+          this.$router.push({path: '/login'});
         } else {
           alert(err.response.data.message);
           this.$router.push({});
@@ -258,7 +270,7 @@ export default {
             this.fnList();
           }).catch((err) => {
         if (err.response.status === 401) {
-          this.$router.push({ path: '/login' });
+          this.$router.push({path: '/login'});
         } else {
           alert(err.response.data.message);
           this.$router.push({});
@@ -295,7 +307,7 @@ export default {
         this.fnPost(postId);
       }).catch((err) => {
         if (err.response.status === 401) {
-          this.$router.push({ path: '/login' });
+          this.$router.push({path: '/login'});
         } else {
           alert(err.response.data.message);
           this.$router.push({});
@@ -324,7 +336,7 @@ export default {
             this.fnPost(this.idx);
           }).catch((err) => {
         if (err.response.status === 401) {
-          this.$router.push({ path: '/login' });
+          this.$router.push({path: '/login'});
         } else {
           alert(err.response.data.message);
           location.reload()
@@ -377,7 +389,11 @@ export default {
         return true;
       } else return false;
     },
-
+    Role(memberRole) {
+      if (memberRole === "ROLE_ADMIN") {
+        return true;
+      } else return false;
+    }
   }
 }
 </script>
