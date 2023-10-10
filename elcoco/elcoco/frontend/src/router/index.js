@@ -21,6 +21,7 @@ import Mypage from "@/views/mypage/Mypage.vue";
 import MyPageMemberPost from "@/views/mypage/MyPageMemberPost.vue";
 import MyPageMemberReply from "@/views/mypage/MyPageMemberReply.vue";
 import MyPageUpdateNickname from "@/views/mypage/MyPageUpdateNickname.vue";
+import MyPageMemberLikePost from "@/views/mypage/MyPageMemberLikePost.vue";
 
 
 
@@ -70,6 +71,12 @@ const routes = [
         path: '/mypage/post',
         name: 'MyPageMemberPost',
         component: MyPageMemberPost,
+        beforeEnter: requireAuth()
+    },
+    {
+        path: '/mypage/like/post',
+        name: 'MyPageMemberLikePost',
+        component: MyPageMemberLikePost,
         beforeEnter: requireAuth()
     },
     {

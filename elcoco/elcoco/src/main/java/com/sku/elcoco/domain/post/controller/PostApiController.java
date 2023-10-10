@@ -151,5 +151,11 @@ public class PostApiController {
         return ResponseFormat.successWithData(ResponseStatus.SUCCESS_OK, postService.addPostLikeByLoginNickname(postId, loginNickname));
     }
 
+    /** Member 가 좋아요 누른 게시물들 조회를 위한 API **/
+    @PostMapping("/posts/like/member/{memberNickname}")
+    public ResponseFormat<List<PostResponseDto.READ>> getLikePostsByMemberNickname(@PathVariable String memberNickname) {
+        return ResponseFormat.successWithData(ResponseStatus.SUCCESS_OK, postService.getLikePostsByMemberNickname(memberNickname));
+    }
+
 
 }

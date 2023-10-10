@@ -1,6 +1,7 @@
 <template>
   <PageHeader/> <!-- 헤더 컴포넌트 -->
   <router-view/>  <!-- 페이지 이동이 표시될 곳 -->
+  <ScrollButton/>
   <PageFooter/> <!-- 푸터 컴포넌트 -->
   <LoadingBar :loading="this.$store.state.loadingStatus"></LoadingBar>
   <QuickMenu/>
@@ -11,10 +12,12 @@ import PageHeader from '@/components/PageHeader'
 import PageFooter from '@/components/PageFooter'
 import LoadingBar from '@/views/common/LoadingBar'
 import QuickMenu from "@/components/QuickMenu.vue";
+import ScrollButton from "@/components/ScrollButton.vue";
 
 export default {
   name: 'App',
   components: {
+    ScrollButton,
     PageFooter,
     PageHeader,
     LoadingBar,

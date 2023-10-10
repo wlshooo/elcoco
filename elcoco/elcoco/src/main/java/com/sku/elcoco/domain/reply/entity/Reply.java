@@ -46,6 +46,10 @@ public class Reply extends BaseEntity {
         this.likeCount = likeCount;
     }
 
+    public void addLikeCount() {
+        this.likeCount += 1;
+    }
+
 //    public void updateReply(String content) {
 //        this.content = content;
 //    }

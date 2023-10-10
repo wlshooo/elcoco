@@ -2,22 +2,15 @@
   <PageBanner/>
   <div class="board-detail mt-5">
     <div class="common-buttons mb-3">
-      <i v-if="isAuthor()" @click="fnUpdate" class=" menu-icon fa-2x fa-solid fa-pen-to-square"></i>
-      <!--      <button v-if="isAuthor()" type="button" class="btn btn-primary btn-rounded mr-2" @click="fnUpdate"-->
-      <!--              style="margin-right: 3px;">수정-->
-      <!--      </button>-->
-      <i v-if="isAuthor()" @click="fnDelete" class="menu-icon fa-2x fa-solid fa-trash"></i>
-      <!--      <button v-if="isAuthor()" type="button" class="btn btn-danger btn-rounded mr-2" @click="fnDelete"-->
-      <!--              style="margin-right: 3px;">삭제-->
-      <!--      </button>-->
+      <i v-if="isAuthor()" @click="fnUpdate" class=" menu-icon fa-2x fa-solid fa-pen-to-square mouse-cursor small-icon"></i>
+      <i v-if="isAuthor()" @click="fnDelete" class="menu-icon fa-2x fa-solid fa-trash mouse-cursor small-icon"></i>
       <i class="menu-icon fa-2x fa-solid fa-list" @click="fnList"></i>
-      <!--      <button type="button" class="btn btn-success btn-rounded mr-2" @click="fnList">목록</button>-->
     </div>
     <h1><strong>[{{ category }}] {{ title }}</strong></h1>
     <div>
       <p class="w3-large mb-3 mt-3">
-        <i class="menu-icon fa-solid fa-envelope" v-if="!isAuthor()" @click="toMessageWrite(author)"></i>
-        <i class="menu-icon fa-solid fa-ban" v-if="!isAuthor()" @click="toReportPost(postId, title)"></i>
+        <i class="menu-icon fa-solid fa-envelope mouse-cursor" v-if="!isAuthor()" @click="toMessageWrite(author)"></i>
+        <i class="menu-icon fa-solid fa-ban mouse-cursor" v-if="!isAuthor()" @click="toReportPost(postId, title)"></i>
         <span v-if="Role(memberRole)" class="red-text"><strong>{{ author }}</strong></span>
         <span v-if="!Role(memberRole)" class="black-text"><strong>{{ author }}</strong></span>
         <span class="small-font">&nbsp {{ created_at }}</span>
@@ -35,20 +28,13 @@
       <div v-html="contentWithoutImages"></div>
     </div>
 
-
-    <!--    <div class="button-container">-->
-    <!--      <button @click="toPostLike(postId, loginUserNickname)" class="btn btn-outline-primary btn-rounded"-->
-    <!--              :class="{ 'btn-liked': isLiked }">-->
-    <!--        {{ isLiked ? '좋아요' : '좋아요' }}-->
-    <!--      </button>-->
-    <!--    </div>-->
     <div class="button-container">
       <button @click="toPostLike(postId, loginUserNickname)" class="btn-liked btn btn-outline-primary btn-rounded">
         <i class="fa-3x fa-solid fa-heart heart-icon"></i>
       </button>
     </div>
-
-    &nbsp; <i class="fa-solid fa-comment">{{ replyCount }}</i>
+    &nbsp;
+    <i class="fa-solid fa-comment">{{ replyCount }}</i>
     <i class="fa-solid fa-heart">{{ likeCount }}</i>
 
     <div>
@@ -62,31 +48,24 @@
     <hr>
 
     <div v-for="(reply, idx) in replyList" :key="idx" class="mt-5">
-      <!--            <i class="fa-solid fa-trash" v-if="isReplyAuthor()" @click="removeReply(reply.replyId,reply.postId)"></i>-->
-      <!--            <i class="fa-solid fa-comment" v-if="!isReplyAuthor()" @click="toMessageWrite(reply.memberNickname)"></i>-->
-      <i class="fa-solid fa-trash" @click="removeReply(reply.replyId,reply.postId)"></i>
-      <i class="fa-solid fa-envelope" @click="toMessageWrite(reply.memberNickname)"></i>
+      <i class="fa-solid fa-trash mouse-cursor" @click="removeReply(reply.replyId,reply.postId)"></i>
+      <i class="fa-solid fa-envelope mouse-cursor" @click="toMessageWrite(reply.memberNickname)"></i>
+      <i class="fa-solid fa-heart Reply-heart-icon" @click="toReplyLike(reply.replyId, loginUserNickname)"><small>&nbsp;{{ reply.likeCount }}</small></i>
       <div class="reply-detail">
         <span v-if="Role(reply.memberRole)" class="red-text"><strong>{{ reply.memberNickname }}</strong></span>
         <span v-if="!Role(reply.memberRole)" class="black-text"><strong>{{ reply.memberNickname }}</strong></span>
         <div class="create-at">
           <span>{{ formatDate(reply.regDate) }}</span>
         </div>
-        <p>
-          {{ reply.content }}
-        </p>
+        <p>{{ reply.content }}</p>
       </div>
     </div>
 
     <div class="mt-5">
       <label for="reply"><strong>댓글</strong></label>
       <div style="position: relative;">
-                <textarea id="reply" ref="replyInput" rows="5" v-model="reply" class="form-control"
-                          style="resize: none;"
-                          placeholder="댓글을 남겨보세요."></textarea>
-        <button type="button" class="btn btn-outline-primary btn-rounded" @click="replySave"
-                style="position: absolute; right: 10px; bottom: 10px;">댓글 저장
-        </button>
+        <textarea id="reply" ref="replyInput" rows="5" v-model="reply" class="form-control" style="resize: none;" placeholder="댓글을 남겨보세요."></textarea>
+        <button type="button" class="btn btn-outline-primary btn-rounded" @click="replySave" style="position: absolute; right: 10px; bottom: 10px;">댓글 저장</button>
       </div>
     </div>
   </div>
@@ -98,12 +77,24 @@
   font-size: 0.8rem;
   color: gray;
 }
+.small-icon {
+  font-size: 20px; /* Adjust the font size to your preference */
+}
 
+.mouse-cursor {
+  cursor: pointer; /* 마우스 포인터가 포인팅 형태로 변경됩니다. */
+}
 /* 하트 아이콘 스타일링 */
 .heart-icon {
   color: red; /* 원하는 색상(빨간색 또는 다른 원하는 색상)으로 설정합니다. */
   font-size: 3rem; /* 원하는 크기로 설정합니다. */
   cursor: pointer; /* 마우스 포인터가 포인팅 형태로 변경됩니다. */
+}
+.Reply-heart-icon {
+  color: #fd8181; /* 원하는 색상(빨간색 또는 다른 원하는 색상)으로 설정합니다. */
+  cursor: pointer; /* 마우스 포인터가 포인팅 형태로 변경됩니다. */
+  font-size: 20px;
+  vertical-align: -10px;
 }
 .menu-icon {
   color: #42A5F5; /* 원하는 색상(빨간색 또는 다른 원하는 색상)으로 설정합니다. */
@@ -186,7 +177,8 @@ export default {
       replyAuthorNickname: '',
       // 좋아요
       loginUserNickname: localStorage.getItem('user_nickname'),
-      isLiked: false,
+      isPostLiked: false,
+      isReplyLiked: false,
       likeCount: 0,
     }
   },
@@ -361,21 +353,49 @@ export default {
     },
     toPostLike(postId, loginNickname) {
       // 좋아요 상태 토글
-      this.isLiked = !this.isLiked;
+      this.isPostLiked = !this.isPostLiked;
 
-      this.$axios.post(`/api/v1/post/like/${postId}/${loginNickname}`, {like: this.isLiked})
+      this.$axios.post(`/api/v1/post/like/${postId}/${loginNickname}`, {like: this.isPostLiked})
 
           .then(() => {
-            if (this.isLiked) {
-              this.likeCount++;
-            } else {
-              this.likeCount--;
-            }
+            // if (this.isLiked) {
+            //   this.likeCount++;
+            // } else {
+            //   this.likeCount--;
+            // }
+            alert("좋아요!");
           })
           .catch((err) => {
-            alert(err.response.data.message);
-            location.reload();
-            console.error(err);
+            if (err.response.status === 401 || err.response.status === 404) {
+              this.$router.push({ path: '/login' });
+            } else {
+              alert(err.response.data.message);
+            }
+            this.$store.state.loadingStatus = false;
+          });
+    },
+    toReplyLike(replyId, loginNickname) {
+      // 좋아요 상태 토글
+      this.isReplyLiked = !this.isReplyLiked;
+
+      this.$axios.post(`/api/v1/reply/like/${replyId}/${loginNickname}`, {like: this.isReplyLiked})
+
+          .then(() => {
+            // if (this.isLiked) {
+            //   this.likeCount++;
+            // } else {
+            //   this.likeCount--;
+            // }
+            alert("좋아요!");
+            location.reload()
+          })
+          .catch((err) => {
+            if (err.response.status === 401 || err.response.status === 404) {
+              this.$router.push({ path: '/login' });
+            } else {
+              alert(err.response.data.message);
+            }
+            this.$store.state.loadingStatus = false;
           });
     },
     isAuthor() {

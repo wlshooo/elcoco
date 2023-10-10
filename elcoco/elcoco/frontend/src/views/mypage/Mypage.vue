@@ -27,6 +27,9 @@
         <router-link to="/mypage/post" v-if="this.$store.state.isLogin" class="nav-link">내가 작성한 게시글</router-link>
         <br>
         <router-link to="/mypage/reply" v-if="this.$store.state.isLogin" class="nav-link">내가 작성한 댓글</router-link>
+        <br>
+        <router-link to="/mypage/like/post" v-if="this.$store.state.isLogin" class="nav-link">내가 좋아요 누른 게시글</router-link>
+
       </div>
 
       <!-- 카드 3 -->
