@@ -5,6 +5,9 @@
       <button :class="{ active: postCategory === '' }" class="btn btn-link" @click="fnSelectCategory('')">
         전체글
       </button>
+      <button :class="{ active: postCategory === 'NOTICE' }" class="btn btn-link" @click="fnSelectCategory('NOTICE')">
+        공지사항
+      </button>
       <button :class="{ active: postCategory === 'QNA' }" class="btn btn-link" @click="fnSelectCategory('QNA')">
         질문
       </button>
@@ -85,14 +88,16 @@
           <a class="page-link" @click="fnPage(0)" href="javascript:;">&lt;&lt;</a>
         </li>
         <li class="page-item">
-          <a class="page-link" @click="fnPage(page - 1)" href="javascript:;">&lt;</a>
+          <a class="page-link" @click="fnPage(page - 10)" href="javascript:;">&lt;</a>
         </li>
         <li class="page-item" v-for="n in paginavigation()" :key="n">
           <a class="page-link" @click="fnPage(n)" href="javascript:;">{{ n + 1 }}</a>
         </li>
+        <!-- ">" 버튼은 다음 그룹으로 이동 -->
         <li class="page-item">
-          <a class="page-link" @click="fnPage(page + 1)" href="javascript:;">&gt;</a>
+          <a class="page-link" @click="nextGroup" href="javascript:;" v-if="!isLastGroup">></a>
         </li>
+        <!-- ">>" 버튼은 마지막 페이지로 이동 -->
         <li class="page-item">
           <a class="page-link" @click="fnPage(totalPage - 1)" href="javascript:;">&gt;&gt;</a>
         </li>
@@ -119,6 +124,15 @@
 .hover-pointer {
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
+}
+
+.small-icon {
+  font-size: 15px; /* Adjust the font size to your preference */
+}
+
+.small-button {
+  font-size: 12px; /* Adjust the font size for the button text */
+  padding: 4px 8px; /* Adjust padding for the button */
 }
 
 /*TODO : 마우스 hover 시 테이블 열 색이 바뀌도록, 현재는 적용이 안됨 */
@@ -188,16 +202,21 @@ export default {
       page: this.$route.query.page ? this.$route.query.page : 0,
       size: this.$route.query.size ? this.$route.query.size : 10,
 
-      paginavigation: function () {
-        let pageNumber = []
-        let start_page = 0;
-        let end_page = this.totalPage;
+      paginavigation() {
+        let pageNumber = [];
+        let start_page = Math.floor(this.page / 10) * 10; // 현재 페이지 그룹의 시작 페이지
+        let end_page = Math.min(start_page + 10, this.totalPage); // 현재 페이지 그룹의 끝 페이지, 최대 10개까지 표시
         for (let i = start_page; i < end_page; i++) pageNumber.push(i);
         return pageNumber;
-      }
+      },
     }
   },
   mounted() {
+    const postCategoryFromURL = this.$route.query.postCategory;
+
+    if (postCategoryFromURL) {
+      this.postCategory = postCategoryFromURL;
+    }
     this.fnGetList();
     this.fnGetNoticeList();
   },

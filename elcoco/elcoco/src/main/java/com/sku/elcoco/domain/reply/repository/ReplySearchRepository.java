@@ -5,6 +5,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import com.sku.elcoco.domain.member.entity.QMember;
+import com.sku.elcoco.domain.member.entity.QMemberLikeReply;
 import com.sku.elcoco.domain.post.entity.QPost;
 import com.sku.elcoco.domain.reply.dto.ReplyRequestDto;
 import com.sku.elcoco.domain.reply.entity.QReply;
@@ -28,6 +29,8 @@ public class ReplySearchRepository {
 
     private final QMember member = QMember.member;
 
+    private final QMemberLikeReply memberLikeReply = QMemberLikeReply.memberLikeReply;
+
     public List<Reply> find(ReplyRequestDto.CONDITION condition) {
         return queryFactory
                 .selectFrom(reply)
@@ -42,6 +45,18 @@ public class ReplySearchRepository {
                         DynamicQueryUtils.filter(condition.getReplyNickname(), reply.member.nickname::eq),
                         replyDateBetween(condition.getFromReplyDate(), condition.getToReplyDate()),
                         reply.deleteAt.eq(Boolean.FALSE)
+                )
+                .fetch();
+    }
+
+    public List<Reply> findLikeRepliesByMemberId(Long memberId) {
+        return queryFactory
+                .selectFrom(reply)
+                .join(memberLikeReply).on(memberLikeReply.reply.eq(reply))
+                .join(member).on(memberLikeReply.member.eq(member))
+                .fetchJoin()
+                .where(
+                        member.id.eq(memberId)
                 )
                 .fetch();
     }

@@ -69,6 +69,14 @@ public interface PostService {
     PostResponseDto.READ addPostLikeByLoginNickname(Long postId, String loginNickname);
 
     /**
+     * memberNickname 으로 member가 좋아요 누른 게시물 조회하는 서비스
+     *
+     * @param memberNickname
+     * @return
+     */
+    List<PostResponseDto.READ> getLikePostsByMemberNickname (String memberNickname);
+
+    /**
      * Redis에 포스트 조회수를 업데이트.
      *
      * @param postId  포스트의 ID

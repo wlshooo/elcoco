@@ -6,6 +6,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import com.sku.elcoco.domain.member.entity.QMember;
+import com.sku.elcoco.domain.member.entity.QMemberLikePost;
 import com.sku.elcoco.domain.post.entity.Post;
 import com.sku.elcoco.domain.post.entity.QPost;
 import com.sku.elcoco.global.common.PostCategory;
@@ -29,6 +30,8 @@ public class PostSearchRepository {
     private final QPost post = QPost.post;
 
     private final QMember member = QMember.member;
+
+    private final QMemberLikePost memberLikePost = QMemberLikePost.memberLikePost;
 
 //    public List<Post> find(PostRequestDto.CONDITION condition) {
 //        return queryFactory
@@ -81,6 +84,17 @@ public class PostSearchRepository {
                 .fetch();
     }
 
+    public List<Post> findLikePostsByMemberId(Long memberId) {
+        return queryFactory
+                .selectFrom(post)
+                .join(memberLikePost).on(memberLikePost.post.eq(post))
+                .join(member).on(memberLikePost.member.eq(member))
+                .fetchJoin()
+                .where(
+                        member.id.eq(memberId)
+                )
+                .fetch();
+    }
 
 
     private BooleanExpression postCategoryEq(String category) {

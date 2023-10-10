@@ -17,7 +17,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <router-link to="/board/list" class="nav-link">게시판</router-link>
+              <router-link to="/board/list" v-if="this.$store.state.isLogin" class="nav-link">게시판</router-link>
             </li>
 <!--            <li class="nav-item">-->
 <!--              <router-link to="/message/received" v-if="this.$store.state.isLogin" class="nav-link">받은 메세지</router-link>-->
