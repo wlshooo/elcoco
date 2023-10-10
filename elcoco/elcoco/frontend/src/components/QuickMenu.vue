@@ -17,7 +17,6 @@
   </div>
 </template>
 
-
 <script>
 export default {
   data() {
@@ -54,19 +53,21 @@ export default {
   right: 60px;
   transform: translateY(-50%);
   z-index: 1000;
-  width: 120px; /* 크기를 조절할 수 있습니다 */
+  width: 120px;
   background-color: #fff;
   border: 5px solid #BBDEFB;
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 15px 10px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+
+  /* 다른 스타일 속성들... */
 }
 
 .quick-menu-title {
-  font-size: 1.5rem; /* 원하는 크기로 설정하세요 */
+  font-size: 1.5rem;
   margin: 0;
   padding: 0;
-  color: #333; /* 원하는 색상으로 설정하세요 */
-  text-align: center; /* 중앙 정렬 */
+  color: #333;
+  text-align: center;
 }
 
 .quick-menu-links {
@@ -77,16 +78,19 @@ export default {
 
 .quick-menu-link {
   margin: 10px 0;
-  padding: 5px; /* 텍스트와 이미지 사이의 공간을 조정합니다. */
+  padding: 5px;
   text-decoration: none;
   color: #BBDEFB;
+  box-shadow: 0 10px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+
+  /* 다른 스타일 속성들... */
 }
 
 .quick-menu-img {
   display: block;
-  max-width: 100%; /* 이미지 크기를 부모 요소에 맞게 조정합니다. */
-  border: 5px solid #BBDEFB; /* 이미지에 테두리 스타일 추가 */
-  border-radius: 5px; /* 테두리 둥글게 만들기 */
+  max-width: 100%;
+  border: 5px solid #BBDEFB;
+  border-radius: 5px;
 }
 
 .fixed {
