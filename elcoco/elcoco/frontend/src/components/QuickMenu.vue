@@ -52,7 +52,7 @@ export default {
 <style scoped>
 .quick-menu {
   position: fixed;
-  top: 40%;
+  top: 50%;
   right: 60px;
   transform: translateY(-50%);
   z-index: 1000;
