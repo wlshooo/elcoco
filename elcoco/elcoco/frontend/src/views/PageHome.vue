@@ -2,7 +2,7 @@
   <div>
     <PageBanner/>
     <div class="container mt-3">
-      <br><h2>안녕하세요! <strong>SK-DEVIEW</strong> 에 방문하신 것을 환영합니다! </h2><br><br>
+      <br><h2>안녕하세요! <strong>Elcoco</strong> 에 방문하신 것을 환영합니다! </h2><br><br>
       <div class="card-container-wrapper">
         <div v-for="(category) in categories" :key="category.name" class="card-container">
           <div class="card">
@@ -146,32 +146,40 @@ export default {
 .card-container-wrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; /* 가로 간격을 최대화하여 2개의 컨테이너가 들어가도록 설정 */
-  gap: 10px; /* 간격을 10px로 설정 */
+  justify-content: space-between;
+  gap: 10px;
 }
 
 /* 내부 컨테이너 스타일 */
 .card-container {
-  flex-basis: calc(45% - 5px); /* 가로로 2개의 컨테이너가 들어가도록 설정 (간격을 고려하여 반씩 차지) */
+  flex-basis: calc(45% - 5px);
 }
 
 /* 카드 스타일 */
 .card {
-  background-color: ghostwhite;
-  border: 1px solid #ddd;
+  background-color: #BBDEFB;
+  border: 3px solid #98c9f1;
   border-radius: 5px;
   width: 100%;
+  box-shadow: 5px 4px 6px rgba(0.1, 0.1, 0, 0.2); /* 그림자 효과 설정 */
+  transition: box-shadow 0.3s; /* 그림자 변경 애니메이션을 추가할 수 있습니다. */
+}
+
+/* 마우스 호버 시 그림자 효과 변경 */
+.card:hover {
+  box-shadow: 10px 8px 12px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 크게 만들기 */
 }
 
 .small-icon {
-  font-size: 15px; /* Adjust the font size to your preference */
+  font-size: 15px;
 }
 
 .hover-pointer:hover {
-  background-color: lightgray; /* 마우스 호버 시 원하는 배경색으로 변경하세요. */
+  background-color: lightgray;
 }
 
 .mouse-cursor {
-  cursor: pointer; /* 마우스 포인터가 포인팅 형태로 변경됩니다. */
+  cursor: pointer;
 }
 </style>
+

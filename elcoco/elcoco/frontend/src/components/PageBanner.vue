@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-import { Carousel, Navigation, Pagination, Slide } from 'vue3-carousel'
+import {defineComponent} from 'vue'
+import {Carousel, Navigation, Pagination, Slide} from 'vue3-carousel'
 
 import 'vue3-carousel/dist/carousel.css'
 
@@ -29,6 +29,7 @@ export default defineComponent({
   data() {
     return {
       images: [
+        'elcoco.png',
         'image1.jpg',
         'image2.png',
         '213_egg-7847875_1280.png',
