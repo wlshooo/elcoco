@@ -53,7 +53,7 @@ export default defineComponent({
 
 <style>
 .slide-image {
-  width: 100%;
+  width: 80%;
   height: 300px; /* 원하는 높이로 조정 */
   object-fit: cover; /* 이미지 비율 유지 및 부족한 부분 채우기 */
 }

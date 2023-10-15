@@ -59,7 +59,8 @@
   text-decoration: none !important;
 }
 .header-background {
-  background-color: #BBDEFB;
+  //background-color: #BBDEFB;
+  background-color: #F2F2F2;
 }
 </style>
 

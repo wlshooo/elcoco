@@ -22,7 +22,7 @@ export default {}
 
 <style scoped>
 .footer {
-  background-color: lightgray; /* 배경색 설정 */
+  background-color: #F2F2F2; /* 배경색 설정 */
   color: black; /* 글자색 설정 */
   padding: 20px 0; /* 상하 여백 설정 */
 }

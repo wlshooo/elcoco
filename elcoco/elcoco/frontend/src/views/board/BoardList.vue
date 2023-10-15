@@ -1,5 +1,6 @@
 <template>
-<PageBanner/>
+  <div class="background">
+    <PageBanner/>
   <div class="board-list mt-5">
     <div class="nav-buttons mb-3">
       <button :class="{ active: postCategory === '' }" class="btn btn-link" @click="fnSelectCategory('')">
@@ -118,6 +119,7 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <style scoped>
@@ -151,13 +153,13 @@
 
 .btn {
   text-decoration: none;
-  background-color: #BBDEFB;
+  background-color: #f2f2f2;
   color: black;
 }
 
 .btn.active {
-  background-color: #BBDEFB;
-  color: #304FFE;
+  background-color: #f2f2f2;
+  color: black;
   border-color: darkblue;
 }
 
@@ -169,6 +171,9 @@
 /* 기본 텍스트 색상 (검은색) */
 .black-text {
   color: black;
+}
+.background{
+  background: #f2f2f2;
 }
 
 </style>

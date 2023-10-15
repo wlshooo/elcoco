@@ -58,7 +58,7 @@ export default {
   z-index: 1000;
   width: 120px;
   background-color: #fff;
-  border: 5px solid #BBDEFB;
+  border: 1px solid #d3d3d3;
   border-radius: 5px;
   box-shadow: 15px 10px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
 
@@ -81,9 +81,9 @@ export default {
 
 .quick-menu-link {
   margin: 10px 0;
-  padding: 5px;
+  padding: 3px;
   text-decoration: none;
-  color: #BBDEFB;
+  color: #f2f2f2;
   box-shadow: 0 10px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
 
   /* 다른 스타일 속성들... */
@@ -92,7 +92,7 @@ export default {
 .quick-menu-img {
   display: block;
   max-width: 100%;
-  border: 5px solid #BBDEFB;
+  border: 3px solid #f2f2f2;
   border-radius: 5px;
 }
 

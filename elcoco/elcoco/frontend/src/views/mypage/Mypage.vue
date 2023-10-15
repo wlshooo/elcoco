@@ -1,6 +1,6 @@
 <template>
-  <PageBanner/>
-  <div>
+  <div class="pageHome">
+    <PageBanner/>
     <h1 class="title">마이 페이지</h1>
     <br>
     <div class="subTitle">반가워요!
@@ -57,18 +57,18 @@
 
 /* 카드 스타일 */
 .card {
-  background-color: #c2dcf3;
+  background-color: white;
   border: 1px solid #ddd;
   border-radius: 5px;
   padding: 20px;
-  width: 300px;
+  width: 700px;
   text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
 }
 
 .title {
   font-size: 35px;
-  color: lightgray;
+  color: black;
 }
 
 .subTitle {
@@ -83,6 +83,9 @@
   margin-bottom: 10px;
 
 }
+.pageHome{
+  background: #F2F2F2;
+}
 
 /* 카드 내용 스타일 */
 .card p {
@@ -96,10 +99,11 @@
 
 import {defineComponent} from "vue";
 import PageBanner from "@/components/PageBanner.vue";
+import QuickMenu from "@/components/QuickMenu.vue";
 
 export default defineComponent({
   components: {
-    PageBanner
+    PageBanner,
   },
   data() { //변수생성
     return {

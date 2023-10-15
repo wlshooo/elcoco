@@ -4,7 +4,7 @@
   <ScrollButton/>
   <PageFooter/> <!-- 푸터 컴포넌트 -->
   <LoadingBar :loading="this.$store.state.loadingStatus"></LoadingBar>
-  <QuickMenu/>
+
 </template>
 
 <script>
@@ -21,7 +21,6 @@ export default {
     PageFooter,
     PageHeader,
     LoadingBar,
-    QuickMenu,
   }
 }
 </script>

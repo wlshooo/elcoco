@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div class="pageHome">
     <PageBanner/>
+    <QuickMenu/>
     <div class="container mt-3">
       <br><h2>안녕하세요! <strong>Elcoco</strong> 에 방문하신 것을 환영합니다! </h2><br><br>
       <div class="card-container-wrapper">
@@ -41,10 +42,12 @@
 
 <script>
 import PageBanner from "@/components/PageBanner.vue";
+import QuickMenu from "@/components/QuickMenu.vue";
 
 export default {
   components: {
-    PageBanner
+    PageBanner,
+    QuickMenu,
   },
   data() {
     return {
@@ -157,8 +160,9 @@ export default {
 
 /* 카드 스타일 */
 .card {
-  background-color: #BBDEFB;
-  border: 3px solid #98c9f1;
+  //background-color: #BBDEFB;
+  background-color: #ffffff;
+  border:  1px solid #F2F2F2;
   border-radius: 5px;
   width: 100%;
   box-shadow: 5px 4px 6px rgba(0.1, 0.1, 0, 0.2); /* 그림자 효과 설정 */
@@ -180,6 +184,9 @@ export default {
 
 .mouse-cursor {
   cursor: pointer;
+}
+.pageHome{
+  background: #F2F2F2;
 }
 </style>
 
