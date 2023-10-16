@@ -99,7 +99,6 @@
 
 import {defineComponent} from "vue";
 import PageBanner from "@/components/PageBanner.vue";
-import QuickMenu from "@/components/QuickMenu.vue";
 
 export default defineComponent({
   components: {
