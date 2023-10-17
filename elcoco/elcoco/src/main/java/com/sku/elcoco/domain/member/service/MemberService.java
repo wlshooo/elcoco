@@ -1,7 +1,6 @@
 package com.sku.elcoco.domain.member.service;
 
 
-
 import com.sku.elcoco.domain.member.dto.MemberRequestDto;
 import com.sku.elcoco.domain.member.dto.MemberResponseDto;
 import com.sku.elcoco.domain.member.entity.Member;
@@ -73,4 +72,8 @@ public interface MemberService {
      * @return 새로고침된 액세스 토큰을 담은 DTO (TokenDto)
      */
     TokenDto refreshAccessToken(TokenDto tokenDto);
+
+    void sendCodeToEmail(String email);
+
+    Boolean verifiedCode(String email, String authCode);
 }

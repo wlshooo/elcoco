@@ -64,7 +64,10 @@ public enum ResponseStatus {
     // Token Failed Status
     FAIL_TOKEN_NOT_FOUND("클라이언트가 요청한 토큰 정보를 찾을 수 없습니다.", HttpStatus.NOT_FOUND),
 
-    FAIL_REFRESHTOKEN_NOT_FOUND("클라이언트가 요청한 RefreshToken을 찾을 수 없습니다.(만료)", HttpStatus.NOT_FOUND);
+    FAIL_REFRESHTOKEN_NOT_FOUND("클라이언트가 요청한 RefreshToken을 찾을 수 없습니다.(만료)", HttpStatus.NOT_FOUND),
+
+    //mail
+    FAIL_SEND_EMAIL("메일 전송에 실패 하였습니다.", HttpStatus.BAD_REQUEST);
 
 
     private String message;

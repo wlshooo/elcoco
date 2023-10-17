@@ -1,5 +1,6 @@
 package com.sku.elcoco.domain.member.service;
 
+import com.sku.elcoco.domain.mail.MailService;
 import com.sku.elcoco.domain.member.dto.MemberRequestDto;
 import com.sku.elcoco.domain.member.dto.MemberResponseDto;
 import com.sku.elcoco.domain.member.entity.Member;
@@ -15,13 +16,19 @@ import com.sku.elcoco.global.exception.InvalidRequestException;
 import com.sku.elcoco.global.exception.NotFoundException;
 import com.sku.elcoco.global.exception.WrongPasswordException;
 import com.sku.elcoco.global.model.ResponseStatus;
-import jakarta.transaction.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.time.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -29,6 +36,17 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
+
+    private static final String AUTH_CODE_PREFIX = "AuthCode ";
+
+    private final MailService mailService;
+
+    private final RedisTemplate<String, Object> redisTemplate; // RedisTemplate 주입
+
+//    private final RedisService redisService;
+
+    @Value("${spring.mail.auth-code-expiration-millis}")
+    private long authCodeExpirationMillis;
 
     private final MemberRepository memberRepository;
 
@@ -108,7 +126,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
-
     @Transactional
     @Override
     public void deleteMember(Long id) {
@@ -172,6 +189,63 @@ public class MemberServiceImpl implements MemberService {
                 .build();
 
     }
+
+    public void sendCodeToEmail(String toEmail) {
+        isEmail(toEmail);
+        String title = "elcoco 이메일 인증 번호";
+        String authCode = this.createCode();
+        mailService.sendEmail(toEmail, title, authCode);
+        // 이메일 인증 요청 시 인증 번호 Redis에 저장 ( key = "AuthCode " + Email / value = AuthCode )
+
+        setValues(AUTH_CODE_PREFIX + toEmail,
+                authCode, Duration.ofMillis(this.authCodeExpirationMillis));
+
+    }
+
+
+    private String createCode() {
+        int length = 6;
+        try {
+            Random random = SecureRandom.getInstanceStrong();
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < length; i++) {
+                builder.append(random.nextInt(10));
+            }
+            return builder.toString();
+        } catch (NoSuchAlgorithmException e) {
+            log.debug("MemberService.createCode() exception occur");
+            throw new NotFoundException(ResponseStatus.FAIL_NOT_FOUND);
+
+        }
+    }
+
+    public Boolean verifiedCode(String email, String authCode) {
+        isEmail(email);
+        String redisAuthCode = getValues(AUTH_CODE_PREFIX + email);
+        boolean authResult = checkExistsValue(redisAuthCode) && redisAuthCode.equals(authCode);
+
+        return authResult;
+
+    }
+
+    public void setValues(String key, String data, Duration duration) {
+        ValueOperations<String, Object> values = redisTemplate.opsForValue();
+        values.set(key, data, duration);
+    }
+
+    @Transactional(readOnly = true)
+    public String getValues(String key) {
+        ValueOperations<String, Object> values = redisTemplate.opsForValue();
+        if (values.get(key) == null) {
+            return "false";
+        }
+        return (String) values.get(key);
+    }
+
+    public boolean checkExistsValue(String value) {
+        return !value.equals("false");
+    }
+
 
     private void isMember(Optional<Member> member) {
         if (member.isEmpty()) {
@@ -249,5 +323,4 @@ public class MemberServiceImpl implements MemberService {
                 .role(Role.ROLE_USER)
                 .build();
     }
-
 }
