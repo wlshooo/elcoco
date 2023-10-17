@@ -62,7 +62,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void createMember(MemberRequestDto.CREATE create) {
 
-        isEmail(create.getEmail());
+        isEmail(create.getEmail()+"@skuniv.ac.kr");
         isNickname(create.getNickname());
 
         Member member = toEntity(create);
@@ -224,6 +224,7 @@ public class MemberServiceImpl implements MemberService {
         String redisAuthCode = getValues(AUTH_CODE_PREFIX + email);
         boolean authResult = checkExistsValue(redisAuthCode) && redisAuthCode.equals(authCode);
 
+
         return authResult;
 
     }
@@ -261,6 +262,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     private void isEmail(String email) {
+        log.info("email = {}",email);
         if (memberRepository.existsMemberByEmailAndDeleteAtFalse(email)) {
             throw new DuplicatedException(ResponseStatus.FAIL_MEMBER_EMAIL_DUPLICATED);
         }
@@ -316,7 +318,7 @@ public class MemberServiceImpl implements MemberService {
 
     private Member toEntity(MemberRequestDto.CREATE create) {
         return Member.builder()
-                .email(create.getEmail())
+                .email(create.getEmail()+"@skuniv.ac.kr")
                 .password(passwordEncoder.encode(create.getPassword()))
                 .name(create.getName())
                 .nickname(create.getNickname())

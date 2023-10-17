@@ -116,17 +116,17 @@ public class MemberApiController {
     //이메일 인증번호 발송
     @PostMapping("/emails/verification-requests")
     public ResponseFormat<Void> sendMessage(@RequestParam("email") String email) {
-        memberService.sendCodeToEmail(email);
+        memberService.sendCodeToEmail(email+"@skuniv.ac.kr");
         return ResponseFormat.success(ResponseStatus.SUCCESS_OK);
     }
 
     //이메일 인증번호 검증
-    @GetMapping("/emails/verification")
-    public ResponseFormat<Void> verificationEmail(@RequestParam("email") String email,
+    @PostMapping("/emails/verification")
+    public ResponseFormat<Boolean> verificationEmail(@RequestParam("email") String email,
                                                   @RequestParam("code") String authCode) {
-        Boolean response = memberService.verifiedCode(email, authCode);
+        Boolean response = memberService.verifiedCode(email+"@skuniv.ac.kr", authCode);
         log.info("response = {}", response);
-        return ResponseFormat.success(ResponseStatus.SUCCESS_OK);
+        return ResponseFormat.successWithData(ResponseStatus.SUCCESS_OK,response);
     }
 
 }
