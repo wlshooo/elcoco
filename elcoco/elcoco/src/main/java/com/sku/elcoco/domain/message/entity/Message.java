@@ -23,12 +23,12 @@ public class Message extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sender", referencedColumnName = "nickname")
+    @JoinColumn(name = "sender")
     private Member sender;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "receiver", referencedColumnName = "nickname")
+    @JoinColumn(name = "receiver")
     private Member receiver;
 
     @Column(nullable = false)

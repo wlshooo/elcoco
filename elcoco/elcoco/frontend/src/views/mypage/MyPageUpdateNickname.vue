@@ -69,6 +69,7 @@ export default {
         if (response.status === 200) {
           // 닉네임 변경 성공
           alert('닉네임 변경이 성공했습니다.');
+          this.$router.push({ path: '/mypage' });
         } else {
           // 닉네임 변경 실패
           alert('닉네임 변경에 실패했습니다.');
