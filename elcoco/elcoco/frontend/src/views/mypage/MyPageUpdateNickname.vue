@@ -4,9 +4,11 @@
   <hr>
 
   <br>
-  <input class="inputNickname" placeholder="변경 할 닉네임을 입력해주세요." v-model="newNickname" type="text">
-  <button :disabled="!isNicknameAvailable" @click="checkDuplicateNickname">중복 확인</button>
-  <button @click="changeNickname">변경하기</button>
+  <input class="inputNickname" placeholder="변경 할 닉네임을 입력해주세요" v-model="newNickname" type="text">&nbsp;&nbsp;
+  <button :disabled="!isNicknameAvailable" @click="checkDuplicateNickname" class="custom-button">중복 확인</button>
+  <br> <br>
+  <button @click="changeNickname" class="custom-button change-button">변경하기</button>
+  <br>
 </template>
 
 <script>
@@ -24,6 +26,10 @@ export default {
   },
   methods: {
     async checkDuplicateNickname() {
+      if (!this.newNickname) {
+        alert('변경할 닉네임을 입력해주세요');
+        return;
+      }
       try {
         // Request Body로 보낼 데이터
         const requestData = { nickname: this.newNickname };
@@ -54,6 +60,10 @@ export default {
       }
     },
     async changeNickname() {
+      if (!this.newNickname) {
+        alert('변경할 닉네임을 입력해주세요');
+        return;
+      }
       try {
         // Request Body로 보낼 데이터
         const requestData = { nickname: this.newNickname };
@@ -85,3 +95,27 @@ export default {
   }
 }
 </script>
+
+<style>
+.inputNickname {
+  width: 200px;
+  border-radius: 10px; /* 둥글게 만들기 */
+  border: 1px solid #ccc; /* 테두리 추가 */
+  padding: 5px; /* 내용과 테두리 사이의 여백 설정 */
+}
+
+.custom-button {
+  background-color: #f2f2f2; /* 버튼 배경색 설정 */
+  border: none; /* 버튼 테두리 없애기 */
+  border-radius: 10px; /* 둥글게 만들기 */
+  padding: 10px 20px; /* 내용과 버튼 테두리 사이의 여백 설정 */
+  cursor: pointer; /* 커서를 손가락 포인터로 변경하여 클릭 가능한 것처럼 보이도록 설정 */
+}
+
+.change-button {
+  background-color: #f2f2f2; /* 다른 버튼에 대한 배경색 설정 */
+  /* 다른 스타일을 추가할 수 있습니다 */
+}
+
+/* 나머지 스타일은 그대로 유지합니다 */
+</style>

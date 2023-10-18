@@ -8,8 +8,8 @@
     <div>
       <p class="w3-large mb-3 mt-3">
         {{ author }}
-        <span class="small-font">&nbsp {{ created_at }}</span>
-        <span class="small-font">&nbsp&nbsp 조회수: {{view_count}}</span>
+        <span class="small-font">&nbsp; {{ created_at }}</span>
+        <span class="small-font">&nbsp;&nbsp; 조회수: {{view_count}}</span>
       </p>
     </div>
 
