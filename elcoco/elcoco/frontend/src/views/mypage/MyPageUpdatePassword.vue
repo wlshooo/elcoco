@@ -11,11 +11,11 @@
   <input class="inputPassword" placeholder="비밀번호를 다시 한 번 입력해주세요" v-model="checkPassword" type="password">
   <br><br>
   <small v-if="checkPassword===newPassword" class="form-text text-info">
-    비밀번호가 일치합니다.
+    <strong>비밀번호가 일치합니다!</strong>
   </small>
 
   <small v-if="checkPassword!==newPassword" class="form-text text-info">
-    비밀번호가 일치 하지 않습니다.
+    <strong>비밀번호가 일치하지 않습니다!</strong>
   </small>
   <br> <br>
   <button @click="changePassword" class="custom-button change-button">변경하기</button>
