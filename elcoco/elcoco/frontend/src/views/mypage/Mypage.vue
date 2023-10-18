@@ -17,7 +17,7 @@
         <br>
         <router-link to="/mypage/nickname" v-if="this.$store.state.isLogin" class="nav-link">닉네임 변경</router-link>
         <br>
-        <p>비밀번호 변경</p>
+        <router-link to="/mypage/password" v-if="this.$store.state.isLogin" class="nav-link">비밀번호 변경</router-link>
       </div>
 
       <!-- 카드 2 -->

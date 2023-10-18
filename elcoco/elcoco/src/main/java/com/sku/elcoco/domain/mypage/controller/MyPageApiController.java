@@ -46,4 +46,11 @@ public class MyPageApiController {
         myPageService.updateNickname(memberEmail.getUsername(),nickname);
         return ResponseFormat.success(ResponseStatus.SUCCESS_OK);
     }
+
+    @PutMapping("member/password")
+    public ResponseFormat<Void> updatePassword(@AuthenticationPrincipal CustomUserDetails memberEmail, @RequestBody String password) {
+        myPageService.updatePassword(memberEmail.getUsername(),password);
+        log.info("password = {}", password);
+        return ResponseFormat.success(ResponseStatus.SUCCESS_OK);
+    }
 }

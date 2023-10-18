@@ -16,6 +16,7 @@ import com.sku.elcoco.global.model.ResponseStatus;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +32,8 @@ public class MyPageServiceImpl implements MyPageService {
     private final PostRepository postRepository;
 
     private final ReplyRepository replyRepository;
+
+    private final PasswordEncoder passwordEncoder;
     @Override
     public MemberResponseDto.READ getMemberDetail(String memberEmail) {
         Optional<Member> findMemberByEmail = memberRepository.findMemberByEmail(memberEmail);
@@ -87,6 +90,29 @@ public class MyPageServiceImpl implements MyPageService {
         }
 
     }
+
+    @Override
+    @Transactional
+    public void updatePassword(String memberEmail, String password) {
+        try {
+            // Jackson ObjectMapper를 사용하여 JSON 문자열 파싱
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(password);
+
+            // JSON에서 "nickname" 속성의 value 값을 가져옴
+            String parsePassword = jsonNode.get("password").asText();
+
+            Optional<Member> findMember = memberRepository.findMemberByEmailAndDeleteAtFalse(memberEmail);
+            Member member = findMember.get();
+            member.updatePassword(passwordEncoder.encode(parsePassword));
+            memberRepository.save(member);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        log.info("password = {}",password);
+
+    }
+
 
     private MemberResponseDto.READ toReadDto(Member member) {
         return MemberResponseDto.READ.builder()

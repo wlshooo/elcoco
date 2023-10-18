@@ -22,6 +22,7 @@ import MyPageMemberPost from "@/views/mypage/MyPageMemberPost.vue";
 import MyPageMemberReply from "@/views/mypage/MyPageMemberReply.vue";
 import MyPageUpdateNickname from "@/views/mypage/MyPageUpdateNickname.vue";
 import MyPageMemberLikePost from "@/views/mypage/MyPageMemberLikePost.vue";
+import MyPageUpdatePassword from "@/views/mypage/MyPageUpdatePassword.vue";
 
 
 
@@ -89,6 +90,12 @@ const routes = [
         path: '/mypage/nickname',
         name: 'MyPageUpdateNickname',
         component: MyPageUpdateNickname,
+        beforeEnter: requireAuth()
+    },
+    {
+        path: '/mypage/password',
+        name: 'MyPageUpdatePassword',
+        component: MyPageUpdatePassword,
         beforeEnter: requireAuth()
     },
     {

@@ -4,6 +4,7 @@ import com.sku.elcoco.domain.member.dto.MemberRequestDto;
 import com.sku.elcoco.domain.member.dto.MemberResponseDto;
 import com.sku.elcoco.domain.post.dto.PostResponseDto;
 import com.sku.elcoco.domain.reply.dto.ReplyResponseDto;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 
@@ -18,4 +19,7 @@ public interface MyPageService {
     boolean checkDuplicateNickname(String nickname);
 
     void updateNickname(String memberEmail,String nickname);
+
+    void updatePassword(String memberEmail,String password);
+
 }
