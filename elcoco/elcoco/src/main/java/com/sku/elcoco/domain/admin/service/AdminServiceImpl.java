@@ -55,6 +55,7 @@ public class AdminServiceImpl implements AdminService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public Long updateMember(Long memberId, MemberRequestDto.UPDATE update) {
 

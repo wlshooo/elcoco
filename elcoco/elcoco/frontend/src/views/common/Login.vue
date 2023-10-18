@@ -61,14 +61,14 @@
 }
 /* .custom-box 스타일 추가 */
 .custom-box {
-  background-color: #BBDEFB;
+  background-color: #f2f2f2;
   padding: 20px;
   border-radius: 10px;
   text-align: center;
 }
 
 .btn-primary {
-  background-color: #BBDEFB;
+  background-color: #f2f2f2;
   border: none;
   color: black;
 }

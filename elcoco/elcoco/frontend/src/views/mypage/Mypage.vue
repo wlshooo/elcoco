@@ -15,8 +15,6 @@
       <div class="card">
         <h3><strong>내 정보 관리</strong></h3>
         <br>
-        <router-link to="/mypage/nickname" v-if="this.$store.state.isLogin" class="nav-link">닉네임 변경</router-link>
-        <br>
         <p>비밀번호 변경</p>
       </div>
 
