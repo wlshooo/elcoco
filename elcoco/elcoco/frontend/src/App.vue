@@ -1,6 +1,7 @@
 <template>
   <PageHeader/> <!-- 헤더 컴포넌트 -->
   <router-view/>  <!-- 페이지 이동이 표시될 곳 -->
+  <QuickMenu/>
   <ScrollButton/>
   <PageFooter/> <!-- 푸터 컴포넌트 -->
   <LoadingBar :loading="this.$store.state.loadingStatus"></LoadingBar>
@@ -18,6 +19,7 @@ export default {
   name: 'App',
   components: {
     ScrollButton,
+    QuickMenu,
     PageFooter,
     PageHeader,
     LoadingBar,
