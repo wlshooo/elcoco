@@ -1,6 +1,7 @@
 <template>
   <div class="pageHome">
     <PageBanner/>
+    <QuickMenu/>
     <div class="container mt-3">
       <br><h2>안녕하세요! <strong>Elcoco</strong> 에 방문하신 것을 환영합니다! </h2><br><br>
       <div class="card-container-wrapper">
@@ -46,6 +47,7 @@ import QuickMenu from "@/components/QuickMenu.vue";
 export default {
   components: {
     PageBanner,
+    QuickMenu,
   },
   data() {
     return {

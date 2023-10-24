@@ -19,12 +19,24 @@
             <li class="nav-item">
               <router-link to="/board/list" v-if="this.$store.state.isLogin" class="nav-link">게시판</router-link>
             </li>
-<!--            <li class="nav-item">-->
-<!--              <router-link to="/message/received" v-if="this.$store.state.isLogin" class="nav-link">받은 메세지</router-link>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--              <router-link to="/message/send" v-if="this.$store.state.isLogin" class="nav-link">보낸 메세지</router-link>-->
-<!--            </li>-->
+            <li class="nav-item">
+              <span class="nav-link"  v-if="this.$store.state.isLogin" @click="toggleLectureMenu"><strong>강의 게시판</strong>
+                <ul class="dropdown-menu" :class="{ show: isLectureMenuOpen }">
+                  <li class="nav-item">
+                    <router-link to="/lecture/1st-year" class="nav-link">1학년</router-link>
+                  </li>
+                  <li class="nav-item">
+                    <router-link to="/lecture/2nd-year" class="nav-link">2학년</router-link>
+                  </li>
+                  <li class="nav-item">
+                    <router-link to="/lecture/3rd-year" class="nav-link">3학년</router-link>
+                  </li>
+                  <li class="nav-item">
+                    <router-link to="/lecture/4th-year" class="nav-link">4학년</router-link>
+                  </li>
+                </ul>
+              </span>
+            </li>
             <li class="nav-item">
               <router-link to="/admin/main" v-if="Role()" class="nav-link">관리자 페이지</router-link>
             </li>
@@ -46,35 +58,23 @@
           <router-link to="/login" v-if="this.$store.state.isLogin" @click="fnLogout" class="no-underline">로그아웃
           </router-link>
         </div>
-
-
       </div>
     </div>
   </header>
 </template>
 
-<style scoped>
-
-.no-underline {
-  text-decoration: none !important;
-}
-.header-background {
-  //background-color: #BBDEFB;
-  background-color: #F2F2F2;
-}
-</style>
-
 <script>
-
 export default {
   data() {
     return {
+      isLectureMenuOpen: false,
       role: localStorage.getItem("user_role")
-
     }
-
   },
   methods: {
+    toggleLectureMenu() {
+      this.isLectureMenuOpen = !this.isLectureMenuOpen;
+    },
     fnLogout() {
       localStorage.removeItem("user_token")
       localStorage.removeItem("user_role")
@@ -90,7 +90,15 @@ export default {
         return true;
       } else return false;
     },
-
   }
 }
 </script>
+
+<style scoped>
+.no-underline {
+  text-decoration: none !important;
+}
+.header-background {
+  background-color: #F2F2F2;
+}
+</style>
