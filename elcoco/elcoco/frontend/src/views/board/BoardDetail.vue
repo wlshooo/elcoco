@@ -237,11 +237,11 @@ export default {
 
     fnList() {
       delete this.requestBody.idx
-      this.$router.go(-1);
-      // this.$router.push({
-      //   path: './list',
-      //   query: this.requestBody
-      // })
+      // this.$router.go(-1);
+      this.$router.push({
+        path: './list',
+        query: this.requestBody
+      })
     },
     fnPost(postId) {
       this.requestBody.idx = postId
