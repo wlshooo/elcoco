@@ -18,6 +18,9 @@
       <button :class="{ active: postCategory === 'FREE' }" class="btn btn-link" @click="fnSelectCategory('FREE')">
         자유
       </button>
+      <button :class="{ active: postCategory === 'GW' }" class="btn btn-link" @click="fnSelectCategory('GW')">
+        졸업작품
+      </button>
     </div>
     <table class="table table-striped">
       <colgroup>

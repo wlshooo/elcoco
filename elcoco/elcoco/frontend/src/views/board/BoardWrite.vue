@@ -43,8 +43,10 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import PageBanner from "@/components/PageBanner.vue";
 
 export default {
-  components: {'ck-editor': CKEditor.component,
-  PageBanner},
+  components: {
+    'ck-editor': CKEditor.component,
+    PageBanner
+  },
 
   data() {
     return {
@@ -57,7 +59,7 @@ export default {
       editor: ClassicEditor,
       editorConfig: {
 
-        toolbar: ['heading', '|', 'fontBackgroundColor', 'fontFamily','|', 'bold', 'italic', '|', 'alignment', 'bulletedList', 'numberedList', 'indent', 'outdent','|', 'undo', 'redo'],
+        toolbar: ['heading', '|', 'fontBackgroundColor', 'fontFamily', '|', 'bold', 'italic', '|', 'alignment', 'bulletedList', 'numberedList', 'indent', 'outdent', '|', 'undo', 'redo'],
 
 
       },
@@ -77,6 +79,7 @@ export default {
         {value: 'FREE', text: '자유'},
         {value: 'QNA', text: '질문'},
         {value: 'INFO', text: '정보'},
+        {value: 'GW', text: '졸업작품'},
       ]
     }
   },
@@ -99,7 +102,7 @@ export default {
           this.created_at = res.data.data.regDate
         }).catch((err) => {
           if (err.response.status === 401) {
-            this.$router.push({ path: '/login' });
+            this.$router.push({path: '/login'});
           } else {
             alert(err.response.data.message);
             location.reload()
@@ -140,7 +143,7 @@ export default {
 
       // DTO를 JSON 문자열로 변환하여 FormData에 추가
       const json = JSON.stringify(this.postRequestDto);
-      const blob = new Blob([json], { type: "application/json" });
+      const blob = new Blob([json], {type: "application/json"});
       formData.append("createParams", blob);
 
       // 파일 업로드 처리
@@ -165,7 +168,7 @@ export default {
             })
             .catch((err) => {
               if (err.response.status === 401) {
-                this.$router.push({ path: '/login' });
+                this.$router.push({path: '/login'});
               } else {
                 alert(err.response.data.message);
                 location.reload()
@@ -185,7 +188,7 @@ export default {
             })
             .catch((err) => {
               if (err.response.status === 401) {
-                this.$router.push({ path: '/login' });
+                this.$router.push({path: '/login'});
               } else {
                 alert(err.response.data.message);
                 location.reload()

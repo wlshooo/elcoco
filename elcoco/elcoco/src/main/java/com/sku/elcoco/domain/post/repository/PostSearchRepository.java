@@ -60,7 +60,8 @@ public class PostSearchRepository {
                         post.deleteAt.eq(Boolean.FALSE),
                         post.postCategory.eq(PostCategory.QNA)
                                 .or(post.postCategory.eq(PostCategory.FREE))
-                                .or(post.postCategory.eq(PostCategory.INFO)),
+                                .or(post.postCategory.eq(PostCategory.INFO))
+                                .or(post.postCategory.eq(PostCategory.GW)),
                         postCategoryEq(postCategory),
                         postSearchText(searchType, searchText)
                 )
