@@ -1,8 +1,12 @@
 <template>
   <div class="pageHome">
     <PageBanner/>
+    <br><h2>안녕하세요! <strong>Elcoco</strong> 에 방문하신 것을 환영합니다! </h2><br><br>
+    <DateTime/>
+    <br>
+    <Weather/>
     <div class="container mt-3">
-      <br><h2>안녕하세요! <strong>Elcoco</strong> 에 방문하신 것을 환영합니다! </h2><br><br>
+
       <div class="card-container-wrapper">
         <div v-for="(category) in categories" :key="category.name" class="card-container">
           <div class="card">
@@ -41,10 +45,15 @@
 
 <script>
 import PageBanner from "@/components/PageBanner.vue";
+import DateTime from "@/views/common/DateTime.vue";
+import Weather from "@/views/common/Weather.vue";
+
 
 export default {
   components: {
     PageBanner,
+    DateTime,
+    Weather,
   },
   data() {
     return {
