@@ -31,8 +31,9 @@ export default defineComponent({
   data() {
     return {
       images: [
+        'Graduationworkexhibition.png',
+        'ce.png',
         'elcoco.png',
-        'test.png',
         'test2.gif'
       ],
       currentIndex: 0,
