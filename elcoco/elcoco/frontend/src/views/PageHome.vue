@@ -1,12 +1,20 @@
 <template>
   <div class="pageHome">
-    <PageBanner/>
-    <br><h2>안녕하세요! <strong>Elcoco</strong> 에 방문하신 것을 환영합니다! </h2><br><br>
-    <DateTime/>
-    <br>
-    <Weather/>
+    <PageBanner />
+    <br />
+    <h2>안녕하세요! <strong>Elcoco</strong> 에 방문하신 것을 환영합니다! </h2>
+    <br /><br />
+    <div class="datetime-weather-container">
+      <DateTime />
+      <br/>
+      <!-- 왼쪽 여백 -->
+      <div class="divider-left"></div>
+      <!-- 구분선 -->
+      <div class="divider"></div>
+      <!-- 오른쪽 여백 -->
+      <div class="divider-right"></div>
+    </div>
     <div class="container mt-3">
-
       <div class="card-container-wrapper">
         <div v-for="(category) in categories" :key="category.name" class="card-container">
           <div class="card">
@@ -46,18 +54,15 @@
 <script>
 import PageBanner from "@/components/PageBanner.vue";
 import DateTime from "@/views/common/DateTime.vue";
-import Weather from "@/views/common/Weather.vue";
-
 
 export default {
   components: {
     PageBanner,
     DateTime,
-    Weather,
   },
   data() {
     return {
-      requestBody: {}, // 리스트 페이지 데이터 전송,
+      requestBody: {},
       categories: [
         {
           name: "공지사항",
@@ -89,11 +94,12 @@ export default {
     getCategoryData(categoryName, index) {
       if (categoryName === "NOTICE") {
         // NOTICE 카테고리 데이터를 가져오기 위한 API 호출
-        this.$axios.get(`/api/v1/posts/notice`, {
-          params: {
-            size: 10 // 최근 10개만 가져오도록 설정
-          }
-        })
+        this.$axios
+            .get(`/api/v1/posts/notice`, {
+              params: {
+                size: 10, // 최근 10개만 가져오도록 설정
+              },
+            })
             .then((response) => {
               // 데이터를 카테고리에 할당
               this.categories[index].posts = response.data.data;
@@ -103,12 +109,13 @@ export default {
             });
       } else {
         // 다른 카테고리 데이터를 가져오기 위한 API 호출
-        this.$axios.get(`/api/v1/posts`, {
-          params: {
-            postCategory: categoryName,
-            size: 10 // 최근 10개만 가져오도록 설정
-          }
-        })
+        this.$axios
+            .get(`/api/v1/posts`, {
+              params: {
+                postCategory: categoryName,
+                size: 10, // 최근 10개만 가져오도록 설정
+              },
+            })
             .then((response) => {
               // 데이터를 카테고리에 할당
               this.categories[index].posts = response.data.data.content;
@@ -119,11 +126,11 @@ export default {
       }
     },
     fnView(idx) {
-      this.requestBody.idx = idx
+      this.requestBody.idx = idx;
       this.$router.push({
-        path: 'board/detail',
-        query: {idx}
-      })
+        path: "board/detail",
+        query: { idx },
+      });
     },
     fnSelectCategory(categoryName) {
       let queryCategory;
@@ -144,9 +151,9 @@ export default {
           queryCategory = ""; // 다른 경우에는 빈 문자열로 처리
       }
       // 해당 카테고리로 이동하기 위해 라우터를 사용합니다.
-      this.$router.push({path: 'board/list', query: {postCategory: queryCategory}});
+      this.$router.push({ path: "board/list", query: { postCategory: queryCategory } });
     },
-  }
+  },
 };
 </script>
 
@@ -166,18 +173,17 @@ export default {
 
 /* 카드 스타일 */
 .card {
-  //background-color: #BBDEFB;
   background-color: #ffffff;
-  border:  1px solid #F2F2F2;
+  border: 1px solid #F2F2F2;
   border-radius: 5px;
   width: 100%;
-  box-shadow: 5px 4px 6px rgba(0.1, 0.1, 0, 0.2); /* 그림자 효과 설정 */
-  transition: box-shadow 0.3s; /* 그림자 변경 애니메이션을 추가할 수 있습니다. */
+  box-shadow: 5px 4px 6px rgba(0.1, 0.1, 0, 0.2);
+  transition: box-shadow 0.3s;
 }
 
 /* 마우스 호버 시 그림자 효과 변경 */
 .card:hover {
-  box-shadow: 10px 8px 12px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 크게 만들기 */
+  box-shadow: 10px 8px 12px rgba(0, 0, 0, 0.2);
 }
 
 .small-icon {
@@ -191,8 +197,28 @@ export default {
 .mouse-cursor {
   cursor: pointer;
 }
-.pageHome{
+
+.pageHome {
   background: #F2F2F2;
 }
-</style>
 
+/* 구분선 스타일 */
+.divider {
+  width: 80%;
+  height: 1px;
+  background-color: #e5e2e2;
+  margin: 0 auto;
+}
+
+/* 왼쪽 여백 스타일 */
+.divider-left {
+  width: 10%;
+  height: 1px;
+}
+
+/* 오른쪽 여백 스타일 */
+.divider-right {
+  width: 10%;
+  height: 1px;
+}
+</style>

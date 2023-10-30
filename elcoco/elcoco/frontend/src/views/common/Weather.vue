@@ -1,5 +1,4 @@
 <template>
-  <br><br>
   <div id="weather">
     <!-- 날씨 정보가 있을 경우 -->
     <div v-if="typeof weather.main != 'undefined'">
@@ -30,8 +29,8 @@
         <v-icon v-else>
           <Icon icon="mdi:weather-cloudy" />
         </v-icon>
-      </div>
-      <div>{{ Math.round(temp) }}℃</div>
+        {{ Math.round(temp) }}℃</div>
+
     </div>
     <!-- 날씨 정보가 없을 경우 -->
     <div v-else>
