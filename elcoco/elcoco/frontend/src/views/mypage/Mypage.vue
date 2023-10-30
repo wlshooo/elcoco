@@ -2,11 +2,8 @@
   <div class="pageHome">
     <PageBanner/>
     <h1 class="title">마이 페이지</h1>
-    <br>
-    <div class="subTitle">반가워요!
-      <br>
-      {{ this.response.nickname }}님
-    </div>
+
+    <div class="subTitle">반가워요! {{ this.response.nickname }}님</div>
     <hr>
 
     <!-- 세로로 배치된 카드 레이아웃 시작 -->
