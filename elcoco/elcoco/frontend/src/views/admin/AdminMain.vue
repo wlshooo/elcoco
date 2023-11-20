@@ -26,15 +26,7 @@
                 </b-form-input>
               </div>
             </div>
-
-            <div class="form-group row mb-3">
-              <label for="input-3" class="col-md-4 col-form-label text-md-right">비밀번호</label>
-              <div class="col-md-8">
-                <b-form-input readonly v-model="MemberRequestDto.password" type="text" id="input-3"
-                              required>{{ MemberRequestDto.password }}
-                </b-form-input>
-              </div>
-            </div>
+            
 
             <div class="form-group row mb-3">
               <label for="input-4" class="col-md-4 col-form-label text-md-right">닉네임</label>
