@@ -26,7 +26,7 @@
                 </b-form-input>
               </div>
             </div>
-            
+
 
             <div class="form-group row mb-3">
               <label for="input-4" class="col-md-4 col-form-label text-md-right">닉네임</label>

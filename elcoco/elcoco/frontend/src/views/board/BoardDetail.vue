@@ -97,7 +97,7 @@
   vertical-align: -10px;
 }
 .menu-icon {
-  color: #42A5F5; /* 원하는 색상(빨간색 또는 다른 원하는 색상)으로 설정합니다. */
+  color: black; /* 원하는 색상(빨간색 또는 다른 원하는 색상)으로 설정합니다. */
   font-size: 2rem; /* 원하는 크기로 설정합니다. */
   cursor: pointer; /* 마우스 포인터가 포인팅 형태로 변경됩니다. */
 }
