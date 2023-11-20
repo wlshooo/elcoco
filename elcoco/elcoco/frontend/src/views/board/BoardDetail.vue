@@ -13,8 +13,8 @@
         <i class="menu-icon fa-solid fa-ban mouse-cursor" v-if="!isAuthor()" @click="toReportPost(postId, title)"></i>
         <span v-if="Role(memberRole)" class="red-text"><strong>{{ author }}</strong></span>
         <span v-if="!Role(memberRole)" class="black-text"><strong>{{ author }}</strong></span>
-        <span class="small-font">&nbsp {{ created_at }}</span>
-        <span class="small-font">&nbsp&nbsp 조회수: {{ view_count }}</span>
+        <span class="small-font">&nbsp; {{ created_at }}</span>
+        <span class="small-font">&nbsp;&nbsp; 조회수: {{ view_count }}</span>
       </p>
     </div>
 
@@ -364,6 +364,7 @@ export default {
             //   this.likeCount--;
             // }
             alert("좋아요!");
+            location.reload();
           })
           .catch((err) => {
             if (err.response.status === 401 || err.response.status === 404) {
