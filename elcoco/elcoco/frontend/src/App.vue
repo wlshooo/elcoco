@@ -3,7 +3,7 @@
   <router-view/>  <!-- 페이지 이동이 표시될 곳 -->
   <ScrollButton/>
   <PageFooter/> <!-- 푸터 컴포넌트 -->
-  <LoadingBar :loading="this.$store.state.loadingStatus"></LoadingBar>
+<!--  <LoadingBar :loading="this.$store.state.loadingStatus"></LoadingBar>-->
 
 </template>
 
