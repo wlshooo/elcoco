@@ -52,40 +52,7 @@
       </tr>
       </tbody>
     </table>
-
-    <div class="pagination d-flex justify-content-center">
-      <ul class="pagination">
-        <li class="page-item" :class="{ disabled: paging.start_page <= 1 }">
-          <a class="page-link" @click="fnPage(1)" href="javascript:;">&lt;&lt;</a>
-        </li>
-        <li class="page-item" :class="{ disabled: paging.start_page <= 1 }">
-          <a class="page-link" @click="fnPage(paging.start_page - 1)" href="javascript:;">&lt;</a>
-        </li>
-        <li class="page-item" v-for="n in paginavigation()" :key="n" :class="{ active: paging.page === n }">
-          <a class="page-link" @click="fnPage(n)" href="javascript:;">{{ n }}</a>
-        </li>
-        <li class="page-item" :class="{ disabled: paging.end_page >= paging.total_page_cnt }">
-          <a class="page-link" @click="fnPage(paging.end_page + 1)" href="javascript:;">&gt;</a>
-        </li>
-        <li class="page-item" :class="{ disabled: paging.end_page >= paging.total_page_cnt }">
-          <a class="page-link" @click="fnPage(paging.total_page_cnt)" href="javascript:;">&gt;&gt;</a>
-        </li>
-      </ul>
-    </div>
     <hr>
-
-    <!--        TODO : 검색 폼만 추가. 아직 동작 X -->
-    <form @submit.prevent="fnSearch">
-      <div class="form-group row align-items-center">
-        <label for="searchText" class="col-md-2 col-form-label">검색:</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control" id="searchText" v-model="searchText" placeholder="검색어를 입력하세요"/>
-        </div>
-        <div class="col-md-2">
-          <button type="submit" class="btn btn-primary btn-rounded">검색</button>
-        </div>
-      </div>
-    </form>
   </div>
 </template>
 
