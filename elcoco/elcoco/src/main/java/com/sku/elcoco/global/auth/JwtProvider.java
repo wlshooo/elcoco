@@ -24,7 +24,7 @@ public class JwtProvider {
 
     private Key secretKey;
 
-    private final Long exp = 1000L * 30 * 60;   //30분
+    private final Long exp = 1000L * 60 * 60;   //60분
 
 //    private final Long exp = 5000L; //5초
 

@@ -19,24 +19,24 @@
             <li class="nav-item">
               <router-link to="/board/list" v-if="this.$store.state.isLogin" class="nav-link">게시판</router-link>
             </li>
-            <li class="nav-item">
-              <span class="nav-link"  v-if="this.$store.state.isLogin" @click="toggleLectureMenu"><strong>강의 게시판</strong>
-                <ul class="dropdown-menu" :class="{ show: isLectureMenuOpen }">
-                  <li class="nav-item">
-                    <router-link to="/lecture/1st-year" class="nav-link">1학년</router-link>
-                  </li>
-                  <li class="nav-item">
-                    <router-link to="/lecture/2nd-year" class="nav-link">2학년</router-link>
-                  </li>
-                  <li class="nav-item">
-                    <router-link to="/lecture/3rd-year" class="nav-link">3학년</router-link>
-                  </li>
-                  <li class="nav-item">
-                    <router-link to="/lecture/4th-year" class="nav-link">4학년</router-link>
-                  </li>
-                </ul>
-              </span>
-            </li>
+<!--            <li class="nav-item">-->
+<!--              <span class="nav-link"  v-if="this.$store.state.isLogin" @click="toggleLectureMenu"><strong>강의 게시판</strong>-->
+<!--                <ul class="dropdown-menu" :class="{ show: isLectureMenuOpen }">-->
+<!--                  <li class="nav-item">-->
+<!--                    <router-link to="/lecture/1st-year" class="nav-link">1학년</router-link>-->
+<!--                  </li>-->
+<!--                  <li class="nav-item">-->
+<!--                    <router-link to="/lecture/2nd-year" class="nav-link">2학년</router-link>-->
+<!--                  </li>-->
+<!--                  <li class="nav-item">-->
+<!--                    <router-link to="/lecture/3rd-year" class="nav-link">3학년</router-link>-->
+<!--                  </li>-->
+<!--                  <li class="nav-item">-->
+<!--                    <router-link to="/lecture/4th-year" class="nav-link">4학년</router-link>-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--              </span>-->
+<!--            </li>-->
             <li class="nav-item">
               <router-link to="/admin/main" v-if="Role()" class="nav-link">관리자 페이지</router-link>
             </li>

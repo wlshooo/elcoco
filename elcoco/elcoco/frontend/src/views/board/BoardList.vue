@@ -42,14 +42,14 @@
       <tbody>
       <!--공지사항 상시 상단 고정-->
       <tr v-for="(item, idx) in noticeList" :key="idx" @click="fnView(item.postId)" class="hover-pointer notice-post">
-        <td>{{ item.postId }}</td>
-        <td>{{ item.postCategory }}</td>
+        <td >{{ item.postId }}</td>
+        <td class="red-text"> {{ item.postCategory }}</td>
         <td>
-          <span v-if="item.title.length < 10">{{ item.title }} &nbsp;&nbsp;
+          <span v-if="item.title.length < 10" >{{ item.title }} &nbsp;&nbsp;
             <i class="fa-solid fa-comment small-icon">{{ item.replyCount }}</i>
             <i class="fa-solid fa-heart small-icon">{{ item.likeCount }}</i>
           </span>
-          <span v-else>{{ item.title.substring(0, 10) + "..." }}
+          <span v-else >{{ item.title.substring(0, 10) + "..." }}
             <i class="fa-solid fa-comment small-icon">{{ item.replyCount }}</i>
             <i class="fa-solid fa-heart small-icon">{{ item.likeCount }}</i>
           </span>
