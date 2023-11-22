@@ -151,6 +151,7 @@ public class PostServiceImpl implements PostService {
         return postSearchRepository.findLikePostsByMemberId(member.get().getId()).stream().map(this::toReadDto).toList();
     }
 
+    //업데이트 시 파일 업로드 x 수정 필요
     @Override
     @Transactional
     public Long updatePost(String email, Long postId, PostRequestDto.UPDATE update) {
